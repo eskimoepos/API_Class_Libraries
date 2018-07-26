@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <UsingTask TaskName="BuildTasks.IncrementBuildNumber" AssemblyFile="AutoVersionIncrement.dll" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DFE332E6-EC7B-46A5-AB58-6D16AE082E98}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>EskimoClassLibraries</RootNamespace>
+    <AssemblyName>EskimoClassLibraries</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>EskimoClassLibraries.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>EskimoClassLibraries.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="EskimoClassLibraries.EskimoInterfaces" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionParameters\CompletedListings.vb" />
+    <Compile Include="ActionParameters\CountedProducts.vb" />
+    <Compile Include="ActionParameters\ExternalCategoryParamClass.vb" />
+    <Compile Include="ActionParameters\PopulateParamClasses.vb" />
+    <Compile Include="ActionParameters\SingleIntegerID.vb" />
+    <Compile Include="ActionParameters\SingleStringID.vb" />
+    <Compile Include="Enums\Enums.vb" />
+    <Compile Include="Functions\modShared.vb" />
+    <Compile Include="Interfaces\Arguments\ControllerArguments.vb" />
+    <Compile Include="Models\Arguments\AmazonUploadProducts.vb" />
+    <Compile Include="Models\Arguments\BarcodeArguments.vb" />
+    <Compile Include="Models\Arguments\BarcodeArgumentsEx.vb" />
+    <Compile Include="Models\Arguments\CategoryArguments.vb" />
+    <Compile Include="Models\Arguments\CategoryProductArguments.vb" />
+    <Compile Include="Models\Arguments\AddressSearchArguments.vb" />
+    <Compile Include="Models\Arguments\CountriesArguments.vb" />
+    <Compile Include="Models\Arguments\CustomerArguments.vb" />
+    <Compile Include="Models\Arguments\CustomerSearchArguments.vb" />
+    <Compile Include="Models\Arguments\ExternalCategoriesArguments.vb" />
+    <Compile Include="Models\Arguments\GetOrdersArguments.vb" />
+    <Compile Include="Models\Arguments\GetSaleArguments.vb" />
+    <Compile Include="Models\Arguments\ImageArguments.vb" />
+    <Compile Include="Models\Arguments\ImageLinkArguments.vb" />
+    <Compile Include="Models\Arguments\ListingArgumentsEx.vb" />
+    <Compile Include="Models\Arguments\ListingsArguments.vb" />
+    <Compile Include="Models\Arguments\OperatorSearchArgs.vb" />
+    <Compile Include="Models\Arguments\OrderArguments.vb" />
+    <Compile Include="Models\Arguments\ProductArguments.vb" />
+    <Compile Include="Models\Arguments\ProductSearchArguments.vb" />
+    <Compile Include="Models\Arguments\RecordSelections\AmazonOrders.vb" />
+    <Compile Include="Models\Arguments\RecordSelections\Normal.vb" />
+    <Compile Include="Models\Arguments\RecordSelections\SKUsRecordSelection.vb" />
+    <Compile Include="Models\Arguments\RecordSelections\WithDates.vb" />
+    <Compile Include="Models\Arguments\ShopArguments.vb" />
+    <Compile Include="Models\Arguments\SKUArguments.vb" />
+    <Compile Include="Models\Arguments\StockTakingValidateOptions.vb" />
+    <Compile Include="Models\Arguments\TaxCodeArguments.vb" />
+    <Compile Include="Models\Arguments\TenderArguments.vb" />
+    <Compile Include="Models\CutDownClasses\CategoryID.vb" />
+    <Compile Include="Models\CutDownClasses\GenericStringList.vb" />
+    <Compile Include="Models\CutDownClasses\ImageID.vb" />
+    <Compile Include="Models\CutDownClasses\ImageLinkID.vb" />
+    <Compile Include="Models\CutDownClasses\PostedListing.vb" />
+    <Compile Include="Models\CutDownClasses\ProductID.vb" />
+    <Compile Include="Models\EskimoClasses\Address.vb" />
+    <Compile Include="Models\EskimoClasses\AlmsCustomer.vb" />
+    <Compile Include="Models\EskimoClasses\AmazonDownloadOrderResult.vb" />
+    <Compile Include="Models\EskimoClasses\AmazonFeedResult.vb" />
+    <Compile Include="Models\EskimoClasses\AmazonOrder.vb" />
+    <Compile Include="Models\EskimoClasses\BarcodeAction.vb" />
+    <Compile Include="Models\EskimoClasses\BarcodeInfo.vb" />
+    <Compile Include="Models\EskimoClasses\Category.vb" />
+    <Compile Include="Models\EskimoClasses\CategoryProduct.vb" />
+    <Compile Include="Models\EskimoClasses\ChargeArea.vb" />
+    <Compile Include="Models\EskimoClasses\CountedProduct.vb" />
+    <Compile Include="Models\EskimoClasses\CountedProductSummary.vb" />
+    <Compile Include="Models\EskimoClasses\CustomerAddress.vb" />
+    <Compile Include="Models\EskimoClasses\ListingImage.vb" />
+    <Compile Include="Models\EskimoClasses\Operator.vb" />
+    <Compile Include="Models\EskimoClasses\OrderExtended.vb" />
+    <Compile Include="Models\EskimoClasses\ProductCode.vb" />
+    <Compile Include="Models\EskimoClasses\SaleItem.vb" />
+    <Compile Include="Models\EskimoClasses\StockTakingProductInfo.vb" />
+    <Compile Include="Models\EskimoClasses\Tender.vb" />
+    <Compile Include="Models\EskimoClasses\TillMenuChoice.vb" />
+    <Compile Include="Models\EskimoClasses\TillMenuFunction.vb" />
+    <Compile Include="Models\EskimoClasses\TillMenuItem.vb" />
+    <Compile Include="Models\EskimoClasses\TillMenuProductExt.vb" />
+    <Compile Include="Models\EskimoClasses\TillMenuProduct.vb" />
+    <Compile Include="Models\EskimoClasses\TillMenuSection.vb" />
+    <Compile Include="Models\EskimoClasses\TillMenuSourceCode.vb" />
+    <Compile Include="Models\EskimoClasses\TillMenuTenderEntry.vb" />
+    <Compile Include="Models\EskimoClasses\TillMenuUnitInfo.vb" />
+    <Compile Include="Models\EskimoClasses\Sale.vb" />
+    <Compile Include="Models\EskimoClasses\SaleReference.vb" />
+    <Compile Include="Models\EskimoClasses\Variation.vb" />
+    <Compile Include="Models\EskimoClasses\Country.vb" />
+    <Compile Include="Models\EskimoClasses\Customer.vb" />
+    <Compile Include="Models\EskimoClasses\CustomerTitle.vb" />
+    <Compile Include="Models\EskimoClasses\EskimoBaseClass.vb" />
+    <Compile Include="Models\EskimoClasses\ExternalCategory.vb" />
+    <Compile Include="Models\EskimoClasses\Image.vb" />
+    <Compile Include="Models\EskimoClasses\ImageLink.vb" />
+    <Compile Include="Models\EskimoClasses\ItemSpecifics.vb" />
+    <Compile Include="Models\EskimoClasses\VariationDetails.vb" />
+    <Compile Include="Models\EskimoClasses\Listing.vb" />
+    <Compile Include="Models\EskimoClasses\Order.vb" />
+    <Compile Include="Models\EskimoClasses\OrderLine.vb" />
+    <Compile Include="Models\EskimoClasses\Product.vb" />
+    <Compile Include="Models\EskimoClasses\ShippingType.vb" />
+    <Compile Include="Models\EskimoClasses\Shop.vb" />
+    <Compile Include="Models\EskimoClasses\SKU.vb" />
+    <Compile Include="Models\EskimoClasses\ItemSpecificsBasic.vb" />
+    <Compile Include="Models\EskimoClasses\TaxCode.vb" />
+    <Compile Include="Models\ValidationAttributes\Customer.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MarkListingAsListed.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Target Name="BeforeBuild">
+    <IncrementBuildNumber AssemblyFileLocation="$(MSBuildProjectDirectory)\My Project\AssemblyInfo.vb">
+    </IncrementBuildNumber>
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
