@@ -36,12 +36,12 @@ Public Class clsOrder
     Inherits EskimoBaseClass
 
     Enum OrderTypeEnum
-        CustomerOrder = 0
-        CustomerSale = 1
+        'CustomerOrder = 0
+        'CustomerSale = 1
         WebOrder = 2
-        MailOrder = 3
-        eBayOrder = 4
-        AmazonOrder = 5
+        'MailOrder = 3
+        'eBayOrder = 4
+        'AmazonOrder = 5
     End Enum
 
     ''' <summary>
@@ -61,12 +61,11 @@ Public Class clsOrder
     Property ExternalIdentifier As String
 
     ''' <summary>
-    ''' The source of the order being inserted. 
+    ''' The sales channel of the order being inserted. See api/Sales/Channels
     ''' </summary>
     ''' <returns></returns>
-    <EnumDataType(GetType(clsOrder.OrderTypeEnum))>
     <Required>
-    Property OrderType As OrderTypeEnum = OrderTypeEnum.WebOrder
+    Property OrderType As Integer = OrderTypeEnum.WebOrder
 
     ''' <summary>
     ''' The Eskimo Customer ID in the format 123-123456.

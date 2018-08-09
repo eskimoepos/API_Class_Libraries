@@ -50,4 +50,10 @@ Public Class clsCategory
     ''' <remarks></remarks>
     Public Property Product_Count As Integer
 
+    ''' <summary>
+    ''' The Sales Channel (Website) that the category is linked to. See api/Sales/Channels
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property Channel_ID As Integer
+
 End Class

@@ -143,8 +143,11 @@ Public Class clsSalesItem
     <Range(0, Integer.MaxValue)>
     Property DepositAmount As Decimal?
 
-    '<EnumDataType(GetType(CustomerActionEnum))>
-    Property CustomerAction As CustomerActionEnum = CustomerActionEnum.NoCustomerAction
+    ''' <summary>
+    ''' The Sales Channel. See api/Sales/Channels
+    ''' </summary>
+    ''' <returns></returns>
+    Property CustomerAction As Integer = -1
 
     Function PaidAmount() As Decimal
 
