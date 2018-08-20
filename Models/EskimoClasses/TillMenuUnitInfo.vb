@@ -38,4 +38,18 @@ Public Class clsTillMenuUnitInfo
     ''' <returns></returns>
     Property NextReceiptNumber As Integer
 
+    ''' <summary>
+    ''' A collection of till hardware models relevant for this particular till.
+    ''' </summary>
+    ''' <returns></returns>
+    Property HardwareModels As IEnumerable(Of clsHardwareModel)
+
+    ''' <summary>
+    ''' A collection of till hardware that is connected to this particular till.
+    ''' </summary>
+    ''' <returns></returns>
+    Property Hardware As IEnumerable(Of clsHardwareItem)
+    Property ReceiptHeaders As IEnumerable(Of clsReceiptMargin)
+    Property ReceiptFooters As IEnumerable(Of clsReceiptMargin)
+
 End Class

@@ -25,4 +25,10 @@ Public Class clsTillMenuProductExt
     '<Required>
     'Property IsOpenDescription As Boolean
     Property StockLevel As Integer
+
+    ''' <summary>
+    ''' See api/TaxCodes/All
+    ''' </summary>
+    ''' <returns></returns>
+    Property TaxID As Integer
 End Class

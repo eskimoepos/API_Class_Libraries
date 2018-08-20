@@ -155,6 +155,12 @@ Public Class clsSale
     ''' <remarks></remarks>
     Property ShippingAmountGross As Decimal = 0
 
+    ''' <summary>
+    ''' Optional. If the sales channel of any of them items will generate an order, this field specifies the status of that order.
+    ''' </summary>
+    ''' <returns></returns>
+    Property OrderStatus As Integer = 30
+
     Function CalculatedOrderTotal() As Decimal
         Dim t As Decimal = 0
 
@@ -178,6 +184,10 @@ Public Class clsSale
         Dim strDirection As String
         Dim decDiff As Decimal
         Dim IDCount As Integer
+
+        If Me.Tenders Is Nothing Then
+            results.Add(New ValidationResult($"No Tender entries were passed."))
+        End If
 
         tendered_sum = Me.Tenders.Sum(Function(x) x.Amount)
         item_paid_sum = Me.Items.Sum(Function(x) x.PaidAmount) + Me.ShippingAmountGross
@@ -298,5 +308,11 @@ Public Class clsSale
     ''' </summary>
     ''' <returns></returns>
     Property CustomSourceCodeText As String
+
+    ''' <summary>
+    ''' Optional. The Eskimo Operator ID of the person who performed the sale. If omitted, the operator 'SYSTEM' will be used.
+    ''' </summary>
+    ''' <returns></returns>
+    Property OperatorID As String
 
 End Class

@@ -52,4 +52,11 @@ Public Class clsTillMenuItem
     ''' <returns></returns>
     Property ImageID As Integer?
 
+    ''' <summary>
+    ''' See api/TaxCodes/All
+    ''' </summary>
+    ''' <returns></returns>
+    Property TaxID As Integer
+    Property ProductDescription As String
+
 End Class
