@@ -52,20 +52,21 @@ Public Class clsCustomer
     <StringLength(60)>
     Public Property CompanyName As String
 
-    Sub New(r As DataRow)
+
+    Sub New(r As DataRecord)
         Dim intCustTitleID As Short?
 
         Me.ID = r("CustomerID")
         Me.ActiveAccount = r("AccountActive")
 
-        Me.CompanyName = Nz(r("CustomerCompanyName"), Nothing)
-        Me.EmailAddress = Nz(r("CustomerEmail"), Nothing)
-        Me.Forename = Nz(r("CustomerContactName"), Nothing)
-        Me.Mobile = Nz(r("CustomerMobile"), Nothing)
-        Me.Notes = Nz(r("Notes"), Nothing)
-        Me.Surname = Nz(r("CustomerContactSurName"), Nothing)
-        Me.Telephone = Nz(r("CustomerTelephone"), Nothing)
-        Me.CountryCode = r("CountryCode")
+        Me.CompanyName = Nz(r("CustomerCompanyName"), Nothing, True)
+        Me.EmailAddress = Nz(r("CustomerEmail"), Nothing, True)
+        Me.Forename = Nz(r("CustomerContactName"), Nothing, True)
+        Me.Mobile = Nz(r("CustomerMobile"), Nothing, True)
+        Me.Notes = Nz(r("Notes"), Nothing, Nothing)
+        Me.Surname = Nz(r("CustomerContactSurName"), Nothing, Nothing)
+        Me.Telephone = Nz(r("CustomerTelephone"), Nothing, Nothing)
+        Me.CountryCode = r("CustomerCountryISOCode")
         intCustTitleID = Nz(r("CusTitleID"), Nothing)
         Me.TitleID = intCustTitleID
 
@@ -74,12 +75,19 @@ Public Class clsCustomer
         End If
 
         If Not r("MultipleAddressesPerCustomer") Then
-            Me.Address = Nz(r("Address"), Nothing)
-            Me.PostCode = Nz(r("PostCode"), Nothing)
+            Me.Address = Nz(r("Address"), Nothing, True)
+            Me.PostCode = Nz(r("PostCode"), Nothing, True)
         End If
 
     End Sub
 
+    Sub New(r As SqlClient.SqlDataReader)
+        Me.New(New DataRecord(r))
+    End Sub
+
+    Sub New(r As DataRow)
+        Me.New(New DataRecord(r))
+    End Sub
     Sub New()
 
     End Sub

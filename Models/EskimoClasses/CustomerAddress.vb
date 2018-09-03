@@ -6,11 +6,18 @@ Public Class clsCustomerAddress
     Sub New()
 
     End Sub
+    Sub New(r As SqlClient.SqlDataReader)
+        Me.New(New DataRecord(r))
+    End Sub
 
     Sub New(r As DataRow)
+        Me.New(New DataRecord(r))
+    End Sub
+
+    Sub New(r As DataRecord)
         MyBase.New(r)
 
-        Me.CustomerID = Nz(r("CustomerID"), Nothing)
+        Me.CustomerID = Nz(r("AddressCustomerID"), Nothing)
         Me.Reference = Nz(r("AddressRef"), Nothing)
 
     End Sub

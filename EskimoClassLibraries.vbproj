@@ -120,6 +120,7 @@
     <Compile Include="Models\CutDownClasses\ImageLinkID.vb" />
     <Compile Include="Models\CutDownClasses\PostedListing.vb" />
     <Compile Include="Models\CutDownClasses\ProductID.vb" />
+    <Compile Include="Models\DataClasses\DataRecord.vb" />
     <Compile Include="Models\EskimoClasses\Address.vb" />
     <Compile Include="Models\EskimoClasses\AddressValidationSummary.vb" />
     <Compile Include="Models\EskimoClasses\AddressValidatorParams.vb" />
@@ -148,6 +149,11 @@
     <Compile Include="Models\EskimoClasses\ReceiptMargin.vb" />
     <Compile Include="Models\EskimoClasses\SaleItem.vb" />
     <Compile Include="Models\EskimoClasses\SalesChannel.vb" />
+    <Compile Include="Models\EskimoClasses\Settings\CustomerOptions.vb" />
+    <Compile Include="Models\EskimoClasses\Settings\HardwareOptions.vb" />
+    <Compile Include="Models\EskimoClasses\Settings\OperatorOptions.vb" />
+    <Compile Include="Models\EskimoClasses\Settings\ProductOptions.vb" />
+    <Compile Include="Models\EskimoClasses\Settings\ReceiptOptions.vb" />
     <Compile Include="Models\EskimoClasses\StockTakingProductInfo.vb" />
     <Compile Include="Models\EskimoClasses\Tender.vb" />
     <Compile Include="Models\EskimoClasses\TillMenuChoice.vb" />

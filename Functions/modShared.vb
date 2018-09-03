@@ -14,4 +14,14 @@
         End If
     End Function
 
+    Public Function Nz(input As Object, def As Object, SetNullStringsToNull As Boolean) As String
+        If IsDBNull(input) Then
+            Return def
+        Else
+            If Not input Is Nothing Then
+                If input.ToString.Trim = "" AndAlso SetNullStringsToNull Then Return Nothing
+            End If
+            Return input
+        End If
+    End Function
 End Module

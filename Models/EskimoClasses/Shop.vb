@@ -6,127 +6,89 @@ Public Class clsShop
 
     Inherits EskimoBaseClass
 
-    Private _concession As Boolean
-    Private _status As String
-    Private _name As String
-    Private _code As String
-    Private _address1 As String
-    Private _address2 As String
-    Private _address3 As String
-    Private _address4 As String
-    Private _postCode As String
-    Private _telephone As String
-    Private _fax As String
-    Private _email As String
+    ''' <summary>
+    ''' The friendly name of the shop
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(50)>
+    Public Property Name As String
 
-    Public Property Name() As String
-        Get
-            Return _name
-        End Get
-        Set(ByVal prop_value As String)
-            _name = prop_value
-        End Set
-    End Property
-
+    ''' <summary>
+    ''' A unique three digit string to identify the shop.
+    ''' </summary>
+    ''' <returns></returns>
     <Key>
-    <StringLength(3, ErrorMessage:="The code must be 3 digits.", MinimumLength:=3)> _
-    Public Property Code() As String
-        Get
-            Return _code
-        End Get
-        Set(ByVal prop_value As String)
-            _code = prop_value
-        End Set
-    End Property
+    <StringLength(3, ErrorMessage:="The code must be 3 digits.", MinimumLength:=3)>
+    Public Property Code As String
 
-    Public Property Address1() As String
-        Get
-            Return _address1
-        End Get
-        Set(ByVal prop_value As String)
-            _address1 = prop_value
-        End Set
-    End Property
+    ''' <summary>
+    ''' The first address line
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(250)>
+    Public Property Address1 As String
 
-    Public Property Address2() As String
-        Get
-            Return _address2
-        End Get
-        Set(ByVal prop_value As String)
-            _address2 = prop_value
-        End Set
-    End Property
+    ''' <summary>
+    ''' The second address line
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(250)>
+    Public Property Address2 As String
 
-    Public Property Address3() As String
-        Get
-            Return _address3
-        End Get
-        Set(ByVal prop_value As String)
-            _address3 = prop_value
-        End Set
-    End Property
+    ''' <summary>
+    ''' The third address line
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(250)>
+    Public Property Address3 As String
 
-    Public Property Address4() As String
-        Get
-            Return _address4
-        End Get
-        Set(ByVal prop_value As String)
-            _address4 = prop_value
-        End Set
-    End Property
+    ''' <summary>
+    ''' The fourth address line
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(250)>
+    Public Property Address4 As String
 
-    Public Property PostCode() As String
-        Get
-            Return _postCode
-        End Get
-        Set(ByVal prop_value As String)
-            _postCode = prop_value
-        End Set
-    End Property
+    ''' <summary>
+    ''' The shop's postcode
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(50)>
+    Public Property PostCode As String
 
-    Public Property Telephone() As String
-        Get
-            Return _telephone
-        End Get
-        Set(ByVal prop_value As String)
-            _telephone = prop_value
-        End Set
-    End Property
+    ''' <summary>
+    ''' The main telephone number for the shop
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(50)>
+    Public Property Telephone As String
 
-    Public Property Fax() As String
-        Get
-            Return _fax
-        End Get
-        Set(ByVal prop_value As String)
-            _fax = prop_value
-        End Set
-    End Property
+    ''' <summary>
+    ''' Do people still use these? Well, if they do, this is the facsimile number for the shop.
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(50)>
+    Public Property Fax As String
 
-    Public Property Email() As String
-        Get
-            Return _email
-        End Get
-        Set(ByVal prop_value As String)
-            _email = prop_value
-        End Set
-    End Property
+    ''' <summary>
+    ''' The email address for the shop
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(50)>
+    Public Property Email As String
 
-    Public Property Concession() As Boolean
-        Get
-            Return _concession
-        End Get
-        Set(ByVal prop_value As Boolean)
-            _concession = prop_value
-        End Set
-    End Property
+    ''' <summary>
+    ''' Determines if the unit is actually a concession - perhaps within a large department store
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property Concession As Boolean
 
-    Public Property Status() As String
-        Get
-            Return _status
-        End Get
-        Set(ByVal prop_value As String)
-            _status = prop_value
-        End Set
-    End Property
+    ''' <summary>
+    ''' The status of the shop. 
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(50)>
+    Public Property Status As String
+
 
 End Class

@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel.DataAnnotations
+Imports System.Data.SqlClient
 
 Public Class clsAddress
     Inherits EskimoBaseClass
@@ -7,11 +8,19 @@ Public Class clsAddress
 
     End Sub
 
+    Sub New(r As SqlClient.SqlDataReader)
+        Me.New(New DataRecord(r))
+    End Sub
+
     Sub New(r As DataRow)
+        Me.New(New DataRecord(r))
+    End Sub
+
+    Sub New(r As DataRecord)
 
         Me.Active = r("AddressActive")
         Me.Company = Nz(r("AddressCompany"), Nothing)
-        Me.CountryCode = r("AddressCountryCode")
+        Me.CountryCode = r("AddressCountryISOCode")
         Me.Line1 = Nz(r("AddressAddress1"), Nothing)
         Me.Line2 = Nz(r("AddressAddress2"), Nothing)
         Me.Line3 = Nz(r("AddressAddress3"), Nothing)
@@ -20,6 +29,55 @@ Public Class clsAddress
         Me.Region = Nz(r("AddressPostalCounty"), Nothing)
 
     End Sub
+
+    Sub PopulateCommandForDatabaseUpdate(ByRef cmd As SqlCommand, CustomerID As String, Ref As String, Inserting As Boolean)
+        cmd.CommandText = "spAddressInsertUpdate"
+        cmd.CommandType = CommandType.StoredProcedure
+        cmd.Parameters.Add(New SqlParameter("@CustomerID", CustomerID))
+        cmd.Parameters.Add(New SqlParameter("@Ref", Ref))
+        cmd.Parameters.Add(New SqlParameter("@Inserting", Inserting))
+        cmd.Parameters.Add(New SqlParameter("@Company", Me.Company))
+        cmd.Parameters.Add(New SqlParameter("@AddressLine1", Me.Line1))
+        cmd.Parameters.Add(New SqlParameter("@AddressLine2", Me.Line2))
+        cmd.Parameters.Add(New SqlParameter("@AddressLine3", Me.Line3))
+        cmd.Parameters.Add(New SqlParameter("@Town", Me.PostalTown))
+        cmd.Parameters.Add(New SqlParameter("@County", Me.Region))
+        cmd.Parameters.Add(New SqlParameter("@PostCode", Me.PostCode))
+        cmd.Parameters.Add(New SqlParameter("@Active", Me.Active))
+        cmd.Parameters.Add(New SqlParameter("@CountryCode", Me.CountryCode))
+    End Sub
+
+    Public Overrides Function Equals(obj As Object) As Boolean
+        If Not TypeOf (obj) Is clsAddress Then
+            Return False
+        End If
+
+        Dim addr As clsAddress = obj
+
+        If FieldDifferent(Me.Active, addr.Active) Then Return False
+        If FieldDifferent(Me.Company, addr.Company) Then Return False
+        If FieldDifferent(Me.CountryCode, addr.CountryCode) Then Return False
+        If FieldDifferent(Me.Line1, addr.Line1) Then Return False
+        If FieldDifferent(Me.Line2, addr.Line2) Then Return False
+        If FieldDifferent(Me.Line3, addr.Line3) Then Return False
+        If FieldDifferent(Me.PostalTown, addr.PostalTown) Then Return False
+        If FieldDifferent(Me.PostCode, addr.PostCode) Then Return False
+        If FieldDifferent(Me.Region, addr.Region) Then Return False
+
+        Return True
+
+    End Function
+
+    Private Function FieldDifferent(local_field As String, foreign_field As String) As Boolean
+        If local_field Is Nothing AndAlso Not foreign_field Is Nothing Then Return True
+        If Not local_field Is Nothing AndAlso foreign_field Is Nothing Then Return True
+        Return local_field <> foreign_field
+    End Function
+
+    Private Function FieldDifferent(local_field As Boolean, foreign_field As Boolean) As Boolean
+        Return local_field <> foreign_field
+    End Function
+
 
     ''' <summary>
     ''' Optional. Name of the company / organisation.

@@ -52,6 +52,8 @@ Public Class clsHardwareItem
     <EnumDataType(GetType(EFTAcquirerEnum))>
     <Required>
     Property EFTAcquirer As EFTAcquirerEnum
+    <Required>
+    Property HardwareType As HardwareTypeEnum
 
 End Class
 
