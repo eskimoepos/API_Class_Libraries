@@ -146,7 +146,7 @@ Public Class clsOrder
     Property DeliveryNotes As String
 
     ''' <summary>
-    ''' The ID of the shipping rate used on the order
+    ''' The ID of the shipping rate used on the order. See api/Orders/FulfilmentMethods
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>

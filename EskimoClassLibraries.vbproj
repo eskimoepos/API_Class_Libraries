@@ -145,11 +145,13 @@
     <Compile Include="Models\EskimoClasses\ListingImage.vb" />
     <Compile Include="Models\EskimoClasses\Operator.vb" />
     <Compile Include="Models\EskimoClasses\OrderExtended.vb" />
+    <Compile Include="Models\EskimoClasses\OrderStatus.vb" />
     <Compile Include="Models\EskimoClasses\ProductCode.vb" />
     <Compile Include="Models\EskimoClasses\ReceiptMargin.vb" />
     <Compile Include="Models\EskimoClasses\SaleItem.vb" />
     <Compile Include="Models\EskimoClasses\SalesChannel.vb" />
     <Compile Include="Models\EskimoClasses\Settings\CustomerOptions.vb" />
+    <Compile Include="Models\EskimoClasses\Settings\Functions.vb" />
     <Compile Include="Models\EskimoClasses\Settings\HardwareOptions.vb" />
     <Compile Include="Models\EskimoClasses\Settings\OperatorOptions.vb" />
     <Compile Include="Models\EskimoClasses\Settings\ProductOptions.vb" />

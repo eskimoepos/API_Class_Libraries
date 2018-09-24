@@ -7,6 +7,13 @@ Public Class DataRecord
     ReadOnly Property rdr As SqlDataReader
     ReadOnly Property row As DataRow
 
+        Private function CollectionType As String
+        If booIsDataRow Then
+            Return "data reader"
+        Else
+            Return "data row"
+        End If
+    End function
     Sub New(_rdr As SqlDataReader)
         rdr = _rdr
     End Sub
@@ -23,12 +30,25 @@ Public Class DataRecord
     End Property
 
     Default Public ReadOnly Property Item(name As String) As Object Implements IDataRecord.Item
+
         Get
-            If booIsDataRow Then
-                Return row.Item(name)
-            Else
-                Return rdr.Item(name)
-            End If
+            Try
+                If booIsDataRow Then
+                    Return row.Item(name)
+                Else
+                    Return rdr.Item(name)
+                End If
+
+            Catch badfield As ArgumentOutOfRangeException
+                Throw New Exception($"field name {name} not found in {Me.CollectionType}")
+            Catch ex As Exception
+
+                If ex.Message = name Then
+                    Throw New Exception($"Field name {name} not found in {Me.CollectionType}")
+                End If
+
+                Throw
+            End Try
         End Get
     End Property
 

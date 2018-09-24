@@ -200,7 +200,7 @@ Public Class clsSalesItem
     Public Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult) Implements IValidatableObject.Validate
         Dim results As New List(Of ValidationResult)
 
-        If Me.DepositAmount <> 0 And Me.CustomerAction = CustomerActionEnum.NoCustomerAction Then
+        If Me.DepositAmount IsNot Nothing And Me.CustomerAction = CustomerActionEnum.NoCustomerAction Then
             results.Add(New ValidationResult("Cannot specify deposit amount when there is no Customer Action"))
         End If
 

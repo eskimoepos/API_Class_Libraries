@@ -45,10 +45,9 @@ Public Class clsSale
     Public ReceiptNumber As Integer?
 
     ''' <summary>
-    ''' Shop Code that the sale is assigned to. See api/Shops/All
+    ''' Readonly. Not required for inserting. Shop Code that the sale is assigned to. See api/Shops/All
     ''' </summary>
     <StringLength(3, ErrorMessage:="The Eskimo StoreID length must be 3 characters.", MinimumLength:=3)>
-    <Required>
     Public StoreID As String
 
     ''' <summary>
@@ -78,6 +77,11 @@ Public Class clsSale
     <Required>
     Property DatePlaced As DateTime
 
+    ''' <summary>
+    ''' Optional. Only applicable if items in the sale are marked to be ordered. This is the date the customer would like their order delivered. This could be specified because they are going on holiday and do not want delivery to occur until they return.
+    ''' </summary>
+    ''' <returns></returns>
+    Property DeliveryDate As Date?
 
     ''' <summary>
     ''' The Invoice Address for any products ordered. Can be left null if irrevant or there are no changes to the address. If populated though, the address will either be added or updated where necessary
@@ -132,6 +136,14 @@ Public Class clsSale
     Property CustomerReference As String
 
     ''' <summary>
+    ''' Free text order notes. i.e. 'Please ship all items in the same consignment.'
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Property OrderNotes As String
+
+    ''' <summary>
     ''' Free text delivery notes. i.e. 'Please leave package in porch if no reply.'
     ''' </summary>
     ''' <value></value>
@@ -156,7 +168,7 @@ Public Class clsSale
     Property ShippingAmountGross As Decimal = 0
 
     ''' <summary>
-    ''' Optional. If the sales channel of any of them items will generate an order, this field specifies the status of that order.
+    ''' Optional. If the sales channel of any of them items will generate an order, this field specifies the status of that order. See api/Orders/StatusCodes
     ''' </summary>
     ''' <returns></returns>
     Property OrderStatus As Integer = 30
@@ -258,7 +270,7 @@ Public Class clsSale
             results.Add(New ValidationResult($"Kit Parent Lines cannot have a monetary value. Line {itm.LineID}, has a value of {itm.LinePrice.ToString("c")}."))
         Next
 
-        For Each itm In Me.Items.Where(Function(x) x.DepositAmount <> 0 AndAlso x.Qty < 0)
+        For Each itm In Me.Items.Where(Function(x) x.DepositAmount IsNot Nothing AndAlso x.Qty < 0)
             results.Add(New ValidationResult($"Line {itm.LineID} specifies a deposit amount, but it is a refund item."))
         Next
 

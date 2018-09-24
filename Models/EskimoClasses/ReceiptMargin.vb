@@ -15,6 +15,6 @@ Public Class clsReceiptMargin
 
     Property Text As String
 
-    Property Logo As Drawing.Image
+    Property LogoImageID As Integer?
 
 End Class

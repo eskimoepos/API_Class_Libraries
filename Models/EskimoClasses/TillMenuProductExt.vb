@@ -20,8 +20,7 @@ Public Class clsTillMenuProductExt
     Property StyleReference As String
     'Property TradeCustomerID As String
     Property TradeCustomerName As String
-    '<Required>
-    'Property IsOpenPriced As Boolean
+
     '<Required>
     'Property IsOpenDescription As Boolean
     Property StockLevel As Integer
@@ -30,5 +29,8 @@ Public Class clsTillMenuProductExt
     ''' See api/TaxCodes/All
     ''' </summary>
     ''' <returns></returns>
+    <Required>
     Property TaxID As Integer
+    <Required>
+    Property IsOpenPriced As Boolean
 End Class

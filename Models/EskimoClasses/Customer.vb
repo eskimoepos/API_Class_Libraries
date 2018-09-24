@@ -56,28 +56,34 @@ Public Class clsCustomer
     Sub New(r As DataRecord)
         Dim intCustTitleID As Short?
 
-        Me.ID = r("CustomerID")
-        Me.ActiveAccount = r("AccountActive")
+        Try
+            Me.ID = r("CustomerID")
+            Me.ActiveAccount = r("AccountActive")
 
-        Me.CompanyName = Nz(r("CustomerCompanyName"), Nothing, True)
-        Me.EmailAddress = Nz(r("CustomerEmail"), Nothing, True)
-        Me.Forename = Nz(r("CustomerContactName"), Nothing, True)
-        Me.Mobile = Nz(r("CustomerMobile"), Nothing, True)
-        Me.Notes = Nz(r("Notes"), Nothing, Nothing)
-        Me.Surname = Nz(r("CustomerContactSurName"), Nothing, Nothing)
-        Me.Telephone = Nz(r("CustomerTelephone"), Nothing, Nothing)
-        Me.CountryCode = r("CustomerCountryISOCode")
-        intCustTitleID = Nz(r("CusTitleID"), Nothing)
-        Me.TitleID = intCustTitleID
+            Me.CompanyName = Nz(r("CustomerCompanyName"), Nothing, True)
+            Me.EmailAddress = Nz(r("CustomerEmail"), Nothing, True)
+            Me.Forename = Nz(r("CustomerContactName"), Nothing, True)
+            Me.Mobile = Nz(r("CustomerMobile"), Nothing, True)
+            Me.Notes = Nz(r("Notes"), Nothing, Nothing)
+            Me.Surname = Nz(r("CustomerContactSurName"), Nothing, Nothing)
+            Me.Telephone = Nz(r("CustomerTelephone"), Nothing, Nothing)
+            Me.CountryCode = r("CustomerCountryISOCode")
+            intCustTitleID = Nz(r("CusTitleID"), Nothing)
+            Me.TitleID = intCustTitleID
+            Me.ExternalID = Nz(r("ExternalID"), Nothing)
 
-        If r("MultipleAddressesPerCustomer") AndAlso Not IsDBNull(r("AddressID")) Then
-            Me.MainAddress = New clsAddress(r)
-        End If
+            If r("MultipleAddressesPerCustomer") AndAlso Not IsDBNull(r("AddressID")) Then
+                Me.MainAddress = New clsAddress(r)
+            End If
 
-        If Not r("MultipleAddressesPerCustomer") Then
-            Me.Address = Nz(r("Address"), Nothing, True)
-            Me.PostCode = Nz(r("PostCode"), Nothing, True)
-        End If
+            If Not r("MultipleAddressesPerCustomer") Then
+                Me.Address = Nz(r("Address"), Nothing, True)
+                Me.PostCode = Nz(r("PostCode"), Nothing, True)
+            End If
+        Catch ex As Exception
+            Throw
+        End Try
+
 
     End Sub
 

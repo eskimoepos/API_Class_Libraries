@@ -54,4 +54,6 @@ Public Class clsTillMenuUnitInfo
     Property OperatorOptions As New clsOperatorOptions
     Property CustomerOptions As New clsCustomerOptions
     Property ProductOptions As New clsProductOptions
+    Property FunctionButtons As New clsFunctions
+
 End Class
