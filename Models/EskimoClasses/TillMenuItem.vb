@@ -59,4 +59,10 @@ Public Class clsTillMenuItem
     Property TaxID As Integer
     Property ProductDescription As String
 
+    Property ColourName As String
+    Property ColourValue As String
+    Property Size As String
+    Property StockWarnLevel As Integer?
+    Property StockLevel As Integer
+
 End Class

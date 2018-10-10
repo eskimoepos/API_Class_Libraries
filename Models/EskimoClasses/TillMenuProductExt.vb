@@ -33,4 +33,9 @@ Public Class clsTillMenuProductExt
     Property TaxID As Integer
     <Required>
     Property IsOpenPriced As Boolean
+
+    Property ColourName As String
+    Property ColourValue As String
+    Property Size As String
+    Property StockWarnLevel As Integer?
 End Class

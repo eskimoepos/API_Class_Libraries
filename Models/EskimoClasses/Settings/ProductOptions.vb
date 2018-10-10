@@ -8,4 +8,5 @@
     Property AllowMultiSelect As Boolean = True
     Property DefaultTillScreen As TillScreenEnum
     Property SearchOnlineDefault As Boolean
+    Property ShowLowStockWarnings As Boolean = True
 End Class
