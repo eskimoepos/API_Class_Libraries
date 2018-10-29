@@ -95,22 +95,21 @@ Public Class clsSaleItemBase
     Property Qty As Integer = 1
 
     ''' <summary>
-    ''' The UnitPrice of the product after discounts
+    ''' Readonly. The UnitPrice of the product after discounts
+    ''' </summary>
+    ''' <returns></returns>
+    ReadOnly Property UnitPrice As Decimal
+        Get
+            Return Me.LinePrice / Me.Qty
+        End Get
+    End Property
+
+    ''' <summary>
+    ''' Unit Price * Qty after discounts
     ''' </summary>
     ''' <returns></returns>
     <Required>
-    <Range(0, Integer.MaxValue)>
-    Property UnitPrice As Decimal = 0
-
-    ''' <summary>
-    ''' Read-only property. Simply multiplies the Unit Price by the Quantity.
-    ''' </summary>
-    ''' <returns></returns>
-    ReadOnly Property LinePrice As Decimal
-        Get
-            Return Me.UnitPrice * Me.Qty
-        End Get
-    End Property
+    Property LinePrice As Decimal
 
     ''' <summary>
     ''' Any personalisation for this item, i.e. 'Treat as Main Meal.'

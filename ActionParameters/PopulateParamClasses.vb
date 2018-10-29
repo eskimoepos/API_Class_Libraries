@@ -37,17 +37,17 @@
 
         Options.Add(New clsTillSaleItem() With {.PLU = "00000005",
                                                 .Qty = 1,
-                                                .UnitPrice = 0.5,
+                                                .LinePrice = 27.5,
                                                 .FreeText = "cooking option"})
 
         Items.Add(New clsTillSaleItem() With {.PLU = "00000001",
                                           .Qty = 5,
-                                          .UnitPrice = 5.5,
+                                          .LinePrice = 27.5,
                                           .ProductOptions = Options})
 
         Items.Add(New clsTillSaleItem() With {.PLU = "00000002",
                                           .Qty = 1,
-                                          .UnitPrice = 12.99,
+                                          .LinePrice = 12.99,
                                           .FreeText = "Treat as main meal"})
 
         With ToReturn

@@ -147,6 +147,7 @@
     <Compile Include="Models\EskimoClasses\OrderExtended.vb" />
     <Compile Include="Models\EskimoClasses\OrderStatus.vb" />
     <Compile Include="Models\EskimoClasses\ProductCode.vb" />
+    <Compile Include="Models\EskimoClasses\Promotion.vb" />
     <Compile Include="Models\EskimoClasses\ReceiptMargin.vb" />
     <Compile Include="Models\EskimoClasses\SaleItem.vb" />
     <Compile Include="Models\EskimoClasses\SalesChannel.vb" />
@@ -156,6 +157,7 @@
     <Compile Include="Models\EskimoClasses\Settings\OperatorOptions.vb" />
     <Compile Include="Models\EskimoClasses\Settings\ProductOptions.vb" />
     <Compile Include="Models\EskimoClasses\Settings\ReceiptOptions.vb" />
+    <Compile Include="Models\EskimoClasses\Settings\TenderOptions.vb" />
     <Compile Include="Models\EskimoClasses\StockTakingProductInfo.vb" />
     <Compile Include="Models\EskimoClasses\Tender.vb" />
     <Compile Include="Models\EskimoClasses\TillMenuChoice.vb" />

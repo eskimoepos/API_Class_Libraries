@@ -9,4 +9,5 @@
     Property DefaultTillScreen As TillScreenEnum
     Property SearchOnlineDefault As Boolean
     Property ShowLowStockWarnings As Boolean = True
+    Property DisplayColourAndSize As Boolean
 End Class

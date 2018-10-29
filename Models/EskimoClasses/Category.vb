@@ -56,4 +56,16 @@ Public Class clsCategory
     ''' <returns></returns>
     Public Property Channel_ID As Integer
 
+    ''' <summary>
+    ''' A url category path. 
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property URL_Path As String
+
+    ''' <summary>
+    ''' A friendly-url representation of the category name
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property URL_Path_Component As String
+
 End Class

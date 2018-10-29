@@ -84,6 +84,12 @@ Public Class clsSKU
     Public Property CostPrice As Decimal
 
     ''' <summary>
+    ''' Optional. The Supplier's Recommended Retail Selling price of the item. Where this is higher than the 'Sell Price', a 'saving' can be advertised to the end-user.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property RRP As Decimal?
+
+    ''' <summary>
     ''' The sell price to be used on the website
     ''' </summary>
     ''' <value></value>

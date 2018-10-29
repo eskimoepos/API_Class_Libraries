@@ -48,12 +48,14 @@ Public Class clsTillMenuUnitInfo
     Property SKUCount As Long
 
     Property AutoSalesCode As OptionTimingEnum = OptionTimingEnum.Off
+    Property PromptForSendOfflineSales As Boolean
 
     Property ReceiptOptions As New clsReceiptOptions
     Property HardwareOptions As New clsHardwareOptions
     Property OperatorOptions As New clsOperatorOptions
     Property CustomerOptions As New clsCustomerOptions
     Property ProductOptions As New clsProductOptions
+    Property TenderOptions As New clsTenderOptions
     Property FunctionButtons As New clsFunctions
 
 End Class

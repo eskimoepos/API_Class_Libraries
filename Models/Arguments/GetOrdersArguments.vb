@@ -11,19 +11,18 @@ Public Class GetOrdersArguments
     Property FromDate As Date
 
     ''' <summary>
-    ''' Return orders greater earlier this date/time
+    ''' Return orders earlier than this date/time
     ''' </summary>
     ''' <returns></returns>
     <Required>
     Property ToDate As Date
 
     ''' <summary>
-    ''' The type of orders to return. 
+    ''' The type of orders to return. The ChannelID, see api/Sales/Channels
     ''' </summary>
     ''' <returns></returns>
-    <EnumDataType(GetType(clsOrder.OrderTypeEnum))>
     <Required>
-    Property OrderType As clsOrder.OrderTypeEnum
+    Property OrderType As Integer
 
     ''' <summary>
     ''' If only the Eskimo Customer ID required, then pass false, otherwise pass true and more information about the customer will be included in the CustomerInfo field.
