@@ -48,15 +48,15 @@ Public Class clsButtonInfo
         Me.ButtonType = ButtonTypeEnum.Text
         Me.Text = _Text
     End Sub
-    Sub New(_Image As Byte())
+    Sub New(_ImageID As Integer)
         Me.ButtonType = ButtonTypeEnum.Image
-        Me.Image = _Image
+        Me.ImageID = _ImageID
     End Sub
 
-    Sub New(_Text As String, _Image As Byte())
+    Sub New(_Text As String, _ImageID As Integer)
         Me.ButtonType = ButtonTypeEnum.TextAndImage
         Me.Text = _Text
-        Me.Image = _Image
+        Me.ImageID = _ImageID
     End Sub
 
     Enum ButtonTypeEnum
@@ -66,7 +66,12 @@ Public Class clsButtonInfo
     End Enum
 
     Property ButtonType As ButtonTypeEnum
-    Property Image As Byte()
+
+    ''' <summary>
+    ''' See api/Images/ImageData/{id}
+    ''' </summary>
+    ''' <returns></returns>
+    Property ImageID As Integer?
     Property Text As String
 
 End Class

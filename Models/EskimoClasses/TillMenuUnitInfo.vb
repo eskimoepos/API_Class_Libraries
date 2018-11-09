@@ -49,7 +49,11 @@ Public Class clsTillMenuUnitInfo
 
     Property AutoSalesCode As OptionTimingEnum = OptionTimingEnum.Off
     Property PromptForSendOfflineSales As Boolean
-
+    ''' <summary>
+    ''' How often to check and see if any offline sales need uploading. The value is the number of seconds. (Zero = Off)
+    ''' </summary>
+    ''' <returns></returns>
+    Property UploadOfflineSalesInterval As Integer
     Property ReceiptOptions As New clsReceiptOptions
     Property HardwareOptions As New clsHardwareOptions
     Property OperatorOptions As New clsOperatorOptions

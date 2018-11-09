@@ -29,7 +29,7 @@ Public Class clsSKU
     Public Property trade_customer_id As String
 
     ''' <summary>
-    ''' This is the barcode or PLU number. In a retail shop, this will be the number that the operator will scan into the till at POS.
+    ''' This is the barcode or PLU number. In a retail shop, this will be the code that the operator will scan into the till at POS. This can either be a code that exclusively represents that product worldwide, or it could be a unique code for that retailer only - one that they have assigned to the product.
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -37,6 +37,14 @@ Public Class clsSKU
     <Required>
     <StringLength(35)>
     Public Property sku_code As String
+
+    ''' <summary>
+    ''' Optional. An additional barcode. Supplier's EAN perhaps.
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(35)>
+    Public Property additional_sku_code As String
+
 
     ''' <summary>
     ''' On top of the sku code, Eskimo uses a Style Reference code to group SKUs together of a similar type. For example, you may have a jumper that comes in 3 colours and 3 sizes. All 9 of the SKUs will share the same Style Reference code (JUM-01 for example) but they will also have unique sku codes. This field should have the same value as the style_reference property on the Products controller for the same product.
