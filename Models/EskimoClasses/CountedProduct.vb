@@ -89,6 +89,15 @@ Public Class clsCountedProduct
     ''' <returns></returns>
     Property CurrentLevel As Integer
 
+    ''' <summary>
+    ''' Eskimo can run multiple stock takes at once - for different product sections. This is the ID of the stock take currently selected.
+    ''' </summary>
+    ''' <returns></returns>
+    Property StockTakeID As Integer?
+
+    <StringLength(3, ErrorMessage:="The code must be 3 digits.", MinimumLength:=3)>
+    Property StockTakeStore As String
+
     Public Function Clone() As Object Implements ICloneable.Clone
         Return Me.MemberwiseClone
     End Function
@@ -104,5 +113,9 @@ Public Class clsCountedProducts
     ''' <returns></returns>
     Property Counts As New List(Of clsCountedProduct)
 
+    Property StockTakeID As Integer?
+
+    <StringLength(3, ErrorMessage:="The code must be 3 digits.", MinimumLength:=3)>
+    Property StockTakeStore As String
 
 End Class

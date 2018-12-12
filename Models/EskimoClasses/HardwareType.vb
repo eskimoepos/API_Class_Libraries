@@ -32,6 +32,8 @@ Public Class clsHardwareItem
         VeriFone = 4
         SagePay = 5
         PaymentSense = 6
+        PayPal = 7
+        EVOPayments = 8
     End Enum
 
     <Required>
@@ -43,9 +45,6 @@ Public Class clsHardwareItem
 
     Property Location As String
 
-    Property UserID As String
-    Property Password As String
-
     <Required>
     Property IsDefault As Boolean
 
@@ -55,6 +54,17 @@ Public Class clsHardwareItem
     <Required>
     Property HardwareType As HardwareTypeEnum
 
+    Property EFTCredentials As clsExternalPaymentCredentials
+
+End Class
+
+Public Class clsExternalPaymentCredentials
+    Property UserID As String
+    Property Password As String
+    Property ClientID As String
+    Property SecretKey As String
+    Property IsProductionEnvironment As Boolean
+    Property IsGuestCheckout As Boolean
 End Class
 
 Public Class clsHardwareModel

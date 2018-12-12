@@ -80,6 +80,7 @@
     <Compile Include="ActionParameters\SingleIntegerID.vb" />
     <Compile Include="ActionParameters\SingleStringID.vb" />
     <Compile Include="Enums\Enums.vb" />
+    <Compile Include="ExtentionMethods\modExtentions.vb" />
     <Compile Include="Functions\modShared.vb" />
     <Compile Include="Interfaces\Arguments\ControllerArguments.vb" />
     <Compile Include="Models\Arguments\AmazonUploadProducts.vb" />
@@ -133,6 +134,7 @@
     <Compile Include="Models\EskimoClasses\Category.vb" />
     <Compile Include="Models\EskimoClasses\CategoryProduct.vb" />
     <Compile Include="Models\EskimoClasses\ChargeArea.vb" />
+    <Compile Include="Models\EskimoClasses\clsMeasureUnit.vb" />
     <Compile Include="Models\EskimoClasses\CountedProduct.vb" />
     <Compile Include="Models\EskimoClasses\CountedProductSummary.vb" />
     <Compile Include="Models\EskimoClasses\CustomerAddress.vb" />
@@ -148,6 +150,9 @@
     <Compile Include="Models\EskimoClasses\OrderStatus.vb" />
     <Compile Include="Models\EskimoClasses\ProductCode.vb" />
     <Compile Include="Models\EskimoClasses\Promotion.vb" />
+    <Compile Include="Models\EskimoClasses\PromotionBonus.vb" />
+    <Compile Include="Models\EskimoClasses\PromotionCondition.vb" />
+    <Compile Include="Models\EskimoClasses\PromotionProductSelection.vb" />
     <Compile Include="Models\EskimoClasses\ReceiptMargin.vb" />
     <Compile Include="Models\EskimoClasses\SaleItem.vb" />
     <Compile Include="Models\EskimoClasses\SalesChannel.vb" />
@@ -157,6 +162,7 @@
     <Compile Include="Models\EskimoClasses\Settings\OperatorOptions.vb" />
     <Compile Include="Models\EskimoClasses\Settings\ProductOptions.vb" />
     <Compile Include="Models\EskimoClasses\Settings\ReceiptOptions.vb" />
+    <Compile Include="Models\EskimoClasses\Settings\SaleOptions.vb" />
     <Compile Include="Models\EskimoClasses\Settings\TenderOptions.vb" />
     <Compile Include="Models\EskimoClasses\StockTakingProductInfo.vb" />
     <Compile Include="Models\EskimoClasses\Tender.vb" />

@@ -54,12 +54,18 @@ Public Class clsTillMenuUnitInfo
     ''' </summary>
     ''' <returns></returns>
     Property UploadOfflineSalesInterval As Integer
+    ''' <summary>
+    ''' How often to pull the live stock levels from the server. The value is the number of seconds. (Zero = Off)
+    ''' </summary>
+    ''' <returns></returns>
+    Property UpdateStockInterval As Integer
     Property ReceiptOptions As New clsReceiptOptions
     Property HardwareOptions As New clsHardwareOptions
     Property OperatorOptions As New clsOperatorOptions
     Property CustomerOptions As New clsCustomerOptions
     Property ProductOptions As New clsProductOptions
+    Property SaleOptions As New clsSaleOptions
     Property TenderOptions As New clsTenderOptions
     Property FunctionButtons As New clsFunctions
-
+    Property Promotions As New List(Of clsPromotion)
 End Class

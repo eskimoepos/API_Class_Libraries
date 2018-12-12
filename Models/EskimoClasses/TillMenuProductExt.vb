@@ -7,11 +7,8 @@ Public Class clsTillMenuProductExt
     <Key>
     <Required>
     Property PLU As String
-    ''' <summary>
-    ''' Semicolon separated list of barcodes
-    ''' </summary>
-    ''' <returns></returns>
-    Property AdditionalSKUs As String
+
+    Property SecondaryPLU As String
     'Property Group As String
     Property Department As String
     Property Description As String
@@ -38,4 +35,6 @@ Public Class clsTillMenuProductExt
     Property ColourValue As String
     Property Size As String
     Property StockWarnLevel As Integer?
+    Property Weight As Long
+
 End Class

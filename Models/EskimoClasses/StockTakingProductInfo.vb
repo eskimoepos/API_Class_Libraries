@@ -1,6 +1,4 @@
-﻿''' <summary>
-''' A class providing information about the products that can be counted. Also included is a list of the operators that can sign in
-''' </summary>
+﻿
 Public Class clsStockTakingProductInfo
     Inherits EskimoBaseClass
 
@@ -22,11 +20,11 @@ Public Class clsStockTakingProductInfo
     ''' <returns></returns>
     Property Location3Name As String
 
-    ''' <summary>
-    ''' A collection of all products on file. if more than one barcode is supplied, the first one is the main PLU number.
-    ''' </summary>
-    ''' <returns></returns>
-    Property Products As List(Of clsProductCode)
+    '''' <summary>
+    '''' A collection of all products on file. if more than one barcode is supplied, the first one is the main PLU number.
+    '''' </summary>
+    '''' <returns></returns>
+    'Property Products As List(Of clsProductCode)
 
     ''' <summary>
     ''' A collection of operators that work at this showroom.

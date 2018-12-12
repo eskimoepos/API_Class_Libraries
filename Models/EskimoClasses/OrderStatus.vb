@@ -13,4 +13,6 @@ Public Class clsOrderStatus
 
     Property IsDefault As Boolean
 
+    Property Active As Boolean
+
 End Class

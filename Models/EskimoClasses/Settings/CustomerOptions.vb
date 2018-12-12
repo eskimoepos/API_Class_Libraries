@@ -5,4 +5,5 @@
     Property PostcodeLookupServiceEnabled As Boolean
     Property SearchLimit As Integer = 500
     Property SearchOnlineDefault As Boolean
+    Property DefaultSourceCodeID As Integer?
 End Class

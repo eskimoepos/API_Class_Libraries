@@ -67,6 +67,12 @@ Public Class clsOrderItem
     ''' <returns></returns>
     Property vat_rate As Decimal?
 
+    ''' <summary>
+    ''' Optional. If omitted, the VAT ID assigned to the product will be used. If the goods are being exported outside of the UK for instance, the VAT ID might be different to what is assigned on the product. See api/TaxCodes/All for a list of the possible values
+    ''' </summary>
+    ''' <returns></returns>
+    Property vat_id As Integer?
+
     Function line_value() As Decimal
         Return Me.unit_price * Me.qty_purchased
     End Function

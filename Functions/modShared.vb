@@ -7,7 +7,7 @@
     ''' <param name="def"></param>
     ''' <returns></returns>
     Public Function Nz(input As Object, def As Object) As Object
-        If IsDBNull(input) Then
+        If input Is Nothing OrElse IsDBNull(input) Then
             Return def
         Else
             Return input

@@ -214,6 +214,12 @@ Public Class clsSalesItem
         Return results
     End Function
 
+    ''' <summary>
+    ''' Optional. If omitted, the VAT ID assigned to the product will be used. If the goods are being exported outside of the UK for instance, the VAT ID might be different to what is assigned on the product. See api/TaxCodes/All for a list of the possible values
+    ''' </summary>
+    ''' <returns></returns>
+    Property VatID As Integer?
+
     'may come online later
     'Property ProductOptions As IEnumerable(Of clsSaleItemBase)
 

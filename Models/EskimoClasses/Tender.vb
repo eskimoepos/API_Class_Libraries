@@ -35,4 +35,9 @@ Public Class clsTender
     ''' <returns></returns>
     Property AllowRefunds As Boolean
 
+    ''' <summary>
+    ''' Specifies that, when this tender button is pressed, this EFT service should be used.
+    ''' </summary>
+    ''' <returns></returns>
+    Property ExternalEFTService As clsHardwareItem.EFTAcquirerEnum
 End Class

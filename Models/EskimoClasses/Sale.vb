@@ -99,6 +99,12 @@ Public Class clsSale
     ''' <remarks></remarks>
     Property DeliveryAddress As clsAddress
 
+    ''' <summary>
+    ''' Optional. If any of the items are for a sales channel that creates an order for a customer, this is the shop that the goods can be collected from. See api/Shops/All
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(3, ErrorMessage:="The ClickAndCollectShop length must be 3 characters.", MinimumLength:=3)>
+    Property ClickAndCollectShop As String
 
     ''' <summary>
     ''' When products are being ordered, this is the Address Reference for the Invoice Address. Defaults to 'MAIN' if not passed.
@@ -177,9 +183,8 @@ Public Class clsSale
         Dim t As Decimal = 0
 
         t = Me.ShippingAmountGross
-        For Each i In Me.Items
-            t += i.LinePrice
-        Next
+        t += Me.Items.Sum(Function(x) x.LinePrice)
+
         Return t
 
     End Function
@@ -243,6 +248,9 @@ Public Class clsSale
 
         End If
 
+        If Me.ClickAndCollectShop IsNot Nothing AndAlso Me.ClickAndCollectShop <> "" AndAlso Me.DeliveryAddress IsNot Nothing Then
+            results.Add(New ValidationResult($"The DeliveryAddress cannot be passed as well as the ClickAndCollectShop; pass one or the other."))
+        End If
 
         If Me.ShippingAmountGross <> 0 AndAlso Me.ShippingRateID Is Nothing Then
             For Each itm In Me.Items.Where(Function(x)
