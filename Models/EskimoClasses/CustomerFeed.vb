@@ -17,4 +17,9 @@
 
         End Get
     End Property
+
+    Property PriceListID As Integer?
+    Property PriceLevel As Integer
+    Property AutomaticDiscountPercentage As Decimal
+
 End Class

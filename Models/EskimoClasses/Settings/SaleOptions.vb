@@ -12,4 +12,19 @@
     ''' </summary>
     ''' <returns></returns>
     Property DefaultChannelID As Integer
+    Property SellAtBestPrice As Boolean
+    Property BasketShowsSalesChannelType As Boolean
+    Property DefaultShippingRate As Integer?
+    ''' <summary>
+    ''' Methods by which a sale can come into a business. These may include Email, Phone, Shop Counter etc.
+    ''' </summary>
+    ''' <returns></returns>
+    Property Sources As IEnumerable(Of clsSaleSource)
+
+End Class
+
+Public Class clsSaleSource
+    Property ID As Integer
+    Property Description As String
+    Property Active As Boolean
 End Class

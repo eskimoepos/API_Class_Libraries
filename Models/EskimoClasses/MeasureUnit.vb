@@ -1,4 +1,4 @@
-﻿Public Class clsMeasureUnit
+﻿Public Class MeasureUnit
 
     Inherits EskimoBaseClass
 
@@ -54,7 +54,7 @@ End Class
 
 
 Public Class clsMeasureUnits
-    Property Units As New List(Of clsMeasureUnit)
+    Property Units As New List(Of MeasureUnit)
 
     ''' <summary>
     ''' Example function to show how to convert from one unit to another
@@ -64,8 +64,8 @@ Public Class clsMeasureUnits
     ''' <param name="idOut">The Eskimo ID of the meaure unit desired</param>
     ''' <returns></returns>
     Function ConvertTo(value As Decimal, idIn As Integer, idOut As Integer) As Decimal
-        Dim inMeasure As clsMeasureUnit
-        Dim outMeasure As clsMeasureUnit
+        Dim inMeasure As MeasureUnit
+        Dim outMeasure As MeasureUnit
         Dim decMod1 As Decimal = 1
         Dim decMod2 As Decimal = 1
 

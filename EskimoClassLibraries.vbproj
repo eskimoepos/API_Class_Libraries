@@ -102,6 +102,7 @@
     <Compile Include="Models\Arguments\ListingsArguments.vb" />
     <Compile Include="Models\Arguments\OperatorSearchArgs.vb" />
     <Compile Include="Models\Arguments\OrderArguments.vb" />
+    <Compile Include="Models\Arguments\PaginationSettings.vb" />
     <Compile Include="Models\Arguments\ProductArguments.vb" />
     <Compile Include="Models\Arguments\ProductDumpArgs.vb" />
     <Compile Include="Models\Arguments\ProductSearchArguments.vb" />
@@ -109,6 +110,7 @@
     <Compile Include="Models\Arguments\RecordSelections\Normal.vb" />
     <Compile Include="Models\Arguments\RecordSelections\SKUsRecordSelection.vb" />
     <Compile Include="Models\Arguments\RecordSelections\WithDates.vb" />
+    <Compile Include="Models\Arguments\SaleReturnArguments.vb" />
     <Compile Include="Models\Arguments\SalesChannelSearchParams.vb" />
     <Compile Include="Models\Arguments\ShopArguments.vb" />
     <Compile Include="Models\Arguments\SKUArguments.vb" />
@@ -134,7 +136,7 @@
     <Compile Include="Models\EskimoClasses\Category.vb" />
     <Compile Include="Models\EskimoClasses\CategoryProduct.vb" />
     <Compile Include="Models\EskimoClasses\ChargeArea.vb" />
-    <Compile Include="Models\EskimoClasses\clsMeasureUnit.vb" />
+    <Compile Include="Models\EskimoClasses\MeasureUnit.vb" />
     <Compile Include="Models\EskimoClasses\CountedProduct.vb" />
     <Compile Include="Models\EskimoClasses\CountedProductSummary.vb" />
     <Compile Include="Models\EskimoClasses\CustomerAddress.vb" />
@@ -156,6 +158,7 @@
     <Compile Include="Models\EskimoClasses\ReceiptMargin.vb" />
     <Compile Include="Models\EskimoClasses\SaleItem.vb" />
     <Compile Include="Models\EskimoClasses\SalesChannel.vb" />
+    <Compile Include="Models\EskimoClasses\SalesReturn.vb" />
     <Compile Include="Models\EskimoClasses\Settings\CustomerOptions.vb" />
     <Compile Include="Models\EskimoClasses\Settings\Functions.vb" />
     <Compile Include="Models\EskimoClasses\Settings\HardwareOptions.vb" />
@@ -167,16 +170,19 @@
     <Compile Include="Models\EskimoClasses\StockTakingProductInfo.vb" />
     <Compile Include="Models\EskimoClasses\Tender.vb" />
     <Compile Include="Models\EskimoClasses\TillMenuChoice.vb" />
+    <Compile Include="Models\EskimoClasses\TillMenuFollowOnProduct.vb" />
     <Compile Include="Models\EskimoClasses\TillMenuFunction.vb" />
     <Compile Include="Models\EskimoClasses\TillMenuItem.vb" />
     <Compile Include="Models\EskimoClasses\TillMenuProductExt.vb" />
     <Compile Include="Models\EskimoClasses\TillMenuProduct.vb" />
+    <Compile Include="Models\EskimoClasses\TillMenuProductInfo.vb" />
     <Compile Include="Models\EskimoClasses\TillMenuSection.vb" />
     <Compile Include="Models\EskimoClasses\TillMenuSourceCode.vb" />
     <Compile Include="Models\EskimoClasses\TillMenuTenderEntry.vb" />
     <Compile Include="Models\EskimoClasses\TillMenuUnitInfo.vb" />
     <Compile Include="Models\EskimoClasses\Sale.vb" />
     <Compile Include="Models\EskimoClasses\SaleReference.vb" />
+    <Compile Include="Models\EskimoClasses\User.vb" />
     <Compile Include="Models\EskimoClasses\Variation.vb" />
     <Compile Include="Models\EskimoClasses\Country.vb" />
     <Compile Include="Models\EskimoClasses\Customer.vb" />
@@ -196,6 +202,7 @@
     <Compile Include="Models\EskimoClasses\SKU.vb" />
     <Compile Include="Models\EskimoClasses\ItemSpecificsBasic.vb" />
     <Compile Include="Models\EskimoClasses\TaxCode.vb" />
+    <Compile Include="Models\EskimoClasses\TillMenuPriceLists.vb" />
     <Compile Include="Models\ValidationAttributes\Customer.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

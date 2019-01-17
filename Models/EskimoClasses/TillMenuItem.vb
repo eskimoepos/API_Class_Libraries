@@ -12,11 +12,11 @@ Public Class clsTillMenuItem
     Property Name As String
 
     ''' <summary>
-    ''' The unit price of the product i.e. £4.50
+    ''' The unit prices of the product i.e. £4.50. There will be a maximum of 10 price levels. Price level 1 is the default.
     ''' </summary>
     ''' <returns></returns>
     <Required>
-    Property UnitPrice As Decimal
+    Property UnitPrices As IEnumerable(Of clsPrice)
 
     ''' <summary>
     ''' The PLU number of the product. Could be used to enter or scan the product, rather than choose from the menu system.

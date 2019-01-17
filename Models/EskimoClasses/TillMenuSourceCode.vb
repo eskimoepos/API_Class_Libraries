@@ -10,4 +10,9 @@ Public Class clsTillMenuSourceCode
     Property ValidFrom As Date?
     Property ValidTo As Date?
     Property Active As Boolean
+    'Property PriceList1 As clsTillMenuPriceList
+    'Property PriceList2 As clsTillMenuPriceList
+    Property PriceList1 As Integer?
+    Property PriceList2 As Integer?
+    Property RequiresElevation As Boolean
 End Class

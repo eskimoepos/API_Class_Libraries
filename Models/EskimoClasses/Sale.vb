@@ -180,7 +180,7 @@ Public Class clsSale
     Property OrderStatus As Integer = 30
 
     Function CalculatedOrderTotal() As Decimal
-        Dim t As Decimal = 0
+        Dim t As Decimal
 
         t = Me.ShippingAmountGross
         t += Me.Items.Sum(Function(x) x.LinePrice)
@@ -188,6 +188,12 @@ Public Class clsSale
         Return t
 
     End Function
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <returns></returns>
+    Property SaleSourceID As Integer?
 
     Public Sub New()
         'Me.DeliveryAddress = New clsOrderAddressInfo
@@ -231,7 +237,7 @@ Public Class clsSale
             Next
         Else 'customer id IS passed
 
-            If (Me.InvoiceAddressRef Is Nothing OrElse Me.InvoiceAddressRef = "") OrElse (Me.DeliveryAddressRef Is Nothing OrElse Me.DeliveryAddressRef = "") Then
+            If (Me.InvoiceAddressRef Is Nothing OrElse Me.InvoiceAddressRef = "") OrElse ((Me.DeliveryAddressRef Is Nothing OrElse Me.DeliveryAddressRef = "") AndAlso Me.DeliveryAddress Is Nothing AndAlso Me.ClickAndCollectShop Is Nothing) Then
                 For Each itm In Me.Items.Where(Function(x)
                                                    Select Case x.CustomerAction
                                                        Case clsSaleItemBase.CustomerActionEnum.MailOrderItem
@@ -333,6 +339,6 @@ Public Class clsSale
     ''' Optional. The Eskimo Operator ID of the person who performed the sale. If omitted, the operator 'SYSTEM' will be used.
     ''' </summary>
     ''' <returns></returns>
-    Property OperatorID As String
+    Property OperatorID As String = "SYSTEM"
 
 End Class

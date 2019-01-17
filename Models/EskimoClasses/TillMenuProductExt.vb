@@ -7,12 +7,11 @@ Public Class clsTillMenuProductExt
     <Key>
     <Required>
     Property PLU As String
-
     Property SecondaryPLU As String
     'Property Group As String
     Property Department As String
     Property Description As String
-    Property Price As Decimal?
+    Property Prices As IEnumerable(Of clsPrice)
     Property Supplier As String
     Property StyleReference As String
     'Property TradeCustomerID As String
@@ -30,11 +29,15 @@ Public Class clsTillMenuProductExt
     Property TaxID As Integer
     <Required>
     Property IsOpenPriced As Boolean
-
     Property ColourName As String
     Property ColourValue As String
     Property Size As String
     Property StockWarnLevel As Integer?
     Property Weight As Long
 
+End Class
+
+Public Class clsPrice
+    Property PriceLevel As Integer
+    Property Price As Decimal
 End Class

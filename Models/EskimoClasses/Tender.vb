@@ -40,4 +40,6 @@ Public Class clsTender
     ''' </summary>
     ''' <returns></returns>
     Property ExternalEFTService As clsHardwareItem.EFTAcquirerEnum
+    Property Active As Boolean
+
 End Class

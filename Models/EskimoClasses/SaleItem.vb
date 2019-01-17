@@ -100,7 +100,9 @@ Public Class clsSaleItemBase
     ''' <returns></returns>
     ReadOnly Property UnitPrice As Decimal
         Get
-            Return Me.LinePrice / Me.Qty
+            Dim decReturn As Decimal = Me.LinePrice / Me.Qty
+            If decReturn < 0 Then decReturn = decReturn * -1 'unit price must always be positive
+            Return decReturn
         End Get
     End Property
 
@@ -128,6 +130,11 @@ Public Class clsTillSaleItem
 
     Property ProductOptions As IEnumerable(Of clsSaleItemBase)
 
+End Class
+
+Public Class clsSalesItemRefundDetails
+    Property OriginalSalesRef As String
+    Property OriginalSalesLine As Integer
 End Class
 
 Public Class clsSalesItem
@@ -188,6 +195,8 @@ Public Class clsSalesItem
         Return False
     End Function
 
+    Property RefundDetails As clsSalesItemRefundDetails
+
     Function IsKitComponent() As Boolean
         Select Case Me.KitProductType
             Case ItemKitTypeEnum.FixedComponent, ItemKitTypeEnum.VariableComponent
@@ -209,6 +218,18 @@ Public Class clsSalesItem
 
         If Me.KitParentLine IsNot Nothing AndAlso Not Me.IsKitComponent Then
             results.Add(New ValidationResult("The Kit Parent Line property should be null when an item is not marked as a kit component"))
+        End If
+
+        If Me.RefundDetails IsNot Nothing AndAlso Me.Qty >= 0 Then
+            results.Add(New ValidationResult($"RefundDetails present on line {Me.LineID} where the quantity is positive."))
+        End If
+
+        If Me.Qty < 0 And Me.LinePrice > 0 Then
+            results.Add(New ValidationResult($"Item line {Me.LineID} has a negative qty, but the line price is positive"))
+        End If
+
+        If Me.Qty > 0 And Me.LinePrice < 0 Then
+            results.Add(New ValidationResult($"Item line {Me.LineID} has a negative qty, but the line price is positive"))
         End If
 
         Return results

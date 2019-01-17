@@ -34,6 +34,8 @@ Public Class clsCountedProduct
     <StringLength(35)>
     Property PLU As String
 
+    Property SecondaryPLU As String
+
     ''' <summary>
     ''' The number of pieces that have been counted for this PLU. Multiple rows for the same PLU can be present.
     ''' </summary>
