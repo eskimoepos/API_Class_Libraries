@@ -4,6 +4,12 @@ Public Class GetOrdersArguments
     Implements iControllerArguments
 
     ''' <summary>
+    ''' Search for orders that matching this external reference given when inserting the order.
+    ''' </summary>
+    ''' <returns></returns>
+    Property ExternalIdentifier As String
+
+    ''' <summary>
     ''' Return orders greater than this date/time
     ''' </summary>
     ''' <returns></returns>

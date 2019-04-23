@@ -24,7 +24,7 @@ Public Class clsSale
     ''' </summary>
     ''' <returns></returns>
     <Required>
-    Property Items As List(Of clsSalesItem)
+    Overridable Property Items As List(Of clsSalesItem)
 
     ''' <summary>
     ''' The tenders used to pay for the sale.
@@ -33,22 +33,31 @@ Public Class clsSale
     <Required>
     Property Tenders As IEnumerable(Of clsTenderEntry)
 
+    Overridable ReadOnly Property TotalOrder As Decimal
+        Get
+            Dim d As Decimal = Me.ShippingAmountGross
+            If Me.Items IsNot Nothing Then d += Me.Items.Sum(Function(x) x.LinePrice)
+            Return d
+        End Get
+    End Property
+
     ''' <summary>
     ''' From api/TillMenu/UnitInfo
     ''' </summary>
     <Required>
-    Public TillID As Integer
+    Property TillNumber As Integer
 
     ''' <summary>
     ''' Optional. If passed, this will be used, otherwise the next receipt number will be issued by the system.
     ''' </summary>
-    Public ReceiptNumber As Integer?
+    Property ReceiptNumber As Integer?
 
     ''' <summary>
-    ''' Readonly. Not required for inserting. Shop Code that the sale is assigned to. See api/Shops/All
+    ''' Shop Code that the sale is assigned to. See api/Shops/All
     ''' </summary>
     <StringLength(3, ErrorMessage:="The Eskimo StoreID length must be 3 characters.", MinimumLength:=3)>
-    Public StoreID As String
+    <Required>
+    Property StoreID As String
 
     ''' <summary>
     ''' This is an optional secondary reference. 
@@ -341,4 +350,28 @@ Public Class clsSale
     ''' <returns></returns>
     Property OperatorID As String = "SYSTEM"
 
+    ''' <summary>
+    ''' Optional. Only pass if the relevent order type has been pre-reserved via /api/TillMenu/SaleIDs
+    ''' </summary>
+    ''' <returns></returns>
+    Property OrderIDs As IEnumerable(Of OrderIDs)
+
+End Class
+
+
+Public Class OrderIDs
+
+    ''' <summary>
+    ''' See api/Sales/Channels
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    Property OrderType As Integer
+
+    ''' <summary>
+    ''' The value returned from /api/TillMenu/SaleIDs
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    Property Value As Integer
 End Class

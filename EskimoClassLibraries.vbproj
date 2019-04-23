@@ -47,6 +47,10 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\eBayAmazon\Class\eBayAmazon\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -89,15 +93,18 @@
     <Compile Include="Models\Arguments\CategoryArguments.vb" />
     <Compile Include="Models\Arguments\CategoryProductArguments.vb" />
     <Compile Include="Models\Arguments\AddressSearchArguments.vb" />
+    <Compile Include="Models\Arguments\ChangeQuoteStatus.vb" />
+    <Compile Include="Models\Arguments\GetReasonArguments.vb" />
     <Compile Include="Models\Arguments\CountriesArguments.vb" />
     <Compile Include="Models\Arguments\CustomerArguments.vb" />
     <Compile Include="Models\Arguments\CustomerDumpArgs.vb" />
     <Compile Include="Models\Arguments\CustomerSearchArguments.vb" />
     <Compile Include="Models\Arguments\ExternalCategoriesArguments.vb" />
+    <Compile Include="Models\Arguments\GetLayawayArguments.vb" />
     <Compile Include="Models\Arguments\GetOrdersArguments.vb" />
+    <Compile Include="Models\Arguments\GetQuoteArguments.vb" />
     <Compile Include="Models\Arguments\GetSaleArguments.vb" />
-    <Compile Include="Models\Arguments\ImageArguments.vb" />
-    <Compile Include="Models\Arguments\ImageLinkArguments.vb" />
+    <Compile Include="Models\Arguments\HistoricOrderSearchArguments.vb" />
     <Compile Include="Models\Arguments\ListingArgumentsEx.vb" />
     <Compile Include="Models\Arguments\ListingsArguments.vb" />
     <Compile Include="Models\Arguments\OperatorSearchArgs.vb" />
@@ -105,11 +112,13 @@
     <Compile Include="Models\Arguments\PaginationSettings.vb" />
     <Compile Include="Models\Arguments\ProductArguments.vb" />
     <Compile Include="Models\Arguments\ProductDumpArgs.vb" />
+    <Compile Include="Models\Arguments\ProductInformationArgs.vb" />
     <Compile Include="Models\Arguments\ProductSearchArguments.vb" />
     <Compile Include="Models\Arguments\RecordSelections\AmazonOrders.vb" />
     <Compile Include="Models\Arguments\RecordSelections\Normal.vb" />
     <Compile Include="Models\Arguments\RecordSelections\SKUsRecordSelection.vb" />
     <Compile Include="Models\Arguments\RecordSelections\WithDates.vb" />
+    <Compile Include="Models\Arguments\ReportRunInfo.vb" />
     <Compile Include="Models\Arguments\SaleReturnArguments.vb" />
     <Compile Include="Models\Arguments\SalesChannelSearchParams.vb" />
     <Compile Include="Models\Arguments\ShopArguments.vb" />
@@ -117,6 +126,8 @@
     <Compile Include="Models\Arguments\StockTakingValidateOptions.vb" />
     <Compile Include="Models\Arguments\TaxCodeArguments.vb" />
     <Compile Include="Models\Arguments\TenderArguments.vb" />
+    <Compile Include="Models\Arguments\TillMenuSectionsArgs.vb" />
+    <Compile Include="Models\Arguments\UnitInfoArgs.vb" />
     <Compile Include="Models\CutDownClasses\CategoryID.vb" />
     <Compile Include="Models\CutDownClasses\GenericStringList.vb" />
     <Compile Include="Models\CutDownClasses\ImageID.vb" />
@@ -136,6 +147,10 @@
     <Compile Include="Models\EskimoClasses\Category.vb" />
     <Compile Include="Models\EskimoClasses\CategoryProduct.vb" />
     <Compile Include="Models\EskimoClasses\ChargeArea.vb" />
+    <Compile Include="Models\EskimoClasses\clsTillIdentifier.vb" />
+    <Compile Include="Models\EskimoClasses\HardwareToken.vb" />
+    <Compile Include="Models\EskimoClasses\HistoricOrder.vb" />
+    <Compile Include="Models\EskimoClasses\Layaway.vb" />
     <Compile Include="Models\EskimoClasses\MeasureUnit.vb" />
     <Compile Include="Models\EskimoClasses\CountedProduct.vb" />
     <Compile Include="Models\EskimoClasses\CountedProductSummary.vb" />
@@ -147,6 +162,8 @@
     <Compile Include="Models\EskimoClasses\GiftCardResult.vb" />
     <Compile Include="Models\EskimoClasses\HardwareType.vb" />
     <Compile Include="Models\EskimoClasses\ListingImage.vb" />
+    <Compile Include="Models\EskimoClasses\NextSaleArguments.vb" />
+    <Compile Include="Models\EskimoClasses\NextSaleIDInfo.vb" />
     <Compile Include="Models\EskimoClasses\Operator.vb" />
     <Compile Include="Models\EskimoClasses\OrderExtended.vb" />
     <Compile Include="Models\EskimoClasses\OrderStatus.vb" />
@@ -155,6 +172,8 @@
     <Compile Include="Models\EskimoClasses\PromotionBonus.vb" />
     <Compile Include="Models\EskimoClasses\PromotionCondition.vb" />
     <Compile Include="Models\EskimoClasses\PromotionProductSelection.vb" />
+    <Compile Include="Models\EskimoClasses\Quote.vb" />
+    <Compile Include="Models\EskimoClasses\Reason.vb" />
     <Compile Include="Models\EskimoClasses\ReceiptMargin.vb" />
     <Compile Include="Models\EskimoClasses\SaleItem.vb" />
     <Compile Include="Models\EskimoClasses\SalesChannel.vb" />

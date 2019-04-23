@@ -180,6 +180,42 @@ Public Class clsOrder
     End Sub
 End Class
 
+Public Class clsOrderReturn
+
+    ''' <summary>
+    ''' An amount of money to return to the customer unrelated to carriage or products. This may be to appease an unhappy customer.
+    ''' </summary>
+    ''' <returns></returns>
+    <Range(0, Double.PositiveInfinity)>
+    Property GoodwillGestureAmount As Decimal
+    <Range(0, Double.PositiveInfinity)>
+    Property CarriageAmountGross As Decimal
+    <Required>
+    Property RefundProducts As IEnumerable(Of clsOrderReturnLine)
+    Property OrderExternalIdentifier As String
+    Property ReturnExternalIdentifier As String
+    Property ReturnDate As Date
+    Property Order_ID As Integer
+    <Required>
+    Property OrderType As Integer
+
+End Class
+
+Public Class clsIdentifier
+    Property ID As Integer
+    Property ExternalIdentifier As String
+End Class
+
+Public Class clsOrderReturnLine
+
+    Property SKU As String
+
+    <Range(1, Int16.MaxValue, ErrorMessage:="A positive quantity must be submitted")>
+    Property Qty As Integer
+
+
+End Class
+
 Public Class clsOrderAddressInfo
     Inherits System.ComponentModel.ExpandableObjectConverter
 

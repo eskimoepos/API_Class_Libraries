@@ -1,4 +1,8 @@
-﻿Public Class clsOperatorOptions
+﻿Imports System.ComponentModel.DataAnnotations
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Converters
+
+Public Class clsOperatorOptions
     Enum OperatorLoginEnum
         ''' <summary>
         ''' This option is turned off 
@@ -16,6 +20,7 @@
         EachSale = 2
     End Enum
 
+    <EnumDataType(GetType(OperatorLoginEnum))>
     Property OperatorLogin As OperatorLoginEnum = OperatorLoginEnum.SignInOnce
 
 End Class

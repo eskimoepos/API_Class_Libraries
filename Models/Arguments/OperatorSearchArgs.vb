@@ -32,4 +32,6 @@ Public Class OperatorArguments
     <StringLength(25)>
     Property Name As String
 
+    <StringLength(3, ErrorMessage:="The StoreNumber must be 3 digits.", MinimumLength:=3)>
+    Property StoreNumber As String
 End Class

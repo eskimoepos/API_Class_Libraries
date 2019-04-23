@@ -5,4 +5,5 @@ Public Class AddressValidatorParams
 
     <Required>
     Property PostCode As String
+
 End Class

@@ -80,12 +80,59 @@ Public Class clsCustomer
                 Me.Address = Nz(r("Address"), Nothing, True)
                 Me.PostCode = Nz(r("PostCode"), Nothing, True)
             End If
+
+            Me.PriceLevel = r("DefaultPriceLevel")
+            If Not IsDBNull(r("TradeCustomerPriceListID")) Then Me.PriceListID = CInt(r("TradeCustomerPriceListID"))
+            Me.AutomaticDiscountPercentage = r("AutoDiscount")
+
         Catch ex As Exception
             Throw
         End Try
 
 
     End Sub
+
+
+    'Private _PriceListID As Integer?
+    'Private _PriceLevel As Integer
+    'Private _AutomaticDiscountPercentage As Decimal
+
+    ''' <summary>
+    ''' Readonly. If using Price Lists, this determines which one the customer is linked to. See api/TillMenu/PriceListDump
+    ''' </summary>
+    ReadOnly Property PriceListID As Integer?
+    '    Get
+    '        Return _PriceListID
+    '    End Get
+    'End Property
+
+    ''' <summary>
+    ''' Readonly. If not using Price Lists, this determines which price level to use for the customer.
+    ''' </summary>
+    ReadOnly Property PriceLevel As Integer
+
+
+    ''' <summary>
+    ''' Readonly. Some customers are setup to benefit from a blanket discount on all products. This is the percentage
+    ''' </summary>
+    ReadOnly Property AutomaticDiscountPercentage As Integer
+
+    '    Get
+    '        Return _AutomaticDiscountPercentage
+    '    End Get
+    'End Property
+
+    'Sub SetAutomaticDiscountPercentage(value As Decimal)
+    '    _AutomaticDiscountPercentage = value
+    'End Sub
+
+    'Sub SetPriceLevel(value As Integer)
+    '    _PriceLevel = value
+    'End Sub
+
+    'Sub SetPriceListID(value As Integer?)
+    '    _PriceListID = value
+    'End Sub
 
     Sub New(r As SqlClient.SqlDataReader)
         Me.New(New DataRecord(r))

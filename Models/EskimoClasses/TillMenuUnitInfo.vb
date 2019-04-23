@@ -34,18 +34,20 @@ Public Class clsTillMenuUnitInfo
     <Required>
     Property TillNumber As Integer
 
-    ''' <summary>
-    ''' Unique per organisation. The primary Key of the Till.
-    ''' </summary>
-    ''' <returns></returns>
-    <Key>
-    <Required>
-    Property TillID As Integer
+    '''' <summary>
+    '''' Unique per organisation. The primary Key of the Till.
+    '''' </summary>
+    '''' <returns></returns>
+    '<Key>
+    '<Required>
+    'Property TillID As Integer
 
     <Required>
     Property TillName As String
 
     Property SKUCount As Long
+
+    Property CurrencySymbol As String
 
     Property AutoSalesCode As OptionTimingEnum = OptionTimingEnum.Off
     Property PromptForSendOfflineSales As Boolean

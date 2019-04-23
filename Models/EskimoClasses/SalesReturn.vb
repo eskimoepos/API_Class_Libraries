@@ -16,4 +16,6 @@ Public Class clsSalesReturnLine
     Property QtyRefunded As Integer
     Property UnitWeight As Decimal?
     Property OtherInfo As String
+    Property VatID As Integer
+
 End Class

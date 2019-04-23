@@ -1,4 +1,6 @@
-﻿Public Class SaleReturnArguments
+﻿Imports System.ComponentModel.DataAnnotations
+
+Public Class SaleReturnArguments
     Implements iControllerArguments
 
     ''' <summary>
@@ -12,5 +14,9 @@
     ''' </summary>
     ''' <returns></returns>
     Property Line As Integer?
-
+    <Required>
+    Property TillNumber As Integer
+    <Required>
+    <StringLength(3, ErrorMessage:="The StoreNumber must be 3 digits.", MinimumLength:=3)>
+    Property StoreNumber As String
 End Class

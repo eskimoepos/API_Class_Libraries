@@ -8,7 +8,6 @@ Public Class CustomerSearchArguments
     ''' </summary>
     ''' <returns></returns>
     <StringLength(100)>
-    <EmailAddress>
     Public Property EmailAddress As String
 
     ''' <summary>

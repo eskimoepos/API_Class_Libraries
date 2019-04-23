@@ -4,6 +4,11 @@ Public Class clsSalesChannel
     Enum ChannelTypeEnum
 
         ''' <summary>
+        ''' A custom Channel Type
+        ''' </summary>
+        Custom = -2
+
+        ''' <summary>
         ''' The customer has taken this item. Nothing further to action.
         ''' </summary>
         CarryOutSale = -1

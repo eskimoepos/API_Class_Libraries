@@ -55,4 +55,10 @@ Public Class GetSaleArguments
     ''' <returns></returns>
     Public Property TillNumber As Integer?
 
+    ''' <summary>
+    ''' Optional. The unique external sales identifier.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property ExternalIdentifier As String
+
 End Class

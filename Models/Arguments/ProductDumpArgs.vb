@@ -10,4 +10,10 @@ Public Class ProductDumpArgs
     ''' <returns></returns>
     Property PageSize As Integer?
     Property PageRequired As Integer?
+
+    Property TillNumber As Integer?
+
+    <StringLength(3, ErrorMessage:="The StoreNumber must be 3 digits.", MinimumLength:=3)>
+    Property StoreNumber As String
+
 End Class

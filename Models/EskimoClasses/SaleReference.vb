@@ -28,5 +28,5 @@ Public Class OrderReference
     Property ID As Integer
 
     <Required>
-    Property OrderType As clsOrder.OrderTypeEnum
+    Property OrderType As Integer
 End Class

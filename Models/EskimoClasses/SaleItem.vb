@@ -100,6 +100,7 @@ Public Class clsSaleItemBase
     ''' <returns></returns>
     ReadOnly Property UnitPrice As Decimal
         Get
+            If Me.Qty=0 Then Throw New Exception("Qty cannot be zero")
             Dim decReturn As Decimal = Me.LinePrice / Me.Qty
             If decReturn < 0 Then decReturn = decReturn * -1 'unit price must always be positive
             Return decReturn
@@ -122,6 +123,11 @@ Public Class clsSaleItemBase
     Property LineDiscount As Decimal
     <Range(0, Decimal.MaxValue)>
     Property LineDiscountPromo As Decimal
+    ''' <summary>
+    '''ReadOnly. Not required for inserting
+    ''' </summary>
+    ''' <returns></returns>
+    Property Description As String
 
 End Class
 
@@ -171,7 +177,7 @@ Public Class clsSalesItem
     End Function
 
     ''' <summary>
-    ''' A unique number for each line in the sale. Start at 1 and 
+    ''' A unique number for each line in the sale. Start at 1 and increment.
     ''' </summary>
     ''' <returns></returns>
     <Required>
@@ -181,11 +187,21 @@ Public Class clsSalesItem
     <EnumDataType(GetType(ItemKitTypeEnum))>
     Property KitProductType As ItemKitTypeEnum = ItemKitTypeEnum.NormalItem
 
+    Function KitSequence() As Long?
+        If Me.KitParentLine IsNot Nothing Then
+            Return Me.KitParentLine
+        ElseIf Me.IsKitHeader Then
+            Return Me.LineID
+        Else
+            Return Nothing
+        End If
+    End Function
+
     ''' <summary>
     ''' If this item is a kit component, then this property determines which item in the sale is the kit header
     ''' </summary>
     ''' <returns></returns>
-    Property KitParentLine As Integer?
+    Property KitParentLine As Long?
 
     Function IsKitHeader() As Boolean
         Select Case Me.KitProductType
@@ -221,7 +237,7 @@ Public Class clsSalesItem
         End If
 
         If Me.RefundDetails IsNot Nothing AndAlso Me.Qty >= 0 Then
-            results.Add(New ValidationResult($"RefundDetails present on line {Me.LineID} where the quantity is positive."))
+            results.Add(New ValidationResult($"RefundDetails present on line {Me.LineID} where the quantity is positive"))
         End If
 
         If Me.Qty < 0 And Me.LinePrice > 0 Then
@@ -230,6 +246,10 @@ Public Class clsSalesItem
 
         If Me.Qty > 0 And Me.LinePrice < 0 Then
             results.Add(New ValidationResult($"Item line {Me.LineID} has a negative qty, but the line price is positive"))
+        End If
+
+        If Me.Qty = 0 Then
+            results.Add(New ValidationResult($"Item line {Me.LineID} has a qty of zero, this is not allowed"))
         End If
 
         Return results

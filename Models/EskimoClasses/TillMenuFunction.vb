@@ -11,6 +11,8 @@ Public Class clsTillFunctionButton
         SalesCode = 6
         [Operator] = 7
         ReprintCardReceipt = 8
+        Layaway = 9
+        CreateQuote = 10
     End Enum
 
     <Required>

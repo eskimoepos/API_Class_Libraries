@@ -99,5 +99,4 @@ Public Class clsImageLink
         Brand = 400
     End Enum
 
-
 End Class

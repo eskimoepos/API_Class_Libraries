@@ -21,6 +21,15 @@
     ''' <returns></returns>
     Property Sources As IEnumerable(Of clsSaleSource)
 
+    ''' <summary>
+    ''' If false, newly added products get added to the bottom of the basket.
+    ''' </summary>
+    ''' <returns></returns>
+    Property AddNewProductsToBasketTop As Boolean
+    Property HideDiscountButton As Boolean
+
+    Property MailOrderPrefix As String
+    Property ShowPrinterChoicePopup As Boolean
 End Class
 
 Public Class clsSaleSource

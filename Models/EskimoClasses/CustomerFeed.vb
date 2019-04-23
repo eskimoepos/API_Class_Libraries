@@ -1,6 +1,8 @@
 ﻿Public Class clsCustomerFeed
     Inherits clsCustomer
 
+
+
     ReadOnly Property FullName As String
         Get
             Dim strName As String = Nothing
@@ -18,8 +20,6 @@
         End Get
     End Property
 
-    Property PriceListID As Integer?
-    Property PriceLevel As Integer
-    Property AutomaticDiscountPercentage As Decimal
+
 
 End Class
