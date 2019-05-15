@@ -53,6 +53,12 @@ Public Class clsImageLink
     Property ImageLinkType As ImageLinkTypeEnum
 
     ''' <summary>
+    ''' The SKU (if the ImageLinkType is 100)
+    ''' </summary>
+    ''' <returns></returns>
+    Property sku_code As String
+
+    ''' <summary>
     ''' If a product has more than one image, it will have three entries in the images controller, the first (main) one will have an Index of 1 and the subsequent ones will be 2 and 3.
     ''' </summary>
     ''' <value></value>

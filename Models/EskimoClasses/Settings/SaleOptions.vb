@@ -27,9 +27,9 @@
     ''' <returns></returns>
     Property AddNewProductsToBasketTop As Boolean
     Property HideDiscountButton As Boolean
-
     Property MailOrderPrefix As String
     Property ShowPrinterChoicePopup As Boolean
+    Property HonourAdminOverridesForRestOfSale As Boolean
 End Class
 
 Public Class clsSaleSource

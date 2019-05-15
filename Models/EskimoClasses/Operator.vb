@@ -10,7 +10,7 @@ Public Class clsOperator
     End Enum
 
     ''' <summary>
-    ''' The Eskimo ID of the Operator
+    ''' The Eskimo ID of the Operator. 
     ''' </summary>
     ''' <returns></returns>
     <Required>
@@ -54,4 +54,24 @@ Public Class clsOperator
     ''' <returns></returns>
     Property EncryptedPassword As String
 
+    ''' <summary>
+    ''' A list of all things this operator is allowed to do. (Only populated if the PermissionRequirements field is passed in the request).
+    ''' </summary>
+    ''' <returns></returns>
+    Property Permissions As List(Of clsOperatorPermission)
+
+End Class
+
+Public Class clsOperatorPermission
+    Enum PermissionAdditionalResponseTypeEnum
+        NoAdditional = 1
+        DatabaseLink = 2
+        FreeText = 3
+        ReportingCategoryID = 4
+        ReportingReportID = 5
+    End Enum
+    Property PermID As Integer
+    Property AdditionalResponseType As PermissionAdditionalResponseTypeEnum
+    Property PermDescription As String
+    Property Value As String
 End Class

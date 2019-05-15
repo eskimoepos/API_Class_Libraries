@@ -94,6 +94,7 @@
     <Compile Include="Models\Arguments\CategoryProductArguments.vb" />
     <Compile Include="Models\Arguments\AddressSearchArguments.vb" />
     <Compile Include="Models\Arguments\ChangeQuoteStatus.vb" />
+    <Compile Include="Models\Arguments\clsOperatorPermissionArgs.vb" />
     <Compile Include="Models\Arguments\GetReasonArguments.vb" />
     <Compile Include="Models\Arguments\CountriesArguments.vb" />
     <Compile Include="Models\Arguments\CustomerArguments.vb" />

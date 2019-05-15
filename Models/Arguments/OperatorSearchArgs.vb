@@ -34,4 +34,11 @@ Public Class OperatorArguments
 
     <StringLength(3, ErrorMessage:="The StoreNumber must be 3 digits.", MinimumLength:=3)>
     Property StoreNumber As String
+
+    ''' <summary>
+    ''' If populated, then an array of permissions that the user is allowed to perform will be returned. The results will be related to the ApplicationID passed in.
+    ''' </summary>
+    ''' <returns></returns>
+    Property PermissionRequirements As clsOperatorPermissionArgs
+
 End Class

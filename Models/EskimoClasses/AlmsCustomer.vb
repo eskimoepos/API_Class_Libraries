@@ -25,10 +25,18 @@ Public Class AlmsCustomer
 
     Sub New(c As clsCustomer)
         Dim pi As PropertyInfo
+        Dim strName As String = ""
 
         For Each prop As PropertyInfo In c.GetType.GetProperties
-            pi = c.GetType.GetProperty(prop.Name)
-            pi.SetValue(Me, prop.GetValue(c, Nothing), Nothing)
+            Try
+                strName = prop.Name
+                pi = c.GetType.GetProperty(strName)
+                If pi.CanWrite Then pi.SetValue(Me, prop.GetValue(c, Nothing), Nothing)
+            Catch ex As Exception
+                ex.Data.Add("name", strName)
+                Throw
+            End Try
+
         Next
     End Sub
 

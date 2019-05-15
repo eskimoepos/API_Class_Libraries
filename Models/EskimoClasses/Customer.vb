@@ -85,6 +85,10 @@ Public Class clsCustomer
             If Not IsDBNull(r("TradeCustomerPriceListID")) Then Me.PriceListID = CInt(r("TradeCustomerPriceListID"))
             Me.AutomaticDiscountPercentage = r("AutoDiscount")
 
+            ' need to modify:
+            ' GetOrderInfo (sp)
+            ' spCustomerSearch (sp)
+
         Catch ex As Exception
             Throw
         End Try
