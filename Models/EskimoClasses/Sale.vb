@@ -199,10 +199,16 @@ Public Class clsSale
     End Function
 
     ''' <summary>
-    ''' 
+    ''' See SaleOptions.Sources in api/TillMenu/UnitInfo 
     ''' </summary>
     ''' <returns></returns>
     Property SaleSourceID As Integer?
+
+    ''' <summary>
+    ''' The ID of the clsHardwareItem class object that was used when firing the cash drawer. Pass null if the cash drawer was not fired
+    ''' </summary>
+    ''' <returns></returns>
+    Property CashDrawerID As Integer?
 
     Public Sub New()
         'Me.DeliveryAddress = New clsOrderAddressInfo
@@ -217,9 +223,7 @@ Public Class clsSale
         Dim decDiff As Decimal
         Dim IDCount As Integer
 
-        If Me.Tenders Is Nothing Then
-            results.Add(New ValidationResult($"No Tender entries were passed."))
-        End If
+        If Me.Tenders Is Nothing Then results.Add(New ValidationResult($"No Tender entries were passed."))
 
         tendered_sum = Me.Tenders.Sum(Function(x) x.Amount)
         item_paid_sum = Me.Items.Sum(Function(x) x.PaidAmount) + Me.ShippingAmountGross
@@ -374,4 +378,28 @@ Public Class OrderIDs
     ''' <returns></returns>
     <Required>
     Property Value As Integer
+End Class
+
+Public Class clsAdminOverride
+
+    ''' <summary>
+    ''' The type of function being authorised. See clsOperator.Permissions
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    Property PermID As Integer
+
+    ''' <summary>
+    ''' The Eskimo OperatorID of the administrator who authorised the function.
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    Property AdminOperatorID As String
+
+    ''' <summary>
+    ''' The date/time when the authorisation occurred. For fraudulent activity, this can be useful for working out the order in which they occured. 
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    Property Timestamp As DateTime
 End Class

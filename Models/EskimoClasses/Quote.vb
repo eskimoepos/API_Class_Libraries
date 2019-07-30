@@ -39,6 +39,7 @@ Public Class clsQuote
 
     End Enum
 
+    Property ReceiptNumber As Integer?
     Property CustomerName As String
     Property OperatorName As String
     <EnumDataType(GetType(QuoteStatusEnum))>

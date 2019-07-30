@@ -76,4 +76,6 @@ Public Class clsPreSaleMOBase
     Property ShippingValue As Decimal
     Property OrderStatus As Integer
     Property RequestedDeliveryDate As Date
+    <StringLength(3, ErrorMessage:="The ClickAndCollectShop length must be 3 characters.", MinimumLength:=3)>
+    Property ClickAndCollectShop As String
 End Class

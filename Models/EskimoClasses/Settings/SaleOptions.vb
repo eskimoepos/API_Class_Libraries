@@ -30,6 +30,13 @@
     Property MailOrderPrefix As String
     Property ShowPrinterChoicePopup As Boolean
     Property HonourAdminOverridesForRestOfSale As Boolean
+    Property MailOrderNotes As MailOrderNotesEnum
+
+    Enum MailOrderNotesEnum
+        ShowOrderNotes = 1
+        ShowDeliveryNotes = 2
+        ShowOrderAndDeliveryNotes = 3
+    End Enum
 End Class
 
 Public Class clsSaleSource

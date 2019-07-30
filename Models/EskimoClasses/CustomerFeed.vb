@@ -1,7 +1,20 @@
 ﻿Public Class clsCustomerFeed
     Inherits clsCustomer
 
+    Sub New(r As SqlClient.SqlDataReader)
+        Me.New(New DataRecord(r))
+    End Sub
 
+    Sub New(r As DataRow)
+        Me.New(New DataRecord(r))
+    End Sub
+    Sub New()
+        MyBase.New
+    End Sub
+
+    Sub New(r As DataRecord)
+        MyBase.New(r)
+    End Sub
 
     ReadOnly Property FullName As String
         Get

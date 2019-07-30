@@ -6,7 +6,7 @@
 Public Class clsBarcodeAction
     Inherits EskimoBaseClass
 
-    Enum ActionTypeEnum
+    Enum BarcodeActionTypeEnum
 
         ''' <summary>
         ''' Flag item to be ordered on the next purchase order to the supplier.
@@ -43,7 +43,7 @@ Public Class clsBarcodeAction
     ''' </summary>
     ''' <returns></returns>
     <Required>
-    Property ActionType As ActionTypeEnum
+    Property ActionType As BarcodeActionTypeEnum
 
     ''' <summary>
     ''' The ID of the operator using the handheld device.

@@ -128,7 +128,7 @@ Public Class clsSaleItemBase
     ''' </summary>
     ''' <returns></returns>
     Property Description As String
-
+    Property GiftCardDetails As clsGiftCardItemDetails
 End Class
 
 Public Class clsTillSaleItem
@@ -160,6 +160,12 @@ Public Class clsSalesItem
     ''' </summary>
     ''' <returns></returns>
     Property CustomerAction As Integer = -1
+
+    ''' <summary>
+    ''' A record of any functions that were authorised by a manager and when
+    ''' </summary>
+    ''' <returns></returns>
+    Property AdminOverrides As IEnumerable(Of clsAdminOverride)
 
     Function PaidAmount() As Decimal
 
@@ -245,7 +251,7 @@ Public Class clsSalesItem
         End If
 
         If Me.Qty > 0 And Me.LinePrice < 0 Then
-            results.Add(New ValidationResult($"Item line {Me.LineID} has a negative qty, but the line price is positive"))
+            results.Add(New ValidationResult($"Item line {Me.LineID} has a positive qty, but the line price is negative"))
         End If
 
         If Me.Qty = 0 Then
@@ -306,5 +312,17 @@ Public Class clsTillSaleItems
     ''' </summary>
     ''' <returns></returns>
     Property AreaID As Integer?
+
+End Class
+
+Public Class clsGiftCardItemDetails
+    Inherits clsGiftCardBase
+
+    ''' <summary>
+    ''' If the card was a new card (i.e. not activated before this sale) then pass True, but if the card was already activated and was just having extra money added to it, then pass False
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    Property Activated As Boolean
 
 End Class

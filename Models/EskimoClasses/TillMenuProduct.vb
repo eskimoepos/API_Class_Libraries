@@ -26,5 +26,5 @@ Public Class clsTillMenuProduct
     Property TaxID As Integer
     Property StockLevel As Integer
     Property StockWarnLevel As Integer?
-
+    Property BuyTodayPrice As Decimal?
 End Class

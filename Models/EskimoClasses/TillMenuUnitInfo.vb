@@ -61,6 +61,11 @@ Public Class clsTillMenuUnitInfo
     ''' </summary>
     ''' <returns></returns>
     Property UpdateStockInterval As Integer
+    ''' <summary>
+    ''' The time of the day when a message will appear on the till to prompt the user to download the latest data.
+    ''' </summary>
+    ''' <returns></returns>
+    Property DownloadDataPromptTime As Date
     Property ReceiptOptions As New clsReceiptOptions
     Property HardwareOptions As New clsHardwareOptions
     Property OperatorOptions As New clsOperatorOptions

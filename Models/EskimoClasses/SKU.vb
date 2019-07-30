@@ -133,4 +133,18 @@ Public Class clsSKU
     <StringLength(50)>
     Public Property PersonalisationPrompt As String
 
+    ''' <summary>
+    ''' The order in which these should be displayed in the GUI to the end user
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property Position As Integer
+
+    ''' <summary>
+    ''' This is the Primary Key that the website is using for this SKU. Note this is unique per product - so they same SKU may be in two different products and will therefore have a different Web ID assigned. Call the UpdateCartIDs method to set these values
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Property web_id As String
+
 End Class

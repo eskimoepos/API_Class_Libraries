@@ -24,6 +24,12 @@ Public Class clsTender
     Property AllowChange As Boolean
 
     ''' <summary>
+    ''' Only applicable for when AllowChange is true. If true (usually Cash), the same tender pressed will be automatically returned as the change. If false, then the operator can choose the tender to issue the change against.
+    ''' </summary>
+    ''' <returns></returns>
+    Property AutoCompleteChange As Boolean
+
+    ''' <summary>
     ''' Controls if the cash drawer is to be fired at the completion of the sale when this tender method is used.
     ''' </summary>
     ''' <returns></returns>
@@ -52,6 +58,12 @@ Public Class clsTender
     ''' </summary>
     ''' <returns></returns>
     Property MailOrderOptions As clsMailOrderOptions
+
+    ''' <summary>
+    ''' Determines if the operator can just press a Tender button without typing in the amount first.
+    ''' </summary>
+    ''' <returns></returns>
+    Property MustEnterValue As Boolean
 
 End Class
 

@@ -52,6 +52,41 @@ Public Class clsCustomer
     <StringLength(60)>
     Public Property CompanyName As String
 
+    ''' <summary>
+    ''' A collection of the marketing flag IDs that the customer has opted in for (GDPR). See api/Customers/MarketingFlags
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property MarketingFlagsID As IEnumerable(Of Integer)
+
+    Enum CustomerTypeEnum
+        ''' <summary>
+        ''' Will require a company name to pass validation
+        ''' </summary>
+        TradeCustomer = 0
+
+        ''' <summary>
+        ''' The default customer type. 
+        ''' </summary>
+        IndividualCustomer = 1
+    End Enum
+
+    ''' <summary>
+    ''' The type of customer.
+    ''' </summary>
+    ''' <returns></returns>
+    <EnumDataType(GetType(CustomerTypeEnum))>
+    Property CustomerType As CustomerTypeEnum = CustomerTypeEnum.IndividualCustomer
+
+    Sub New(r As SqlClient.SqlDataReader)
+        Me.New(New DataRecord(r))
+    End Sub
+
+    Sub New(r As DataRow)
+        Me.New(New DataRecord(r))
+    End Sub
+    Sub New()
+
+    End Sub
 
     Sub New(r As DataRecord)
         Dim intCustTitleID As Short?
@@ -85,9 +120,16 @@ Public Class clsCustomer
             If Not IsDBNull(r("TradeCustomerPriceListID")) Then Me.PriceListID = CInt(r("TradeCustomerPriceListID"))
             Me.AutomaticDiscountPercentage = r("AutoDiscount")
 
+            If Not IsDBNull(r("MarketingFlags")) Then
+                Me.MarketingFlagsID = Array.ConvertAll(Strings.Split(r("MarketingFlags"), ","), AddressOf Integer.Parse)
+            End If
+
+            Me.CustomerType = r("CustomerType")
+
             ' need to modify:
             ' GetOrderInfo (sp)
             ' spCustomerSearch (sp)
+            ' spCustomersGetAll (sp) edit PopulateCustomerDump sub also
 
         Catch ex As Exception
             Throw
@@ -113,7 +155,7 @@ Public Class clsCustomer
     ''' <summary>
     ''' Readonly. If not using Price Lists, this determines which price level to use for the customer.
     ''' </summary>
-    ReadOnly Property PriceLevel As Integer
+    ReadOnly Property PriceLevel As Integer = 1
 
 
     ''' <summary>
@@ -138,22 +180,17 @@ Public Class clsCustomer
     '    _PriceListID = value
     'End Sub
 
-    Sub New(r As SqlClient.SqlDataReader)
-        Me.New(New DataRecord(r))
-    End Sub
 
-    Sub New(r As DataRow)
-        Me.New(New DataRecord(r))
-    End Sub
-    Sub New()
-
-    End Sub
 
     Public Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult) Implements IValidatableObject.Validate
         Dim lst As New List(Of ValidationResult)
 
         If (Me.LegacyAddressComponentsPopulated) AndAlso Me.MainAddress IsNot Nothing Then
             lst.Add(New ValidationResult("Address/PostCode cannot be populated along with MainAddress. If running an Eskimo system that supports multiple addresses per customer, then populate the MainAddress property, otherwise use the Address and PostCode fields."))
+        End If
+
+        If Me.CustomerType = CustomerTypeEnum.TradeCustomer AndAlso (Me.CompanyName Is Nothing OrElse Me.CompanyName.Length = 0) Then
+            lst.Add(New ValidationResult("A trade customer must have a company name."))
         End If
 
         Return lst.AsEnumerable

@@ -14,9 +14,16 @@ Public Class clsTillMenuFollowOnProductDetail
         PartOfGroupNotDefault = 3
     End Enum
     Property PLU As String
+    Property Description As String
     Property OrderBy As Integer
     Property Qty As Integer
     Property Notes As String
     Property Grouping As GroupingTypeEnum
     Property Price As Decimal?
+    Property TaxID As Integer
+    Property ColourName As String
+    Property IsOpenPriced As Boolean
+    Property StockLevel As Integer
+    Property StockWarnLevel As Integer?
+    Property Size As String
 End Class
