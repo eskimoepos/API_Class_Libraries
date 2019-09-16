@@ -129,6 +129,12 @@ Public Class clsSaleItemBase
     ''' <returns></returns>
     Property Description As String
     Property GiftCardDetails As clsGiftCardItemDetails
+
+    ''' <summary>
+    ''' Certain products are not permitted to be discounted. This flag records if that is the case or not.
+    ''' </summary>
+    ''' <returns></returns>
+    Property NoDiscountAllowed As Boolean
 End Class
 
 Public Class clsTillSaleItem

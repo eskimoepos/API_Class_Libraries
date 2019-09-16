@@ -152,6 +152,7 @@
     <Compile Include="Models\EskimoClasses\Category.vb" />
     <Compile Include="Models\EskimoClasses\CategoryProduct.vb" />
     <Compile Include="Models\EskimoClasses\ChargeArea.vb" />
+    <Compile Include="Models\EskimoClasses\Log.vb" />
     <Compile Include="Models\EskimoClasses\TillIdentifier.vb" />
     <Compile Include="Models\EskimoClasses\HardwareToken.vb" />
     <Compile Include="Models\EskimoClasses\HistoricOrder.vb" />
@@ -228,6 +229,7 @@
     <Compile Include="Models\EskimoClasses\ItemSpecificsBasic.vb" />
     <Compile Include="Models\EskimoClasses\TaxCode.vb" />
     <Compile Include="Models\EskimoClasses\TillMenuPriceLists.vb" />
+    <Compile Include="Models\EskimoClasses\WebTillAction.vb" />
     <Compile Include="Models\ValidationAttributes\Customer.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

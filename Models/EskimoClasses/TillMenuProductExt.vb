@@ -34,7 +34,7 @@ Public Class clsTillMenuProductExt
     Property Size As String
     Property StockWarnLevel As Integer?
     Property Weight As Long
-
+    Property NoDiscountAllowed As Boolean
 End Class
 
 Public Class clsPrice

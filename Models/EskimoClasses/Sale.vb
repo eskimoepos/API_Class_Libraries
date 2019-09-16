@@ -6,6 +6,8 @@ Public Class clsSale
 
     Implements IValidatableObject
 
+
+
     ''' <summary>
     ''' Optional. The version of the EPOS software used for the sale. Useful for fault tracking.
     ''' </summary>
@@ -215,7 +217,7 @@ Public Class clsSale
         'Me.InvoiceAddress = New clsOrderAddressInfo
     End Sub
 
-    Public Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult) Implements IValidatableObject.Validate
+    Public Overridable Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult) Implements IValidatableObject.Validate
         Dim results As New List(Of ValidationResult)
         Dim tendered_sum As Decimal
         Dim item_paid_sum As Decimal

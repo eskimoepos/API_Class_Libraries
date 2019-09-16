@@ -26,4 +26,5 @@ Public Class clsTillMenuFollowOnProductDetail
     Property StockLevel As Integer
     Property StockWarnLevel As Integer?
     Property Size As String
+    Property NoDiscountAllowed As Boolean
 End Class

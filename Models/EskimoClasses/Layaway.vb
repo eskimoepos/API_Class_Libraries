@@ -19,6 +19,7 @@ Public Class clsPreSaleItemBase
     Inherits clsSalesItem
 
     'Property Description As String
+    'Property NoDiscountAllowed As Boolean
 
 End Class
 

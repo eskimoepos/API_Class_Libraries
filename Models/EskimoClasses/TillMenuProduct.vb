@@ -27,4 +27,5 @@ Public Class clsTillMenuProduct
     Property StockLevel As Integer
     Property StockWarnLevel As Integer?
     Property BuyTodayPrice As Decimal?
+    Property NoDiscountAllowed As Boolean
 End Class
