@@ -107,6 +107,14 @@ Public Class clsSaleItemBase
         End Get
     End Property
 
+    Function OriginalUnitPrice() As Decimal
+        Return (Me.LinePrice + Me.LineDiscountPromo + Me.LineDiscount) / Me.Qty
+    End Function
+
+    Function TotalDiscount() As Decimal
+        Return Me.LineDiscount + Me.LineDiscountPromo
+    End Function
+
     ''' <summary>
     ''' Unit Price * Qty after discounts
     ''' </summary>
@@ -115,12 +123,14 @@ Public Class clsSaleItemBase
     Property LinePrice As Decimal
 
     ''' <summary>
-    ''' Any personalisation for this item, i.e. 'Treat as Main Meal.'
+    ''' Any personalisation for this item, for example the name to be printed on the back of a garment.
     ''' </summary>
     ''' <returns></returns>
     Property FreeText As String
+
     <Range(0, Decimal.MaxValue)>
     Property LineDiscount As Decimal
+
     <Range(0, Decimal.MaxValue)>
     Property LineDiscountPromo As Decimal
     ''' <summary>
@@ -236,9 +246,9 @@ Public Class clsSalesItem
     Public Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult) Implements IValidatableObject.Validate
         Dim results As New List(Of ValidationResult)
 
-        If Me.DepositAmount IsNot Nothing And Me.CustomerAction = CustomerActionEnum.NoCustomerAction Then
-            results.Add(New ValidationResult("Cannot specify deposit amount when there is no Customer Action"))
-        End If
+        'If Me.DepositAmount IsNot Nothing And Me.CustomerAction = CustomerActionEnum.NoCustomerAction Then
+        '    results.Add(New ValidationResult("Cannot specify deposit amount when there is no Customer Action"))
+        'End If
 
         If Me.KitParentLine Is Nothing AndAlso Me.IsKitComponent Then
             results.Add(New ValidationResult("Must specify the Kit Parent Line property when an item is marked as a kit component"))

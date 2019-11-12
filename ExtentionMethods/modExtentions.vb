@@ -6,6 +6,12 @@ Public Module modExtentions
         Return String.Format("{0:C}", dInput)
     End Function
 
+    ''' <summary>
+    ''' For 20% VAT, pass 1.2 
+    ''' </summary>
+    ''' <param name="dInput"></param>
+    ''' <param name="Rate"></param>
+    ''' <returns></returns>
     <Extension()>
     Public Function MakeNet(ByVal dInput As Decimal, Rate As Decimal) As Decimal
         Return dInput / Rate

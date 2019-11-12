@@ -9,6 +9,7 @@ Public Class clsWebTillLog
     <EnumDataType(GetType(LogTypeEnum))>
     Property LogType As LogTypeEnum
 
+    <Required>
     Property MachineToken As String
     Enum LogTypeEnum
         UserActivity = 1

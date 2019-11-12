@@ -22,5 +22,7 @@ Public Class clsCustomerTitle
     ''' <returns></returns>
     Property Active As Boolean
 
+    Property OrderBy As Integer
+    Property FrequentUse As Boolean
 
 End Class

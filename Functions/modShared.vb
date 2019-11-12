@@ -6,7 +6,7 @@
     ''' <param name="input"></param>
     ''' <param name="def"></param>
     ''' <returns></returns>
-    Public Function Nz(input As Object, def As Object) As Object
+    Public Function Nz(input As Object, Optional def As Object = "") As Object
         If input Is Nothing OrElse IsDBNull(input) Then
             Return def
         Else
