@@ -90,6 +90,7 @@ Public Class clsCustomer
 
     Sub New(r As DataRecord)
         Dim intCustTitleID As Short?
+        Dim booUsingNewMarketingFlags As Boolean = True
 
         Try
             Me.ID = r("CustomerID")
@@ -120,9 +121,23 @@ Public Class clsCustomer
             If Not IsDBNull(r("TradeCustomerPriceListID")) Then Me.PriceListID = CInt(r("TradeCustomerPriceListID"))
             Me.AutomaticDiscountPercentage = r("AutoDiscount")
 
-            If Not IsDBNull(r("MarketingFlags")) Then
-                Me.MarketingFlagsID = Array.ConvertAll(Strings.Split(r("MarketingFlags"), ","), AddressOf Integer.Parse)
+            Try
+                booUsingNewMarketingFlags = r("UsingNewMarketingFlags")
+            Catch ex As Exception
+                'schema is probably out of date. Added 04/02/2020
+            End Try
+
+            Dim flags As New List(Of Integer)
+            If booUsingNewMarketingFlags Then
+                If Not IsDBNull(r("MarketingFlags")) Then
+                    flags = Array.ConvertAll(Strings.Split(r("MarketingFlags"), ","), AddressOf Integer.Parse).ToList
+                End If
+            Else
+                If Not r("SuppressContact") Then flags.Add(1)
+                If Not r("SuppressMail") Then flags.Add(2)
+                If Not r("SuppressEmail") Then flags.Add(3)
             End If
+            Me.MarketingFlagsID = flags
 
             Me.CustomerType = r("CustomerType")
 

@@ -113,4 +113,16 @@ Public Class clsProduct
     ''' <returns></returns>
     Public Property addfield04 As Integer
 
+    ''' <summary>
+    ''' The Eskimo ID of the company that supplies the product. 
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property supplier_id As String
+
+    ''' <summary>
+    ''' The Company Name of the business that supplies the product. 
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property supplier_name As String
+
 End Class

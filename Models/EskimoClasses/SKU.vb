@@ -147,16 +147,4 @@ Public Class clsSKU
     ''' <remarks></remarks>
     Public Property web_id As String
 
-    ''' <summary>
-    ''' The Eskimo ID of the company that supplies the product. 
-    ''' </summary>
-    ''' <returns></returns>
-    Public Property supplier_id As String
-
-    ''' <summary>
-    ''' The Company Name of the business that supplies the product. 
-    ''' </summary>
-    ''' <returns></returns>
-    Public Property supplier_name As String
-
 End Class
