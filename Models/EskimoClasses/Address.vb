@@ -28,6 +28,8 @@ Public Class clsAddress
         Me.PostCode = Nz(r("AddressPostCode"), Nothing)
         Me.Region = Nz(r("AddressPostalCounty"), Nothing)
 
+        '' also adjust clsAddressModel
+
     End Sub
 
     Sub PopulateCommandForDatabaseUpdate(ByRef cmd As SqlCommand, CustomerID As String, Ref As String, Inserting As Boolean)

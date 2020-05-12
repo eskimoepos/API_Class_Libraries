@@ -125,4 +125,10 @@ Public Class clsProduct
     ''' <returns></returns>
     Public Property supplier_name As String
 
+    ''' <summary>
+    ''' States whether this product is a package header. If it is, the eskimo_identifier of this product can be passed to the call for details of the package.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property is_package As Boolean
+
 End Class

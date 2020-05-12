@@ -147,4 +147,18 @@ Public Class clsSKU
     ''' <remarks></remarks>
     Public Property web_id As String
 
+    ''' <summary>
+    ''' The value of the weight of this SKU. 
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property WeightValue As Integer
+
+    ''' <summary>
+    ''' The weight unit. For example kg, lbs, grams. See GET api/MeasureUnits/All
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property WeightUnit As Integer
+
+
 End Class
+

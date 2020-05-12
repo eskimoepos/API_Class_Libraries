@@ -4,11 +4,16 @@ Public Class clsLayaway
     Inherits clsPreSaleBase
     Implements IValidatableObject
 
+    Enum LayawaySourceEnum
+        [Default] = 0
+        MobileTools = 1
+    End Enum
+
     <Required>
     Property TillNumber As Integer
     Property SourceCodeID As Integer?
     Property MailOrderValues As clsPreSaleMOBase
-
+    Property LayawaySource As LayawaySourceEnum = LayawaySourceEnum.Default
 End Class
 
 'Public Class clsLayawayMailOrderValues

@@ -145,7 +145,7 @@ Public Class clsCustomer
             ' GetOrderInfo (sp)
             ' spCustomerSearch (sp)
             ' spCustomersGetAll (sp) edit PopulateCustomerDump sub also
-
+            ' also modify clsCustomerModel constructor
         Catch ex As Exception
             Throw
         End Try
@@ -246,6 +246,13 @@ Public Class clsCustomer
     <StringLength(100)>
     <EmailAddress>
     Public Property EmailAddress As String
+
+    ''' <summary>
+    ''' The domain of the customer's website
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(100)>
+    Public Property WebsiteAddress As String
 
     ''' <summary>
     ''' Current active status of the customer. (On/Off)
