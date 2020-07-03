@@ -152,6 +152,7 @@
     <Compile Include="Models\EskimoClasses\Category.vb" />
     <Compile Include="Models\EskimoClasses\CategoryProduct.vb" />
     <Compile Include="Models\EskimoClasses\ChargeArea.vb" />
+    <Compile Include="Models\EskimoClasses\StockAdjustment.vb" />
     <Compile Include="Models\EskimoClasses\Log.vb" />
     <Compile Include="Models\EskimoClasses\Packages.vb" />
     <Compile Include="Models\EskimoClasses\TillIdentifier.vb" />

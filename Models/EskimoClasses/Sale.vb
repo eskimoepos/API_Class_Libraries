@@ -153,7 +153,14 @@ Public Class clsSale
     Property CustomerReference As String
 
     ''' <summary>
-    ''' Free text order notes. i.e. 'Please ship all items in the same consignment.'
+    ''' Any notes you need saved against the transaction
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(400)>
+    Property SaleNotes As String
+
+    ''' <summary>
+    ''' Free text order notes. i.e. 'Please ship all items in the same consignment.' (Only applicable if items with a CustomerAction > -1 are present.)
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -161,7 +168,7 @@ Public Class clsSale
     Property OrderNotes As String
 
     ''' <summary>
-    ''' Free text delivery notes. i.e. 'Please leave package in porch if no reply.'
+    ''' Free text delivery notes. i.e. 'Please leave package in porch if no reply.' (Only applicable if items with a CustomerAction > -1 are present.)
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -323,6 +330,12 @@ Public Class clsSale
                 End If
             End If
 
+        Next
+
+        For Each itm In Me.Items.Where(Function(x) x.IsKitHeader)
+            If Not Me.Items.Any(Function(x) itm.KitParentLine IsNot Nothing AndAlso x.KitParentLine = itm.LineID) Then
+                results.Add(New ValidationResult($"Item line {itm.LineID} is set to be a Kit Header, but no components were passed that link to it."))
+            End If
         Next
 
         For Each itm In Me.Items

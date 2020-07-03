@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel.DataAnnotations
+Imports System.Runtime.InteropServices
 
 Public Class clsSaleItemBase
 
@@ -100,7 +101,7 @@ Public Class clsSaleItemBase
     ''' <returns></returns>
     ReadOnly Property UnitPrice As Decimal
         Get
-            If Me.Qty=0 Then Throw New Exception("Qty cannot be zero")
+            If Me.Qty = 0 Then Throw New Exception("Qty cannot be zero")
             Dim decReturn As Decimal = Me.LinePrice / Me.Qty
             If decReturn < 0 Then decReturn = decReturn * -1 'unit price must always be positive
             Return decReturn

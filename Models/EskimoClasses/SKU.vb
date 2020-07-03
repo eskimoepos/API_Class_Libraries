@@ -107,6 +107,16 @@ Public Class clsSKU
     Public Property SellPrice As Decimal
 
     ''' <summary>
+    ''' A secondary sell price which can sometimes be used on the website, usually as a trade price
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    <Required>
+    Public Property SellPrice2 As Decimal
+
+
+    ''' <summary>
     ''' The quantity of items the retailer has on hand to sell.
     ''' </summary>
     ''' <value></value>
@@ -132,6 +142,12 @@ Public Class clsSKU
     ''' <remarks></remarks>
     <StringLength(50)>
     Public Property PersonalisationPrompt As String
+
+    ''' <summary>
+    ''' Some products have the option of being personalised for a extra fee. This field denotes that fee.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property PersonalisationSurCharge As Decimal
 
     ''' <summary>
     ''' The order in which these should be displayed in the GUI to the end user

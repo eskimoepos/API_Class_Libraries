@@ -15,6 +15,56 @@ Public Class clsAddress
     Sub New(r As DataRow)
         Me.New(New DataRecord(r))
     End Sub
+    Function CleanLine(strInput As String) As String
+        Dim ToReturn As String = strInput
+
+        ToReturn = ToReturn.Replace(Chr(13), "")
+        ToReturn = ToReturn.Replace(Chr(10), "")
+        Return ToReturn
+
+    End Function
+    Sub New(strAddress As String)
+        Dim lstLines As List(Of String)
+
+        lstLines = strAddress.Split(vbNewLine).ToList
+        For i = 0 To lstLines.Count - 1
+            lstLines(i) = CleanLine(lstLines(i))
+        Next
+        lstLines.RemoveAll(Function(xx) String.IsNullOrEmpty(xx))
+
+        'For i = 0 To lstLines.Count - 1
+        Select Case lstLines.Count
+            Case Is >= 6
+                Me.Company = lstLines(0)
+                Me.Line1 = lstLines(1)
+                Me.Line2 = lstLines(2)
+                Me.Line3 = lstLines(3)
+                Me.PostalTown = lstLines(4)
+                Me.Region = lstLines(5)
+            Case 5
+                Me.Line1 = lstLines(0)
+                Me.Line2 = lstLines(1)
+                Me.Line3 = lstLines(2)
+                Me.PostalTown = lstLines(3)
+                Me.Region = lstLines(4)
+            Case 4
+                Me.Line1 = lstLines(0)
+                Me.Line2 = lstLines(1)
+                Me.Line3 = lstLines(2)
+                Me.PostalTown = lstLines(3)
+            Case 3
+                Me.Line1 = lstLines(0)
+                Me.Line2 = lstLines(1)
+                Me.PostalTown = lstLines(2)
+            Case 2
+                Me.Line1 = lstLines(0)
+                Me.PostalTown = lstLines(1)
+            Case 1
+                Me.Line1 = lstLines(0)
+        End Select
+        'Next
+
+    End Sub
 
     Sub New(r As DataRecord)
 
@@ -131,7 +181,7 @@ Public Class clsAddress
     Property PostCode As String
 
     ''' <summary>
-    ''' The 2 digit country code, for United Kingdom, use GB http://www.worldatlas.com/aatlas/ctycodes.htm
+    ''' The 2 digit country code, see api/Countries/Search
     ''' </summary>
     ''' <returns></returns>
     <StringLength(2, ErrorMessage:="Country code must be 2 digits in length.", MinimumLength:=2)>

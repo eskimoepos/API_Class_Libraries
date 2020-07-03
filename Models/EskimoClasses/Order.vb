@@ -35,6 +35,8 @@ End Class
 Public Class clsOrder
     Inherits EskimoBaseClass
 
+    Implements IValidatableObject
+
     Enum OrderTypeEnum
         'CustomerOrder = 0
         'CustomerSale = 1
@@ -54,7 +56,7 @@ Public Class clsOrder
     Property order_id As Integer
 
     ''' <summary>
-    ''' This is an optional secondary reference. Some references are text-based and therefore cannot be inserted into the order_id field.
+    ''' This is an optional secondary reference. Some references are text-based and therefore cannot be inserted into the order_id field. If omitted, a GUID will be assigned.
     ''' </summary>
     ''' <returns></returns>
     <StringLength(200, ErrorMessage:="The External Identifier length must be 200 characters or less.", MinimumLength:=0)>
@@ -89,7 +91,7 @@ Public Class clsOrder
     Property order_date As DateTime
 
     ''' <summary>
-    ''' The total value of the order.
+    ''' The total value of the order. (A sum of the OrderedItems plus the Carriage)
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -174,10 +176,101 @@ Public Class clsOrder
 
     End Function
 
+    Sub AssignLineNumbers()
+        If Not Me.OrderedItems.Any(Function(x) x.lineID IsNot Nothing) Then
+            Dim intCurrent As Integer
+            For Each itm In Me.OrderedItems
+                intCurrent += 1
+                itm.lineID = intCurrent
+            Next
+        End If
+    End Sub
+
     Public Sub New()
         'Me.DeliveryAddress = New clsOrderAddressInfo
         'Me.InvoiceAddress = New clsOrderAddressInfo
     End Sub
+
+    Public Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult) Implements IValidatableObject.Validate
+        Dim lst As New List(Of ValidationResult)
+        Dim lstNonNullItems As List(Of clsOrderItem)
+        Dim IDCount As Integer
+        Dim intMax As Integer
+
+        If Me.invoice_amount <> Me.CalculatedOrderTotal Then
+            'Dim e As New APIException(New Exception("Order Sum is " & Me.CalculatedOrderTotal.ToString("c") & ", but the invoice_amount passed is " & Order.invoice_amount.ToString("c")))
+            'Me.EventLogMsg(StartTime, e)
+            'Throw e
+            lst.Add(New ValidationResult($"Order Sum is {Me.CalculatedOrderTotal.ToString("c")}, but the invoice_amount passed is {Me.invoice_amount.ToString("c")}"))
+        End If
+
+        If Me.OrderedItems.Any(Function(x) x.kit_product_type <> clsSaleItemBase.ItemKitTypeEnum.NormalItem) Then
+            If Me.OrderedItems.Any(Function(x) x.lineID Is Nothing) Then
+                lst.Add(New ValidationResult("If Kit lines are specified, a lineID must be specified for each line."))
+            End If
+        End If
+
+        If Me.OrderedItems.Any(Function(x) x.lineID IsNot Nothing) Then
+            lstNonNullItems = Me.OrderedItems.Where(Function(x) x.lineID IsNot Nothing).ToList
+
+            If lstNonNullItems.Count <> Me.OrderedItems.Count Then
+                lst.Add(New ValidationResult("If lineID is specified for one line, it must be for all lines."))
+            End If
+
+            intMax = lstNonNullItems.Max(Function(x) x.lineID)
+
+            For Each itm In lstNonNullItems
+                IDCount = Me.OrderedItems.Where(Function(x) Nz(x.lineID, intMax + 1) = itm.lineID).Count
+                If IDCount > 1 Then
+                    lst.Add(New ValidationResult($"The lineID property need to be unique if it is used. ID {itm.lineID} is specified {IDCount} times."))
+                    Exit For
+                End If
+            Next
+        Else
+            Me.AssignLineNumbers()
+        End If
+
+        For Each itm In Me.OrderedItems.Where(Function(x) x.kit_parent_line IsNot Nothing AndAlso Not Me.OrderedItems.Exists(Function(y) y.lineID = x.kit_parent_line))
+            lst.Add(New ValidationResult($"If a Kit Parent Line is specified, it must match a valid LineID in the Items collection. Parent {itm.kit_parent_line} is referenced from Line {itm.lineID}, but this does not exist."))
+        Next
+
+        For Each itm In Me.OrderedItems.Where(Function(x) x.kit_parent_line IsNot Nothing AndAlso x.kit_parent_line = x.lineID)
+            lst.Add(New ValidationResult($"If a Kit Parent Line is specified, it must match a valid LineID other than itself. Line {itm.lineID}, refers to itself."))
+        Next
+
+        For Each itm In Me.OrderedItems.Where(Function(x) x.line_value <> 0 AndAlso (x.kit_product_type = clsSaleItemBase.ItemKitTypeEnum.FixedHeader OrElse x.kit_product_type = clsSaleItemBase.ItemKitTypeEnum.VariableHeader))
+            lst.Add(New ValidationResult($"Kit Parent Lines cannot have a monetary value. Line {itm.lineID}, has a value of {itm.line_value.ToString("c")}."))
+        Next
+
+        For Each itm In Me.OrderedItems.Where(Function(x) x.kit_parent_line IsNot Nothing AndAlso Me.OrderedItems.Exists(Function(y) y.lineID = x.kit_parent_line))
+            Dim parent As clsOrderItem
+
+            parent = Me.OrderedItems.Where(Function(z) z.lineID = itm.kit_parent_line).FirstOrDefault
+
+            If parent IsNot Nothing Then
+
+                If itm.kit_product_type = clsSaleItemBase.ItemKitTypeEnum.FixedComponent AndAlso parent.kit_product_type <> clsSaleItemBase.ItemKitTypeEnum.FixedHeader Then
+                    lst.Add(New ValidationResult($"Item line {itm.lineID} is marked as {itm.kit_product_type} and refers to Kit Parent line {itm.kit_parent_line}. However, the Kit Type of {parent.kit_product_type} was found, rather than the expected {clsSaleItemBase.ItemKitTypeEnum.FixedHeader}"))
+                End If
+
+                If itm.kit_product_type = clsSaleItemBase.ItemKitTypeEnum.VariableComponent AndAlso parent.kit_product_type <> clsSaleItemBase.ItemKitTypeEnum.VariableHeader Then
+                    lst.Add(New ValidationResult($"Item line {itm.lineID} is marked as {itm.kit_product_type} and refers to Kit Parent line {itm.kit_parent_line}. However, the Kit Type of {parent.kit_product_type} was found, rather than the expected {clsSaleItemBase.ItemKitTypeEnum.VariableHeader}"))
+                End If
+            End If
+
+        Next
+
+
+
+        For Each itm In Me.OrderedItems.Where(Function(x) x.IsKitHeader)
+            If Not Me.OrderedItems.Any(Function(x) x.kit_parent_line IsNot Nothing AndAlso x.kit_parent_line = itm.lineID) Then
+                lst.Add(New ValidationResult($"Item line {itm.lineID} is set to be a Kit Header, but no components were passed that link to it."))
+            End If
+        Next
+
+        Return lst.AsEnumerable
+
+    End Function
 End Class
 
 Public Class clsOrderReturn

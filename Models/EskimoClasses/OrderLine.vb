@@ -1,10 +1,19 @@
 ﻿Imports System.ComponentModel.DataAnnotations
 Imports System.Runtime.Serialization
+Imports EskimoClassLibraries.clsSaleItemBase
 ''' <summary>
 ''' The Order Item Class. This contains information about a singular line within a completed order.
 ''' </summary>
 Public Class clsOrderItem
     Inherits EskimoBaseClass
+
+    Implements IValidatableObject
+
+    ''' <summary>
+    ''' A unique number for each line in the sale. Start at 1 and increment. Optional, unless Kit items are included.
+    ''' </summary>
+    ''' <returns></returns>
+    Property lineID As Integer?
 
     ''' <summary>
     ''' Matches the sku_code property from the SKUs Controller. 
@@ -88,4 +97,51 @@ Public Class clsOrderItem
     Sub New(descr As String)
         Me.item_description = descr
     End Sub
+
+    ''' <summary>
+    ''' Determines if this order line is part of a package (or kit). If omitted, 5 (Normal item) will be assumed.
+    ''' </summary>
+    ''' <returns></returns>
+    <EnumDataType(GetType(ItemKitTypeEnum))>
+    Property kit_product_type As ItemKitTypeEnum = ItemKitTypeEnum.NormalItem
+
+    Function KitSequence() As Long?
+        If Me.kit_parent_line IsNot Nothing Then
+            Return Me.kit_parent_line
+        ElseIf Me.IsKitHeader Then
+            Return Me.lineID
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    ''' <summary>
+    ''' If this item is a kit (package) component, then this property determines which item in the sale is the kit header
+    ''' </summary>
+    ''' <returns></returns>
+    Property kit_parent_line As Long?
+
+    Function IsKitHeader() As Boolean
+        Select Case Me.kit_product_type
+            Case ItemKitTypeEnum.FixedHeader, ItemKitTypeEnum.VariableHeader
+                Return True
+        End Select
+        Return False
+    End Function
+
+    Function IsKitComponent() As Boolean
+        Select Case Me.kit_product_type
+            Case ItemKitTypeEnum.FixedComponent, ItemKitTypeEnum.VariableComponent
+                Return True
+        End Select
+        Return False
+    End Function
+
+    Public Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult) Implements IValidatableObject.Validate
+        Dim lst As New List(Of ValidationResult)
+
+
+
+        Return lst.AsEnumerable
+    End Function
 End Class

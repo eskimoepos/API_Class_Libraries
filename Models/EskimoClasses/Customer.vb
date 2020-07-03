@@ -88,6 +88,8 @@ Public Class clsCustomer
 
     End Sub
 
+
+
     Sub New(r As DataRecord)
         Dim intCustTitleID As Short?
         Dim booUsingNewMarketingFlags As Boolean = True
@@ -108,13 +110,20 @@ Public Class clsCustomer
             Me.TitleID = intCustTitleID
             Me.ExternalID = Nz(r("ExternalID"), Nothing)
 
-            If r("MultipleAddressesPerCustomer") AndAlso Not IsDBNull(r("AddressID")) Then
-                Me.MainAddress = New clsAddress(r)
-            End If
-
             If Not r("MultipleAddressesPerCustomer") Then
                 Me.Address = Nz(r("Address"), Nothing, True)
                 Me.PostCode = Nz(r("PostCode"), Nothing, True)
+            End If
+
+            If r("MultipleAddressesPerCustomer") AndAlso Not IsDBNull(r("AddressID")) Then
+                Me.MainAddress = New clsAddress(r)
+            ElseIf Not IsDBNull(r("Address")) Then
+                Me.MainAddress = New clsAddress(r("Address").ToString)
+                If String.IsNullOrEmpty(Me.MainAddress.Company) AndAlso Not String.IsNullOrEmpty(Me.CompanyName) Then
+                    Me.MainAddress.Company = Me.CompanyName
+                End If
+                Me.MainAddress.PostCode = Me.PostCode
+                Me.MainAddress.CountryCode = Me.CountryCode
             End If
 
             Me.PriceLevel = r("DefaultPriceLevel")
