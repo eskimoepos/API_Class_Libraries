@@ -197,7 +197,7 @@ Public Class clsOrder
         Dim IDCount As Integer
         Dim intMax As Integer
 
-        If Me.invoice_amount <> Me.CalculatedOrderTotal Then
+        If Decimal.Round(Me.invoice_amount, 2) <> Decimal.Round(Me.CalculatedOrderTotal, 2) Then
             'Dim e As New APIException(New Exception("Order Sum is " & Me.CalculatedOrderTotal.ToString("c") & ", but the invoice_amount passed is " & Order.invoice_amount.ToString("c")))
             'Me.EventLogMsg(StartTime, e)
             'Throw e

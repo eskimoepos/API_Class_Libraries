@@ -23,6 +23,11 @@ End Class
 Public Class clsPreSaleItemBase
     Inherits clsSalesItem
 
+    ''' <summary>
+    ''' When the customer is collecting a customer order item, this ties the item back to the customer order detail ID
+    ''' </summary>
+    ''' <returns></returns>
+    Property OriginalOrderDetailID As Integer?
     'Property Description As String
     'Property NoDiscountAllowed As Boolean
 

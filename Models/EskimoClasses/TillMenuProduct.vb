@@ -19,12 +19,14 @@ Public Class clsTillMenuProduct
     Property IsOpenPriced As Boolean
     <Required>
     Property IsOpenDescription As Boolean
-
     Property ColourName As String
     Property Size As String
     Property Prices As IEnumerable(Of clsPrice)
     Property TaxID As Integer
     Property StockLevel As Integer
+    Property StockLevel1 As Integer
+    Property StockLevel2 As Integer
+    Property StockLevel3 As Integer
     Property StockWarnLevel As Integer?
     Property BuyTodayPrice As Decimal?
     Property NoDiscountAllowed As Boolean

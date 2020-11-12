@@ -117,7 +117,7 @@ Public Class clsSKU
 
 
     ''' <summary>
-    ''' The quantity of items the retailer has on hand to sell.
+    ''' The quantity of items the retailer has on hand to sell in the current shop.
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>

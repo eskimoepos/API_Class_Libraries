@@ -86,6 +86,7 @@
     <Compile Include="ExtentionMethods\modExtentions.vb" />
     <Compile Include="Functions\modShared.vb" />
     <Compile Include="Interfaces\Arguments\ControllerArguments.vb" />
+    <Compile Include="Models\Arguments\AccountPaymentSearchArgs.vb" />
     <Compile Include="Models\Arguments\AmazonUploadProducts.vb" />
     <Compile Include="Models\Arguments\BarcodeArguments.vb" />
     <Compile Include="Models\Arguments\BarcodeArgumentsEx.vb" />
@@ -139,6 +140,7 @@
     <Compile Include="Models\CutDownClasses\SKUid.vb" />
     <Compile Include="Models\CutDownClasses\ProductID.vb" />
     <Compile Include="Models\DataClasses\DataRecord.vb" />
+    <Compile Include="Models\EskimoClasses\AccountPayment.vb" />
     <Compile Include="Models\EskimoClasses\Address.vb" />
     <Compile Include="Models\EskimoClasses\AddressValidationSummary.vb" />
     <Compile Include="Models\EskimoClasses\AddressValidatorParams.vb" />

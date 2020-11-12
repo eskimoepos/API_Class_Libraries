@@ -1,12 +1,157 @@
 ﻿Imports System.ComponentModel
 Imports System.ComponentModel.DataAnnotations
 
+''' <summary>
+''' An extension class of clsSale with a few extra fields not required for insertion.
+''' </summary>
+Public Class clsSaleExt
+    Inherits clsSaleBase(Of clsSalesItemExt)
+
+    Public Overrides Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult)
+        Dim lst As New List(Of ValidationContext)
+
+        Return lst
+
+    End Function
+
+End Class
+
+''' <inheritdoc/>
 Public Class clsSale
+    Inherits clsSaleBase(Of clsSalesItem)
+
+    Public Overrides Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult)
+        Dim results As New List(Of ValidationResult)
+        Dim tendered_sum As Decimal
+        Dim item_paid_sum As Decimal
+        Dim strDirection As String
+        Dim decDiff As Decimal
+        Dim IDCount As Integer
+
+        If Me.Tenders Is Nothing Then results.Add(New ValidationResult($"No Tender entries were passed."))
+
+        tendered_sum = Me.Tenders.Sum(Function(x) x.Amount)
+        item_paid_sum = Me.Items.Sum(Function(x) x.PaidAmount) + Me.ShippingAmountGross
+
+        If tendered_sum - item_paid_sum <> 0 Then
+
+            If tendered_sum < item_paid_sum Then
+                strDirection = "down"
+                decDiff = item_paid_sum - tendered_sum
+            Else
+                strDirection = "up"
+                decDiff = tendered_sum - item_paid_sum
+            End If
+
+            results.Add(New ValidationResult($"Tenders sum is {strDirection} by {decDiff.ToString("c")}. Total tendered is {tendered_sum.ToString("c")} but the order total is {item_paid_sum.ToString("c")}"))
+        End If
+
+        If Me.EskimoCustomerID Is Nothing Then
+            'no customer passed
+
+            For Each itm In Me.Items.Where(Function(x) x.CustomerAction <> clsSaleItemBase.CustomerActionEnum.NoCustomerAction)
+                results.Add(New ValidationResult($"Item line {itm.LineID} is set to have a customer action of {itm.CustomerAction} but no customer ID was passed."))
+                Exit For
+            Next
+        Else 'customer id IS passed
+
+            If (Me.InvoiceAddressRef Is Nothing OrElse Me.InvoiceAddressRef = "") OrElse ((Me.DeliveryAddressRef Is Nothing OrElse Me.DeliveryAddressRef = "") AndAlso Me.DeliveryAddress Is Nothing AndAlso Me.ClickAndCollectShop Is Nothing) Then
+                For Each itm In Me.Items.Where(Function(x)
+                                                   Select Case x.CustomerAction
+                                                       Case clsSaleItemBase.CustomerActionEnum.MailOrderItem
+                                                           Return True
+                                                       Case Else
+                                                           Return False
+                                                   End Select
+                                               End Function)
+
+                    results.Add(New ValidationResult($"Item line {itm.LineID} is set to have a customer action of {itm.CustomerAction} so a delivery and an invoice address ref must also be passed."))
+
+                Next
+            End If
+
+        End If
+
+        If Me.ClickAndCollectShop IsNot Nothing AndAlso Me.ClickAndCollectShop <> "" AndAlso Me.DeliveryAddress IsNot Nothing Then
+            results.Add(New ValidationResult($"The DeliveryAddress cannot be passed as well as the ClickAndCollectShop; pass one or the other."))
+        End If
+
+        If Me.ShippingAmountGross <> 0 AndAlso Me.ShippingRateID Is Nothing Then
+            For Each itm In Me.Items.Where(Function(x)
+                                               Select Case x.CustomerAction
+                                                   Case clsSaleItemBase.CustomerActionEnum.AmazonItem, clsSaleItemBase.CustomerActionEnum.eBayItem, clsSaleItemBase.CustomerActionEnum.MailOrderItem, clsSaleItemBase.CustomerActionEnum.WebSalesItem
+                                                       Return True
+                                               End Select
+                                               Return False
+                                           End Function)
+                results.Add(New ValidationResult($"Item line {itm.LineID} is set to have a customer action of {itm.CustomerAction} so a Shipping Rate ID must also be passed."))
+            Next
+        End If
+
+
+
+        For Each itm In Me.Items.Where(Function(x) x.KitParentLine IsNot Nothing AndAlso Not Me.Items.Exists(Function(y) y.LineID = x.KitParentLine And y.CustomerAction = x.CustomerAction))
+            results.Add(New ValidationResult($"If a Kit Parent Line is specified, it must match a valid LineID in the Items collection. Parent {itm.KitParentLine} is referenced from Line {itm.LineID}, but this does not exist."))
+        Next
+
+        For Each itm In Me.Items.Where(Function(x) x.KitParentLine IsNot Nothing AndAlso x.KitParentLine = x.LineID)
+            results.Add(New ValidationResult($"If a Kit Parent Line is specified, it must match a valid LineID other than itself. Line {itm.LineID}, refers to itself."))
+        Next
+
+        For Each itm In Me.Items.Where(Function(x) x.LinePrice <> 0 AndAlso (x.KitProductType = clsSaleItemBase.ItemKitTypeEnum.FixedHeader OrElse x.KitProductType = clsSaleItemBase.ItemKitTypeEnum.VariableHeader))
+            results.Add(New ValidationResult($"Kit Parent Lines cannot have a monetary value. Line {itm.LineID}, has a value of {itm.LinePrice.ToString("c")}."))
+        Next
+
+        For Each itm In Me.Items.Where(Function(x) x.DepositAmount IsNot Nothing AndAlso x.Qty < 0)
+            results.Add(New ValidationResult($"Line {itm.LineID} specifies a deposit amount, but it is a refund item."))
+        Next
+
+        For Each itm In Me.Items.Where(Function(x) x.DepositAmount IsNot Nothing AndAlso x.DepositAmount > x.LinePrice)
+            results.Add(New ValidationResult($"Line {itm.LineID} specifies a deposit amount of {itm.DepositAmount.ToString("c")}, which is higher than the line price of {itm.LinePrice.ToString("c")}."))
+        Next
+
+        For Each itm In Me.Items.Where(Function(x) x.KitParentLine IsNot Nothing AndAlso Me.Items.Exists(Function(y) y.LineID = x.KitParentLine AndAlso y.CustomerAction = x.CustomerAction))
+            Dim parent As clsSalesItem
+
+            parent = Me.Items.Where(Function(z) z.LineID = itm.KitParentLine AndAlso z.CustomerAction = itm.CustomerAction).FirstOrDefault
+
+            If parent IsNot Nothing Then
+
+                If itm.KitProductType = clsSaleItemBase.ItemKitTypeEnum.FixedComponent AndAlso parent.KitProductType <> clsSaleItemBase.ItemKitTypeEnum.FixedHeader Then
+                    results.Add(New ValidationResult($"Item line {itm.LineID} is marked as {itm.KitProductType} and refers to Kit Parent line {itm.KitParentLine}. However, the Kit Type of {parent.KitProductType} was found, rather than the expected {clsSaleItemBase.ItemKitTypeEnum.FixedHeader}"))
+                End If
+
+                If itm.KitProductType = clsSaleItemBase.ItemKitTypeEnum.VariableComponent AndAlso parent.KitProductType <> clsSaleItemBase.ItemKitTypeEnum.VariableHeader Then
+                    results.Add(New ValidationResult($"Item line {itm.LineID} is marked as {itm.KitProductType} and refers to Kit Parent line {itm.KitParentLine}. However, the Kit Type of {parent.KitProductType} was found, rather than the expected {clsSaleItemBase.ItemKitTypeEnum.VariableHeader}"))
+                End If
+            End If
+
+        Next
+
+        For Each itm In Me.Items.Where(Function(x) x.IsKitHeader)
+            If Not Me.Items.Any(Function(x) itm.KitParentLine IsNot Nothing AndAlso x.KitParentLine = itm.LineID) Then
+                results.Add(New ValidationResult($"Item line {itm.LineID} is set to be a Kit Header, but no components were passed that link to it."))
+            End If
+        Next
+
+        For Each itm In Me.Items
+            IDCount = Me.Items.Where(Function(x) x.LineID = itm.LineID).Count
+            If IDCount > 1 Then
+                results.Add(New ValidationResult($"The LineID property need to be unique. ID {itm.LineID} is specified {IDCount} times."))
+                Exit For
+            End If
+        Next
+        'Dim q = From x As clsTillSalesItem In Me.Items Group By x.LineID 
+
+        Return results
+
+    End Function
+End Class
+
+Public MustInherit Class clsSaleBase(Of T As iSaleItem)
     Inherits EskimoBaseClass
 
     Implements IValidatableObject
-
-
 
     ''' <summary>
     ''' Optional. The version of the EPOS software used for the sale. Useful for fault tracking.
@@ -26,7 +171,7 @@ Public Class clsSale
     ''' </summary>
     ''' <returns></returns>
     <Required>
-    Overridable Property Items As List(Of clsSalesItem)
+    Overridable Property Items As List(Of T)
 
     ''' <summary>
     ''' The tenders used to pay for the sale.
@@ -224,132 +369,7 @@ Public Class clsSale
         'Me.InvoiceAddress = New clsOrderAddressInfo
     End Sub
 
-    Public Overridable Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult) Implements IValidatableObject.Validate
-        Dim results As New List(Of ValidationResult)
-        Dim tendered_sum As Decimal
-        Dim item_paid_sum As Decimal
-        Dim strDirection As String
-        Dim decDiff As Decimal
-        Dim IDCount As Integer
-
-        If Me.Tenders Is Nothing Then results.Add(New ValidationResult($"No Tender entries were passed."))
-
-        tendered_sum = Me.Tenders.Sum(Function(x) x.Amount)
-        item_paid_sum = Me.Items.Sum(Function(x) x.PaidAmount) + Me.ShippingAmountGross
-
-        If tendered_sum - item_paid_sum <> 0 Then
-
-            If tendered_sum < item_paid_sum Then
-                strDirection = "down"
-                decDiff = item_paid_sum - tendered_sum
-            Else
-                strDirection = "up"
-                decDiff = tendered_sum - item_paid_sum
-            End If
-
-            results.Add(New ValidationResult($"Tenders sum is {strDirection} by {decDiff.ToString("c")}. Total tendered is {tendered_sum.ToString("c")} but the order total is {item_paid_sum.ToString("c")}"))
-        End If
-
-        If Me.EskimoCustomerID Is Nothing Then
-            'no customer passed
-
-            For Each itm In Me.Items.Where(Function(x) x.CustomerAction <> clsSaleItemBase.CustomerActionEnum.NoCustomerAction)
-                results.Add(New ValidationResult($"Item line {itm.LineID} is set to have a customer action of {itm.CustomerAction} but no customer ID was passed."))
-                Exit For
-            Next
-        Else 'customer id IS passed
-
-            If (Me.InvoiceAddressRef Is Nothing OrElse Me.InvoiceAddressRef = "") OrElse ((Me.DeliveryAddressRef Is Nothing OrElse Me.DeliveryAddressRef = "") AndAlso Me.DeliveryAddress Is Nothing AndAlso Me.ClickAndCollectShop Is Nothing) Then
-                For Each itm In Me.Items.Where(Function(x)
-                                                   Select Case x.CustomerAction
-                                                       Case clsSaleItemBase.CustomerActionEnum.MailOrderItem
-                                                           Return True
-                                                       Case Else
-                                                           Return False
-                                                   End Select
-                                               End Function)
-
-                    results.Add(New ValidationResult($"Item line {itm.LineID} is set to have a customer action of {itm.CustomerAction} so a delivery and an invoice address ref must also be passed."))
-
-                Next
-            End If
-
-        End If
-
-        If Me.ClickAndCollectShop IsNot Nothing AndAlso Me.ClickAndCollectShop <> "" AndAlso Me.DeliveryAddress IsNot Nothing Then
-            results.Add(New ValidationResult($"The DeliveryAddress cannot be passed as well as the ClickAndCollectShop; pass one or the other."))
-        End If
-
-        If Me.ShippingAmountGross <> 0 AndAlso Me.ShippingRateID Is Nothing Then
-            For Each itm In Me.Items.Where(Function(x)
-                                               Select Case x.CustomerAction
-                                                   Case clsSaleItemBase.CustomerActionEnum.AmazonItem, clsSaleItemBase.CustomerActionEnum.eBayItem, clsSaleItemBase.CustomerActionEnum.MailOrderItem, clsSaleItemBase.CustomerActionEnum.WebSalesItem
-                                                       Return True
-                                               End Select
-                                               Return False
-                                           End Function)
-                results.Add(New ValidationResult($"Item line {itm.LineID} is set to have a customer action of {itm.CustomerAction} so a Shipping Rate ID must also be passed."))
-            Next
-        End If
-
-
-
-        For Each itm In Me.Items.Where(Function(x) x.KitParentLine IsNot Nothing AndAlso Not Me.Items.Exists(Function(y) y.LineID = x.KitParentLine And y.CustomerAction = x.CustomerAction))
-            results.Add(New ValidationResult($"If a Kit Parent Line is specified, it must match a valid LineID in the Items collection. Parent {itm.KitParentLine} is referenced from Line {itm.LineID}, but this does not exist."))
-        Next
-
-        For Each itm In Me.Items.Where(Function(x) x.KitParentLine IsNot Nothing AndAlso x.KitParentLine = x.LineID)
-            results.Add(New ValidationResult($"If a Kit Parent Line is specified, it must match a valid LineID other than itself. Line {itm.LineID}, refers to itself."))
-        Next
-
-        For Each itm In Me.Items.Where(Function(x) x.LinePrice <> 0 AndAlso (x.KitProductType = clsSaleItemBase.ItemKitTypeEnum.FixedHeader OrElse x.KitProductType = clsSaleItemBase.ItemKitTypeEnum.VariableHeader))
-            results.Add(New ValidationResult($"Kit Parent Lines cannot have a monetary value. Line {itm.LineID}, has a value of {itm.LinePrice.ToString("c")}."))
-        Next
-
-        For Each itm In Me.Items.Where(Function(x) x.DepositAmount IsNot Nothing AndAlso x.Qty < 0)
-            results.Add(New ValidationResult($"Line {itm.LineID} specifies a deposit amount, but it is a refund item."))
-        Next
-
-        For Each itm In Me.Items.Where(Function(x) x.DepositAmount IsNot Nothing AndAlso x.DepositAmount > x.LinePrice)
-            results.Add(New ValidationResult($"Line {itm.LineID} specifies a deposit amount of {itm.DepositAmount.ToString("c")}, which is higher than the line price of {itm.LinePrice.ToString("c")}."))
-        Next
-
-        For Each itm In Me.Items.Where(Function(x) x.KitParentLine IsNot Nothing AndAlso Me.Items.Exists(Function(y) y.LineID = x.KitParentLine AndAlso y.CustomerAction = x.CustomerAction))
-            Dim parent As clsSalesItem
-
-            parent = Me.Items.Where(Function(z) z.LineID = itm.KitParentLine AndAlso z.CustomerAction = itm.CustomerAction).FirstOrDefault
-
-            If parent IsNot Nothing Then
-
-                If itm.KitProductType = clsSaleItemBase.ItemKitTypeEnum.FixedComponent AndAlso parent.KitProductType <> clsSaleItemBase.ItemKitTypeEnum.FixedHeader Then
-                    results.Add(New ValidationResult($"Item line {itm.LineID} is marked as {itm.KitProductType} and refers to Kit Parent line {itm.KitParentLine}. However, the Kit Type of {parent.KitProductType} was found, rather than the expected {clsSaleItemBase.ItemKitTypeEnum.FixedHeader}"))
-                End If
-
-                If itm.KitProductType = clsSaleItemBase.ItemKitTypeEnum.VariableComponent AndAlso parent.KitProductType <> clsSaleItemBase.ItemKitTypeEnum.VariableHeader Then
-                    results.Add(New ValidationResult($"Item line {itm.LineID} is marked as {itm.KitProductType} and refers to Kit Parent line {itm.KitParentLine}. However, the Kit Type of {parent.KitProductType} was found, rather than the expected {clsSaleItemBase.ItemKitTypeEnum.VariableHeader}"))
-                End If
-            End If
-
-        Next
-
-        For Each itm In Me.Items.Where(Function(x) x.IsKitHeader)
-            If Not Me.Items.Any(Function(x) itm.KitParentLine IsNot Nothing AndAlso x.KitParentLine = itm.LineID) Then
-                results.Add(New ValidationResult($"Item line {itm.LineID} is set to be a Kit Header, but no components were passed that link to it."))
-            End If
-        Next
-
-        For Each itm In Me.Items
-            IDCount = Me.Items.Where(Function(x) x.LineID = itm.LineID).Count
-            If IDCount > 1 Then
-                results.Add(New ValidationResult($"The LineID property need to be unique. ID {itm.LineID} is specified {IDCount} times."))
-                Exit For
-            End If
-        Next
-        'Dim q = From x As clsTillSalesItem In Me.Items Group By x.LineID 
-
-        Return results
-
-    End Function
+    Public MustOverride Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult) Implements IValidatableObject.Validate
 
     ''' <summary>
     ''' Optional. If passed, it should match a CodeID from api/TillMenu/SourceCodes
@@ -418,3 +438,7 @@ Public Class clsAdminOverride
     <Required>
     Property Timestamp As DateTime
 End Class
+
+
+
+

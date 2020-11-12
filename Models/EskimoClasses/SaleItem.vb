@@ -1,7 +1,28 @@
 ﻿Imports System.ComponentModel.DataAnnotations
 Imports System.Runtime.InteropServices
 
-Public Class clsSaleItemBase
+Public Interface iSaleItem
+
+    ''' <summary>
+    ''' Unit Price * Qty after discounts
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    Property LinePrice As Decimal
+
+End Interface
+
+Public MustInherit Class clsSaleItemBase
+    Implements iSaleItem
+
+    Public MustOverride Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult) 'Implements IValidatableObject.Validate
+
+    Friend Function BaseValidation() As IEnumerable(Of ValidationResult)
+        Dim lst As New List(Of ValidationResult)
+
+        Return lst
+
+    End Function
 
     Enum CustomerActionEnum
 
@@ -116,12 +137,6 @@ Public Class clsSaleItemBase
         Return Me.LineDiscount + Me.LineDiscountPromo
     End Function
 
-    ''' <summary>
-    ''' Unit Price * Qty after discounts
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    Property LinePrice As Decimal
 
     ''' <summary>
     ''' Any personalisation for this item, for example the name to be printed on the back of a garment.
@@ -146,14 +161,21 @@ Public Class clsSaleItemBase
     ''' </summary>
     ''' <returns></returns>
     Property NoDiscountAllowed As Boolean
+
+    ''' <summary>
+    ''' Unit Price * Qty after discounts
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property LinePrice As Decimal Implements iSaleItem.LinePrice
+
 End Class
 
-Public Class clsTillSaleItem
-    Inherits clsSaleItemBase
+'Public Class clsTillSaleItem
+'    Inherits clsSaleItemBase
 
-    Property ProductOptions As IEnumerable(Of clsSaleItemBase)
+'    Property ProductOptions As IEnumerable(Of clsSaleItemBase)
 
-End Class
+'End Class
 
 Public Class clsSalesItemRefundDetails
     Property OriginalSalesRef As String
@@ -164,6 +186,44 @@ Public Class clsSalesItem
     Inherits clsSaleItemBase
 
     Implements IValidatableObject
+
+    Public Overrides Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult) Implements IValidatableObject.Validate
+        Dim results As New List(Of ValidationResult)
+        Dim tmpResults As List(Of ValidationResult) = MyBase.BaseValidation
+
+        If tmpResults.Any Then results.AddRange(tmpResults)
+
+        'If Me.DepositAmount IsNot Nothing And Me.CustomerAction = CustomerActionEnum.NoCustomerAction Then
+        '    results.Add(New ValidationResult("Cannot specify deposit amount when there is no Customer Action"))
+        'End If
+
+        If Me.KitParentLine Is Nothing AndAlso Me.IsKitComponent Then
+            results.Add(New ValidationResult("Must specify the Kit Parent Line property when an item is marked as a kit component"))
+        End If
+
+        If Me.KitParentLine IsNot Nothing AndAlso Not Me.IsKitComponent Then
+            results.Add(New ValidationResult("The Kit Parent Line property should be null when an item is not marked as a kit component"))
+        End If
+
+        If Me.RefundDetails IsNot Nothing AndAlso Me.Qty >= 0 Then
+            results.Add(New ValidationResult($"RefundDetails present on line {Me.LineID} where the quantity is positive"))
+        End If
+
+        If Me.Qty < 0 And Me.LinePrice > 0 Then
+            results.Add(New ValidationResult($"Item line {Me.LineID} has a negative qty, but the line price is positive"))
+        End If
+
+        If Me.Qty > 0 And Me.LinePrice < 0 Then
+            results.Add(New ValidationResult($"Item line {Me.LineID} has a positive qty, but the line price is negative"))
+        End If
+
+        If Me.Qty = 0 Then
+            results.Add(New ValidationResult($"Item line {Me.LineID} has a qty of zero, this is not allowed"))
+        End If
+
+        Return results
+
+    End Function
 
     ''' <summary>
     ''' If the item is being ordered (not taken away at POS), then this is the amount they are paying for it now. 
@@ -244,39 +304,9 @@ Public Class clsSalesItem
         Return False
     End Function
 
-    Public Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult) Implements IValidatableObject.Validate
-        Dim results As New List(Of ValidationResult)
 
-        'If Me.DepositAmount IsNot Nothing And Me.CustomerAction = CustomerActionEnum.NoCustomerAction Then
-        '    results.Add(New ValidationResult("Cannot specify deposit amount when there is no Customer Action"))
-        'End If
 
-        If Me.KitParentLine Is Nothing AndAlso Me.IsKitComponent Then
-            results.Add(New ValidationResult("Must specify the Kit Parent Line property when an item is marked as a kit component"))
-        End If
 
-        If Me.KitParentLine IsNot Nothing AndAlso Not Me.IsKitComponent Then
-            results.Add(New ValidationResult("The Kit Parent Line property should be null when an item is not marked as a kit component"))
-        End If
-
-        If Me.RefundDetails IsNot Nothing AndAlso Me.Qty >= 0 Then
-            results.Add(New ValidationResult($"RefundDetails present on line {Me.LineID} where the quantity is positive"))
-        End If
-
-        If Me.Qty < 0 And Me.LinePrice > 0 Then
-            results.Add(New ValidationResult($"Item line {Me.LineID} has a negative qty, but the line price is positive"))
-        End If
-
-        If Me.Qty > 0 And Me.LinePrice < 0 Then
-            results.Add(New ValidationResult($"Item line {Me.LineID} has a positive qty, but the line price is negative"))
-        End If
-
-        If Me.Qty = 0 Then
-            results.Add(New ValidationResult($"Item line {Me.LineID} has a qty of zero, this is not allowed"))
-        End If
-
-        Return results
-    End Function
 
     ''' <summary>
     ''' Optional. If omitted, the VAT ID assigned to the product will be used. If the goods are being exported outside of the UK for instance, the VAT ID might be different to what is assigned on the product. See api/TaxCodes/All for a list of the possible values
@@ -289,48 +319,61 @@ Public Class clsSalesItem
 
 End Class
 
-Public Class clsTillSaleItems
-    Inherits EskimoBaseClass
+Public Class clsSalesItemExt
+    Inherits clsSalesItem
 
-    ''' <summary>
-    ''' A collection of the items being ordered
-    ''' </summary>
-    ''' <returns></returns>
-    Property Items As IEnumerable(Of clsTillSaleItem)
+    Implements IValidatableObject
 
-    ''' <summary>
-    ''' Running in Waitress mode?
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    Property Hospitality As Boolean
-
-    ''' <summary>
-    ''' The date of the sale/table creation.
-    ''' </summary>
-    ''' <returns></returns>
-    <Required>
-    Property ActionDate As Date
-
-    ''' <summary>
-    ''' Optional. If passed, then the order is to be paid for, otherwise a Table Tab is created or appended to when running in waitress mode, or a layaway is created when running in retail mode.
-    ''' </summary>
-    ''' <returns></returns>
-    Property Tenders As IEnumerable(Of clsTenderEntry)
-
-    ''' <summary>
-    ''' The Table Number 
-    ''' </summary>
-    ''' <returns></returns>
-    Property ScopeID As Integer?
-
-    ''' <summary>
-    ''' The ID of the Area the table is in. Shoud match an ID from api/TillMenu/Areas
-    ''' </summary>
-    ''' <returns></returns>
-    Property AreaID As Integer?
-
+    Property ColourID As String
+    Property ColourName As String
+    Property ColourCode As String
+    Property Size As String
+    Property StyleID As String
+    Property InvoiceID As Integer?
 End Class
+
+'Public Class clsTillSaleItems
+'    Inherits EskimoBaseClass
+
+'    ''' <summary>
+'    ''' A collection of the items being ordered
+'    ''' </summary>
+'    ''' <returns></returns>
+'    Property Items As IEnumerable(Of clsTillSaleItem)
+
+'    ''' <summary>
+'    ''' Running in Waitress mode?
+'    ''' </summary>
+'    ''' <returns></returns>
+'    <Required>
+'    Property Hospitality As Boolean
+
+'    ''' <summary>
+'    ''' The date of the sale/table creation.
+'    ''' </summary>
+'    ''' <returns></returns>
+'    <Required>
+'    Property ActionDate As Date
+
+'    ''' <summary>
+'    ''' Optional. If passed, then the order is to be paid for, otherwise a Table Tab is created or appended to when running in waitress mode, or a layaway is created when running in retail mode.
+'    ''' </summary>
+'    ''' <returns></returns>
+'    Property Tenders As IEnumerable(Of clsTenderEntry)
+
+'    ''' <summary>
+'    ''' The Table Number 
+'    ''' </summary>
+'    ''' <returns></returns>
+'    Property ScopeID As Integer?
+
+'    ''' <summary>
+'    ''' The ID of the Area the table is in. Shoud match an ID from api/TillMenu/Areas
+'    ''' </summary>
+'    ''' <returns></returns>
+'    Property AreaID As Integer?
+
+'End Class
 
 Public Class clsGiftCardItemDetails
     Inherits clsGiftCardBase

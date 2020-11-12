@@ -21,44 +21,44 @@
 
     End Function
 
-    Function PopulateSendOrder() As clsTillSaleItems
-        Dim ToReturn As New clsTillSaleItems
-        Dim Tenders As New List(Of clsTenderEntry)
-        Dim Items As New List(Of clsTillSaleItem)
-        Dim Options As New List(Of clsSaleItemBase)
+    'Function PopulateSendOrder() As clsTillSaleItems
+    '    Dim ToReturn As New clsTillSaleItems
+    '    Dim Tenders As New List(Of clsTenderEntry)
+    '    Dim Items As New List(Of clsTillSaleItem)
+    '    Dim Options As New List(Of clsSaleItemBase)
 
-        Tenders.Add(New clsTenderEntry() With {.TenderID = 1,
-                                                        .Amount = 3.5
-                                                        })
+    '    Tenders.Add(New clsTenderEntry() With {.TenderID = 1,
+    '                                                    .Amount = 3.5
+    '                                                    })
 
-        Tenders.Add(New clsTenderEntry() With {.TenderID = 2,
-                                                        .Amount = 1560.55
-                                                        })
+    '    Tenders.Add(New clsTenderEntry() With {.TenderID = 2,
+    '                                                    .Amount = 1560.55
+    '                                                    })
 
-        Options.Add(New clsTillSaleItem() With {.PLU = "00000005",
-                                                .Qty = 1,
-                                                .LinePrice = 27.5,
-                                                .FreeText = "cooking option"})
+    '    Options.Add(New clsTillSaleItem() With {.PLU = "00000005",
+    '                                            .Qty = 1,
+    '                                            .LinePrice = 27.5,
+    '                                            .FreeText = "cooking option"})
 
-        Items.Add(New clsTillSaleItem() With {.PLU = "00000001",
-                                          .Qty = 5,
-                                          .LinePrice = 27.5,
-                                          .ProductOptions = Options})
+    '    Items.Add(New clsTillSaleItem() With {.PLU = "00000001",
+    '                                      .Qty = 5,
+    '                                      .LinePrice = 27.5,
+    '                                      .ProductOptions = Options})
 
-        Items.Add(New clsTillSaleItem() With {.PLU = "00000002",
-                                          .Qty = 1,
-                                          .LinePrice = 12.99,
-                                          .FreeText = "Treat as main meal"})
+    '    Items.Add(New clsTillSaleItem() With {.PLU = "00000002",
+    '                                      .Qty = 1,
+    '                                      .LinePrice = 12.99,
+    '                                      .FreeText = "Treat as main meal"})
 
-        With ToReturn
-            .Tenders = Tenders.AsEnumerable
-            .Items = Items.AsEnumerable
-            .ActionDate = Now
-            .Hospitality = True
-        End With
-        Return ToReturn
+    '    With ToReturn
+    '        .Tenders = Tenders.AsEnumerable
+    '        .Items = Items.AsEnumerable
+    '        .ActionDate = Now
+    '        .Hospitality = True
+    '    End With
+    '    Return ToReturn
 
-    End Function
+    'End Function
 
     Function PopulateOrderSearch() As GetOrdersArguments
         Dim ToReturn As New GetOrdersArguments
