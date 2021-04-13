@@ -13,6 +13,9 @@ Public Class AddressValidatorParams
     <Required>
     Property PostCode As String
 
+    <StringLength(2)>
+    Property CountryCode As String = "GB"
+
 End Class
 
 Public Class AddressValidatorManualParams
@@ -21,6 +24,7 @@ Public Class AddressValidatorManualParams
     <Required>
     Property supplier As PostcodeLookupSupplierEnum = PostcodeLookupSupplierEnum.None
     Property password As String
+
 End Class
 
 Public Class AddressValidatorManualParamsByID

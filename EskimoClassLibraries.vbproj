@@ -95,6 +95,9 @@
     <Compile Include="Models\Arguments\CategoryProductArguments.vb" />
     <Compile Include="Models\Arguments\AddressSearchArguments.vb" />
     <Compile Include="Models\Arguments\ChangeQuoteStatus.vb" />
+    <Compile Include="Models\Arguments\GetModifiedOrdersArguments.vb" />
+    <Compile Include="Models\Arguments\ImageArgs.vb" />
+    <Compile Include="Models\Arguments\InvoicePaymentSearchArgs.vb" />
     <Compile Include="Models\Arguments\OperatorPermissionArgs.vb" />
     <Compile Include="Models\Arguments\GetReasonArguments.vb" />
     <Compile Include="Models\Arguments\CountriesArguments.vb" />
@@ -131,6 +134,7 @@
     <Compile Include="Models\Arguments\TaxCodeArguments.vb" />
     <Compile Include="Models\Arguments\TenderArguments.vb" />
     <Compile Include="Models\Arguments\TillMenuSectionsArgs.vb" />
+    <Compile Include="Models\Arguments\UnfulfilledOrderSearchArgs.vb" />
     <Compile Include="Models\Arguments\UnitInfoArgs.vb" />
     <Compile Include="Models\CutDownClasses\CategoryID.vb" />
     <Compile Include="Models\CutDownClasses\GenericStringList.vb" />
@@ -154,9 +158,15 @@
     <Compile Include="Models\EskimoClasses\Category.vb" />
     <Compile Include="Models\EskimoClasses\CategoryProduct.vb" />
     <Compile Include="Models\EskimoClasses\ChargeArea.vb" />
+    <Compile Include="Models\EskimoClasses\Colour.vb" />
+    <Compile Include="Models\EskimoClasses\InvoicePayment.vb" />
+    <Compile Include="Models\EskimoClasses\PLU.vb" />
+    <Compile Include="Models\EskimoClasses\ProductGroup.vb" />
+    <Compile Include="Models\EskimoClasses\ShopVisibility.vb" />
     <Compile Include="Models\EskimoClasses\StockAdjustment.vb" />
     <Compile Include="Models\EskimoClasses\Log.vb" />
     <Compile Include="Models\EskimoClasses\Packages.vb" />
+    <Compile Include="Models\EskimoClasses\StyleReference.vb" />
     <Compile Include="Models\EskimoClasses\TillIdentifier.vb" />
     <Compile Include="Models\EskimoClasses\HardwareToken.vb" />
     <Compile Include="Models\EskimoClasses\HistoricOrder.vb" />
@@ -235,6 +245,7 @@
     <Compile Include="Models\EskimoClasses\TillMenuPriceLists.vb" />
     <Compile Include="Models\EskimoClasses\WebTillAction.vb" />
     <Compile Include="Models\ValidationAttributes\Customer.vb" />
+    <Compile Include="Models\ValidationAttributes\SharedCustomAttributes.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

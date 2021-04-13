@@ -30,4 +30,7 @@ Public Class clsTillMenuProduct
     Property StockWarnLevel As Integer?
     Property BuyTodayPrice As Decimal?
     Property NoDiscountAllowed As Boolean
+
+    Property WeightValue As Decimal?
+    Property WeightMeasureUnit As Integer?
 End Class

@@ -121,3 +121,14 @@ Public Class clsCountedProducts
     Property StockTakeStore As String
 
 End Class
+
+Public Class clsCountedProductExt
+    Inherits clsCountedProduct
+
+    ''' <summary>
+    ''' The 30 character till description of the product
+    ''' </summary>
+    ''' <returns></returns>
+    Property ShortDescription As String
+
+End Class

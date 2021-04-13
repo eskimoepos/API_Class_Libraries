@@ -7,6 +7,14 @@ Imports System.ComponentModel.DataAnnotations
 Public Class clsSaleExt
     Inherits clsSaleBase(Of clsSalesItemExt)
 
+    ''' <summary>
+    ''' The Shipping Value (exc. tax) 
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Property ShippingAmountNet As Decimal = 0
+
     Public Overrides Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult)
         Dim lst As New List(Of ValidationContext)
 

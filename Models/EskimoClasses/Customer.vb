@@ -84,11 +84,22 @@ Public Class clsCustomer
     Sub New(r As DataRow)
         Me.New(New DataRecord(r))
     End Sub
+
     Sub New()
 
     End Sub
 
+    ''' <summary>
+    ''' Which shops can see this customer.
+    ''' </summary>
+    ''' <returns></returns>
+    Property ShopVisibility As clsShopVisibility = New clsShopVisibility With {.VisibileEverywhere = True}
 
+    ''' <summary>
+    ''' Optional. If omitted, this will default to the database the API is connected to, but can be specified.
+    ''' </summary>
+    ''' <returns></returns>
+    Property ShopCreatedBy As String = "?-?"
 
     Sub New(r As DataRecord)
         Dim intCustTitleID As Short?
@@ -153,6 +164,7 @@ Public Class clsCustomer
             ' need to modify:
             ' GetOrderInfo (sp)
             ' spCustomerSearch (sp)
+            ' spOrdersUnfulfilled
             ' spCustomersGetAll (sp) edit PopulateCustomerDump sub also
             ' also modify clsCustomerModel constructor
         Catch ex As Exception

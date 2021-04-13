@@ -28,4 +28,16 @@ Public Class clsProductCode
     ''' <returns></returns>
     Property Size As String
 
+    ''' <summary>
+    ''' When ordering from the suppplier, this is the number of products contained within a case. Many suppliers will only accept purchase orders by the case.
+    ''' </summary>
+    ''' <returns></returns>
+    Property CaseQty As Integer
+
+    ''' <summary>
+    ''' The number of products contained within an inner. An inner is a box of products within a case that is delivered from the supplier.
+    ''' </summary>
+    ''' <returns></returns>
+    Property InnerQty As Integer
+
 End Class

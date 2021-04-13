@@ -24,6 +24,11 @@ Public Class clsTenderEntry
     <Required>
     Property Amount As Decimal
 
+    ''' <summary>
+    ''' The date/time the money was taken (sometimes after that of the Sales date)
+    ''' </summary>
+    ''' <returns></returns>
+    Property PaidDate As Date
 
     <EnumDataType(GetType(TenderTypeEnum))>
     <Required>

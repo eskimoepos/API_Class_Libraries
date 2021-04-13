@@ -330,6 +330,7 @@ Public Class clsSalesItemExt
     Property Size As String
     Property StyleID As String
     Property InvoiceID As Integer?
+
 End Class
 
 'Public Class clsTillSaleItems

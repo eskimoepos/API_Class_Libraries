@@ -22,4 +22,10 @@ Public Module modExtentions
         If dInput Is Nothing Then Return "null"
         Return String.Format("{0:C}", dInput)
     End Function
+
+    <Extension>
+    Function line_value(itm As iOrderItem) As Decimal
+        Return itm.unit_price * itm.qty_purchased
+    End Function
+
 End Module

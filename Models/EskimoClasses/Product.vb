@@ -131,4 +131,18 @@ Public Class clsProduct
     ''' <returns></returns>
     Public Property is_package As Boolean
 
+    ''' <summary>
+    ''' Although the field label is called Colour, customers can choose to rename this to something else. This field denotes what should be displayed in the dropdown label
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(50)>
+    Public Property colour_terminology As String
+
+    ''' <summary>
+    ''' Although the field label is called Size, customers can choose to rename this to something else. This field denotes what should be displayed in the dropdown label
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(50)>
+    Public Property size_terminology As String
+
 End Class

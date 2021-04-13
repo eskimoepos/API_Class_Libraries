@@ -1,19 +1,68 @@
 ﻿Imports System.ComponentModel.DataAnnotations
 Imports System.Runtime.Serialization
 Imports EskimoClassLibraries.clsSaleItemBase
+
+
+Public Interface iOrderItem
+
+    Property qty_purchased As Integer
+
+    Property unit_price As Decimal
+
+    Property lineID As Integer?
+
+End Interface
+
+Public Class clsOrderItemExt
+    Inherits clsOrderItemBase
+
+    ''' <summary>
+    ''' How many of the ordered quantity have been shipped from the Eskimo system.
+    ''' </summary>
+    ''' <returns></returns>
+    Property qty_shipped As Integer
+
+    ''' <summary>
+    ''' How many of the ordered quantity have been refunded from the Eskimo system.
+    ''' </summary>
+    ''' <returns></returns>
+    Property qty_refunded As Integer
+
+    Sub New()
+
+    End Sub
+
+    Sub New(descr As String)
+        Me.item_description = descr
+    End Sub
+
+End Class
+
+Public Class clsOrderItem
+    Inherits clsOrderItemBase
+
+    Sub New()
+
+    End Sub
+
+    Sub New(descr As String)
+        Me.item_description = descr
+    End Sub
+
+End Class
+
 ''' <summary>
 ''' The Order Item Class. This contains information about a singular line within a completed order.
 ''' </summary>
-Public Class clsOrderItem
-    Inherits EskimoBaseClass
+Public MustInherit Class clsOrderItemBase
 
-    Implements IValidatableObject
+    Implements IValidatableObject, iOrderItem
 
     ''' <summary>
     ''' A unique number for each line in the sale. Start at 1 and increment. Optional, unless Kit items are included.
     ''' </summary>
     ''' <returns></returns>
-    Property lineID As Integer?
+    Property lineID As Integer? Implements iOrderItem.lineID
 
     ''' <summary>
     ''' Matches the sku_code property from the SKUs Controller. 
@@ -33,7 +82,7 @@ Public Class clsOrderItem
     ''' <returns></returns>
     ''' <remarks></remarks>
     <Range(1, Int16.MaxValue, ErrorMessage:="A positive quantity must be submitted")>
-    Property qty_purchased As Integer
+    Property qty_purchased As Integer Implements iOrderItem.qty_purchased
 
     ''' <summary>
     ''' The price of one of these items AFTER any discounts. 
@@ -43,7 +92,7 @@ Public Class clsOrderItem
     ''' <returns></returns>
     ''' <remarks></remarks>
     <Required>
-    Property unit_price As Decimal
+    Property unit_price As Decimal Implements iOrderItem.unit_price
 
     ''' <summary>
     ''' The sum of the discounts applied to all of the items on this line. 
@@ -82,21 +131,12 @@ Public Class clsOrderItem
     ''' <returns></returns>
     Property vat_id As Integer?
 
-    Function line_value() As Decimal
-        Return Me.unit_price * Me.qty_purchased
-    End Function
+
 
     Function savings() As Decimal
         Return (Me.line_value + Me.line_discount_amount) - Me.line_value
     End Function
 
-    Sub New()
-
-    End Sub
-
-    Sub New(descr As String)
-        Me.item_description = descr
-    End Sub
 
     ''' <summary>
     ''' Determines if this order line is part of a package (or kit). If omitted, 5 (Normal item) will be assumed.

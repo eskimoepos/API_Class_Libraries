@@ -1,8 +1,8 @@
 ﻿
 Imports System.ComponentModel.DataAnnotations
 
-Public Class clsExtendedOrder
-    Inherits clsOrder
+Public Class clsOrderExt
+    Inherits clsOrderBase(Of clsOrderItemExt)
 
     ''' <summary>
     ''' See api/Orders/FulfilmentMethods
@@ -35,5 +35,12 @@ Public Class clsExtendedOrder
     ''' <returns></returns>
     <StringLength(50)>
     Property ShopName As String
+
+    Public Overrides Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult)
+        Dim lst As New List(Of ValidationContext)
+
+        Return lst
+
+    End Function
 
 End Class
