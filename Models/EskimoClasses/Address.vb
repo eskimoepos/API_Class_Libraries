@@ -130,6 +130,25 @@ Public Class clsAddress
         Return local_field <> foreign_field
     End Function
 
+    Private Sub AppendAddressPortion(strInput As String, sb As Text.StringBuilder, strSeparator As String)
+        If Not String.IsNullOrEmpty(strInput) Then
+            If sb.Length > 0 Then sb.Append(strSeparator)
+            sb.Append(strInput)
+        End If
+    End Sub
+
+    Public Function GetAddress(booIncludeCompany As Boolean, Optional strSeparator As String = vbNewLine) As String
+        Dim sb As New Text.StringBuilder
+
+        If booIncludeCompany Then Call AppendAddressPortion(Me.Company, sb, strSeparator)
+        Call AppendAddressPortion(Me.Line1, sb, strSeparator)
+        Call AppendAddressPortion(Me.Line2, sb, strSeparator)
+        Call AppendAddressPortion(Me.Line3, sb, strSeparator)
+        Call AppendAddressPortion(Me.PostalTown, sb, strSeparator)
+        Call AppendAddressPortion(Me.Region, sb, strSeparator)
+        Return sb.ToString
+
+    End Function
 
     ''' <summary>
     ''' Optional. Name of the company / organisation.

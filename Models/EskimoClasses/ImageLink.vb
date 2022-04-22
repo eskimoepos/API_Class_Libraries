@@ -37,6 +37,12 @@ Public Class clsImageLink
     ''' <returns></returns>
     Property sku_code As String
 
+    ''' <summary>
+    ''' The date the link was last modified
+    ''' </summary>
+    ''' <returns></returns>
+    Property LastModified As Date
+
 End Class
 
 

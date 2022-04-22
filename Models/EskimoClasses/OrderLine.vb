@@ -28,6 +28,48 @@ Public Class clsOrderItemExt
     ''' <returns></returns>
     Property qty_refunded As Integer
 
+    ''' <summary>
+    ''' The database id for this item
+    ''' </summary>
+    ''' <returns></returns>
+    Property id As String
+
+    Property status As OrderStatusEnum
+
+    Enum OrderStatusEnum
+
+        ''' <summary>
+        ''' When an item is first inserted
+        ''' </summary>
+        InitialStatus = 0
+
+        ''' <summary>
+        ''' This item has not yet been ordered from the supplier
+        ''' </summary>
+        NotOrdered = 3
+
+        ''' <summary>
+        ''' Item has been ordered from the supplier , but it hasn't arrived yet
+        ''' </summary>
+        NotReceived = 4
+
+        ''' <summary>
+        ''' Item is ready for dispatch/customer collection
+        ''' </summary>
+        NotCollected = 5
+
+        ''' <summary>
+        ''' Item has been dispatched/collected
+        ''' </summary>
+        Collected = 6
+
+        ''' <summary>
+        ''' Item is no longer required.
+        ''' </summary>
+        NotFulfilled = 7
+
+    End Enum
+
     Sub New()
 
     End Sub

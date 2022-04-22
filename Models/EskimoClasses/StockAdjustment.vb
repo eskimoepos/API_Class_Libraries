@@ -51,10 +51,18 @@ Public Class clsStockAdjustmentInfo
     <StringLength(50)>
     Property Identifier As String
 
+    ''' <summary>
+    ''' Optional. Shop Code. See api/Shops/All  If omitted, the default store number of the database the API is connected to will be adjusted.
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(3, ErrorMessage:="The code must be 3 digits.", MinimumLength:=3)>
+    Property StoreNumber As String
+
 End Class
 
 Public Class clsStockAdjustmentResult
 
+    Property StoreNumber As String
     Property Identifier As String
     Property StockLevel1 As Integer
     Property StockLevel2 As Integer

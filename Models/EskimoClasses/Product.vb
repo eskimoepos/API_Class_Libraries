@@ -68,6 +68,13 @@ Public Class clsProduct
     Public Property date_created As DateTime
 
     ''' <summary>
+    ''' The position the product should appear in on a category page. (Irrelevant if ordering by price or alphabetical, but applicable when ordering by position.)
+    ''' </summary>
+    ''' <returns></returns>
+    <Required>
+    Public Property position As Integer
+
+    ''' <summary>
     ''' When the product was last modified in the Eskimo system
     ''' </summary>
     ''' <value></value>
@@ -144,5 +151,23 @@ Public Class clsProduct
     ''' <returns></returns>
     <StringLength(50)>
     Public Property size_terminology As String
+
+    ''' <summary>
+    ''' If true, this indicates that the product is a package component, but should not be sold separately.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property package_component_only As Boolean
+
+    ''' <summary>
+    ''' Determines whether a colour drop-down should be utilitised on the product page or not.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property use_colour_option As Boolean
+
+    ''' <summary>
+    ''' Determines whether a size drop-down should be utilitised on the product page or not.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property use_size_option As Boolean
 
 End Class

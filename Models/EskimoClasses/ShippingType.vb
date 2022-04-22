@@ -11,7 +11,8 @@ Public Class clsShippingType
     Property Rates As New List(Of clsShippingRate)
     <StringLength(50)>
     Property CourierCompany As String
-
+    <StringLength(3, ErrorMessage:="The StoreNumber must be 3 digits.", MinimumLength:=3)>
+    Property CollectionStoreID As String
 End Class
 
 Public Class clsShippingRate

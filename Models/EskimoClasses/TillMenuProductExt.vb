@@ -35,6 +35,8 @@ Public Class clsTillMenuProductExt
     Property StockWarnLevel As Integer?
     Property Weight As Long
     Property NoDiscountAllowed As Boolean
+    Property AdditionalPLUs As New List(Of String)
+
 End Class
 
 Public Class clsPrice

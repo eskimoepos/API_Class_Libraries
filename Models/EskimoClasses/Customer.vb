@@ -93,13 +93,13 @@ Public Class clsCustomer
     ''' Which shops can see this customer.
     ''' </summary>
     ''' <returns></returns>
-    Property ShopVisibility As clsShopVisibility = New clsShopVisibility With {.VisibileEverywhere = True}
+    Property ShopVisibility As clsShopVisibility = New clsShopVisibility With {.VisibleEverywhere = True}
 
     ''' <summary>
     ''' Optional. If omitted, this will default to the database the API is connected to, but can be specified.
     ''' </summary>
     ''' <returns></returns>
-    Property ShopCreatedBy As String = "?-?"
+    Property ShopCreatedBy As String
 
     Sub New(r As DataRecord)
         Dim intCustTitleID As Short?

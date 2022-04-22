@@ -7,4 +7,6 @@
 
     Public Property sku_code As String
 
+    Public Property AttributeSearchArgs As SKUAttribueSearchArguments
+
 End Class

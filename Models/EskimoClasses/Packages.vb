@@ -39,11 +39,19 @@ Public Class clsPackageChoice
     ''' </summary>
     ''' <returns></returns>
     Property label As String
+
     ''' <summary>
-    ''' The product identifier of this product. Will link to api/Products/All
+    ''' The product component. Same result class as found in api/Products/All
     ''' </summary>
     ''' <returns></returns>
     Property product_identifier As String
+
+    ''' <summary>
+    ''' The ID saved against the product using 
+    ''' </summary>
+    ''' <returns></returns>
+    Property product_web_id As String
+
     ''' <summary>
     ''' Optional. The order in which the products should be displayed
     ''' </summary>

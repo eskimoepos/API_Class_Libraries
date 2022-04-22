@@ -47,8 +47,8 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\OKA\SalesForce Service\OKASalesForce\DevTester\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -128,8 +128,10 @@
     <Compile Include="Models\Arguments\ReportRunInfo.vb" />
     <Compile Include="Models\Arguments\SaleReturnArguments.vb" />
     <Compile Include="Models\Arguments\SalesChannelSearchParams.vb" />
+    <Compile Include="Models\Arguments\SetLineStatusArguments.vb" />
     <Compile Include="Models\Arguments\ShopArguments.vb" />
     <Compile Include="Models\Arguments\SKUArguments.vb" />
+    <Compile Include="Models\Arguments\SKUAttribueSearchArguments.vb" />
     <Compile Include="Models\Arguments\StockTakingValidateOptions.vb" />
     <Compile Include="Models\Arguments\TaxCodeArguments.vb" />
     <Compile Include="Models\Arguments\TenderArguments.vb" />
@@ -161,6 +163,7 @@
     <Compile Include="Models\EskimoClasses\Colour.vb" />
     <Compile Include="Models\EskimoClasses\InvoicePayment.vb" />
     <Compile Include="Models\EskimoClasses\PLU.vb" />
+    <Compile Include="Models\EskimoClasses\SKUAttribute.vb" />
     <Compile Include="Models\EskimoClasses\ProductGroup.vb" />
     <Compile Include="Models\EskimoClasses\ShopVisibility.vb" />
     <Compile Include="Models\EskimoClasses\StockAdjustment.vb" />

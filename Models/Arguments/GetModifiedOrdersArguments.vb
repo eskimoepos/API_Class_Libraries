@@ -14,6 +14,7 @@ Public Class GetModifiedOrdersArguments
     ''' Return orders modified before this date/time
     ''' </summary>
     ''' <returns></returns>
+    <Required>
     Property ToDate As Date
 
     ''' <summary>
@@ -48,5 +49,17 @@ Public Class GetModifiedOrdersArguments
     ''' <returns></returns>
     <StringLength(3)>
     Public Property StoreNumber As String
+
+    ''' <summary>
+    ''' Optional. The Order Number
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property OrderNumber As Integer?
+
+    ''' <summary>
+    ''' Optional. The external Order Number
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property ExternalIdentifier As String
 
 End Class

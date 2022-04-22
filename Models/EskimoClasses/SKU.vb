@@ -115,9 +115,20 @@ Public Class clsSKU
     <Required>
     Public Property SellPrice2 As Decimal
 
+    ''' <summary>
+    ''' The Physical amount of stock the retailer has for this item
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property PhysicalStock As Integer
 
     ''' <summary>
-    ''' The quantity of items the retailer has on hand to sell in the current shop.
+    ''' Customer demand for this item. Orders that customer's have placed which are yet be dispatched to them.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property Demand As Integer
+
+    ''' <summary>
+    ''' The quantity of items the retailer has on hand to sell in the current shop. Free stock. (Physical Stock minus Demand)
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
@@ -163,11 +174,34 @@ Public Class clsSKU
     ''' <remarks></remarks>
     Public Property web_id As String
 
+    Enum OutOfStockBehaviourEnum
+        ''' <summary>
+        ''' If the product is out of stock, the customer cannot buy this product
+        ''' </summary>
+        NoPurchaseAllowed = 1
+
+        ''' <summary>
+        ''' If the product is out of stock, the customer will be allowed to buy the product, but will also receive a warning - perhaps about the delivery delay
+        ''' </summary>
+        AllowPurchaseWithWarning = 2
+
+        ''' <summary>
+        ''' Treat this product like it is in stock. Allow the customer to purchase it and do not give any indication about it's unavailability
+        ''' </summary>
+        AllowPurchase = 3
+    End Enum
+
+    ''' <summary>
+    ''' Specified the desired behaviour when the product is out of stock
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property OutOfStockBehaviour As OutOfStockBehaviourEnum = OutOfStockBehaviourEnum.NoPurchaseAllowed
+
     ''' <summary>
     ''' The value of the weight of this SKU. 
     ''' </summary>
     ''' <returns></returns>
-    Public Property WeightValue As Integer
+    Public Property WeightValue As Decimal
 
     ''' <summary>
     ''' The weight unit. For example kg, lbs, grams. See GET api/MeasureUnits/All
@@ -175,6 +209,43 @@ Public Class clsSKU
     ''' <returns></returns>
     Public Property WeightUnit As Integer
 
+    ''' <summary>
+    ''' The Id of the Brand
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property BrandId As Integer?
+
+    ''' <summary>
+    ''' The name of the brand if applicable (i.e. Nike, Adidas)
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property BrandName As String
+
+    ''' <summary>
+    ''' Controls whether the SKU should be sold as a normal SKU, or only be used within a Product Package/Kit
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property PackageStatus As PackageStatusEnum = PackageStatusEnum.NormalOrPackageComponent
+
+    Public Enum PackageStatusEnum
+
+        ''' <summary>
+        ''' Item is sellable and in addition, may or may not be, a package component. 
+        ''' </summary>
+        NormalOrPackageComponent = 0
+
+        ''' <summary>
+        ''' Item is a package Header
+        ''' </summary>
+        IsPackageHeader = 1
+
+        ''' <summary>
+        ''' Item is only a package component and should not be sellable outside of a package.
+        ''' </summary>
+        PackageComponentOnly = 2
+    End Enum
+
+    Public Property CustomAttributeLinks As List(Of clsSKUAttributeLink)
 
 End Class
 

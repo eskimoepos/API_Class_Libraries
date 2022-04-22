@@ -21,6 +21,7 @@ End Class
 Public Class AddressValidatorManualParams
     Inherits AddressValidatorParams
 
+    <EnumDataType(GetType(PostcodeLookupSupplierEnum))>
     <Required>
     Property supplier As PostcodeLookupSupplierEnum = PostcodeLookupSupplierEnum.None
     Property password As String
