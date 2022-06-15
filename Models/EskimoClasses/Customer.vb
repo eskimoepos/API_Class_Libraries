@@ -58,6 +58,12 @@ Public Class clsCustomer
     ''' <returns></returns>
     Public Property MarketingFlagsID As IEnumerable(Of Integer)
 
+    ''' <summary>
+    ''' Used either for saving schemes/customer accounts, this is the customer's current balance.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property AccountBalance As Decimal?
+
     Enum CustomerTypeEnum
         ''' <summary>
         ''' Will require a company name to pass validation
@@ -160,6 +166,7 @@ Public Class clsCustomer
             Me.MarketingFlagsID = flags
 
             Me.CustomerType = r("CustomerType")
+            _AccountBalance = r("CurrentBalance")
 
             ' need to modify:
             ' GetOrderInfo (sp)
@@ -220,6 +227,10 @@ Public Class clsCustomer
 
     Public Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult) Implements IValidatableObject.Validate
         Dim lst As New List(Of ValidationResult)
+
+        If Me.AccountBalance IsNot Nothing Then
+            lst.Add(New ValidationResult("The AccountBalance property is read-only"))
+        End If
 
         If (Me.LegacyAddressComponentsPopulated) AndAlso Me.MainAddress IsNot Nothing Then
             lst.Add(New ValidationResult("Address/PostCode cannot be populated along with MainAddress. If running an Eskimo system that supports multiple addresses per customer, then populate the MainAddress property, otherwise use the Address and PostCode fields."))

@@ -158,6 +158,13 @@ Public MustInherit Class clsOrderBase(Of T As iOrderItem)
     <Required>
     Property ShippingAmountGross As Decimal
 
+    ''' <summary>
+    ''' If the client is offering a saving scheme to their customers, this field can be used to reduce the customer's balanace by the amount provided, whilst linking that reduction with this order.
+    ''' </summary>
+    ''' <returns></returns>
+    <Range(0, Decimal.MaxValue, ErrorMessage:="A positive value must be submitted")>
+    Property CustomerAccountValuePaid As Decimal?
+
     Function CalculatedOrderTotal() As Decimal
         Dim t As Decimal = 0
 
@@ -188,7 +195,6 @@ Public MustInherit Class clsOrderBase(Of T As iOrderItem)
 
 End Class
 
-''' <inheritdoc/>
 Public Class clsOrder
     Inherits clsOrderBase(Of clsOrderItem)
 
@@ -206,12 +212,14 @@ Public Class clsOrder
         Dim lstNonNullItems As List(Of clsOrderItem)
         Dim IDCount As Integer
         Dim intMax As Integer
+        Dim decCalcOrderSum As Decimal = Me.CalculatedOrderTotal
 
-        If Decimal.Round(Me.invoice_amount, 2) <> Decimal.Round(Me.CalculatedOrderTotal, 2) Then
-            'Dim e As New APIException(New Exception("Order Sum is " & Me.CalculatedOrderTotal.ToString("c") & ", but the invoice_amount passed is " & Order.invoice_amount.ToString("c")))
-            'Me.EventLogMsg(StartTime, e)
-            'Throw e
-            lst.Add(New ValidationResult($"Order Sum is {Me.CalculatedOrderTotal.ToString("c")}, but the invoice_amount passed is {Me.invoice_amount.ToString("c")}"))
+        If Decimal.Round(Me.invoice_amount, 2) <> Decimal.Round(decCalcOrderSum, 2) Then
+            lst.Add(New ValidationResult($"Order Sum is {decCalcOrderSum.ToString("c")}, but the invoice_amount passed is {Me.invoice_amount.ToString("c")}"))
+        End If
+
+        If Decimal.Round(Me.amount_paid, 2) > Decimal.Round(decCalcOrderSum, 2) Then
+            lst.Add(New ValidationResult($"Order Sum is {decCalcOrderSum.ToString("c")}, but the amount_paid is too high ({Me.amount_paid.ToString("c")})"))
         End If
 
         If Me.OrderedItems.Any(Function(x) x.kit_product_type <> clsSaleItemBase.ItemKitTypeEnum.NormalItem) Then
