@@ -173,10 +173,18 @@ Public MustInherit Class clsOrderItemBase
     ''' <returns></returns>
     Property vat_id As Integer?
 
+    Private decAddDiscount As Decimal
 
+    Sub SetAddlDiscount(decVal As Decimal)
+        decAddDiscount = decVal
+    End Sub
+
+    Function GetAddlDiscount() As Decimal
+        Return decAddDiscount
+    End Function
 
     Function savings() As Decimal
-        Return (Me.line_value + Me.line_discount_amount) - Me.line_value
+        Return (Me.line_value + Me.line_discount_amount + GetAddlDiscount()) - Me.line_value
     End Function
 
 

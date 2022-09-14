@@ -102,6 +102,12 @@ Public MustInherit Class clsOrderBase(Of T As iOrderItem)
     Property amount_paid As Decimal
 
     ''' <summary>
+    ''' The sum of any order level discounts. As Eskimo does not have an order-level discount, this amount will be evenly applied to each product line 
+    ''' </summary>
+    ''' <returns></returns>
+    Property order_discount As Decimal
+
+    ''' <summary>
     ''' Exclude if equal to the invoice address
     ''' </summary>
     ''' <value></value>
@@ -206,12 +212,64 @@ Public Class clsOrder
         'eBayOrder = 4
         'AmazonOrder = 5
     End Enum
+    Private booAddedOrderDiscounts As Boolean
+
+    Private Sub AddAddlDiscounts()
+
+        If Me.order_discount = 0 Then GoTo Jump
+        Dim decDiscountAdded As Decimal = 0
+        Dim decCurrentDiscount As Decimal
+        Dim decDiscountPercentage As Decimal
+        Dim intLines As Integer = Me.OrderedItems.Count
+        Dim intCurrent As Integer
+        Dim decNewUnit As Decimal
+        Dim decOrderTotalGoodsOnly As Decimal = Me.CalculatedOrderTotal - ShippingAmountGross
+        Dim decExistingLineGross As Decimal
+        Dim decAmountOutBy As Decimal
+
+        decDiscountPercentage = Me.order_discount / decOrderTotalGoodsOnly
+        'See K:\OneDrive\OneDrive Documents\Business\Web Order Level Discounts.xlsx
+
+        For Each l In Me.OrderedItems.OrderByDescending(Function(x) x.qty_purchased) '.OrderBy(Function(y) y.line_value) 'so we can adjust the most expensive one by a penny at the end if needed. More accurate if it has a qty of 1.
+
+            intCurrent += 1
+            decExistingLineGross = l.line_value
+            decCurrentDiscount = (decDiscountPercentage * decExistingLineGross)
+            decNewUnit = (decExistingLineGross - decCurrentDiscount) / l.qty_purchased
+            decNewUnit = Decimal.Round(decNewUnit, 2)
+
+            'recalculate the new discount after rounded
+            decCurrentDiscount = decExistingLineGross - (decNewUnit * l.qty_purchased)
+
+            l.unit_price = decNewUnit
+            l.line_discount_amount += decCurrentDiscount
+            decDiscountAdded += decCurrentDiscount
+
+            If intCurrent = intLines Then
+                'where we do the adjustment on the last line
+
+                decAmountOutBy = decDiscountAdded - Me.order_discount
+
+                l.line_discount_amount -= decAmountOutBy
+                l.unit_price += decAmountOutBy / Convert.ToDecimal(l.qty_purchased)
+
+            End If
+
+        Next
+
+Jump:
+        booAddedOrderDiscounts = True
+
+    End Sub
 
     Public Overrides Function Validate(validationContext As ValidationContext) As IEnumerable(Of ValidationResult)
         Dim lst As New List(Of ValidationResult)
         Dim lstNonNullItems As List(Of clsOrderItem)
         Dim IDCount As Integer
         Dim intMax As Integer
+
+        If Not booAddedOrderDiscounts Then AddAddlDiscounts()
+
         Dim decCalcOrderSum As Decimal = Me.CalculatedOrderTotal
 
         If Decimal.Round(Me.invoice_amount, 2) <> Decimal.Round(decCalcOrderSum, 2) Then
@@ -260,6 +318,10 @@ Public Class clsOrder
             lst.Add(New ValidationResult($"Kit Parent Lines cannot have a monetary value. Line {itm.lineID}, has a value of {itm.line_value.ToString("c")}."))
         Next
 
+        For Each itm In Me.OrderedItems.Where(Function(x) x.line_value < 0)
+            lst.Add(New ValidationResult($"Line {itm.lineID} has a negaive line price {itm.line_value.ToString("c")}"))
+        Next
+
         For Each itm In Me.OrderedItems.Where(Function(x) x.kit_parent_line IsNot Nothing AndAlso Me.OrderedItems.Exists(Function(y) y.lineID = x.kit_parent_line))
             Dim parent As clsOrderItem
 
@@ -283,6 +345,10 @@ Public Class clsOrder
                 lst.Add(New ValidationResult($"Item line {itm.lineID} is set to be a Kit Header, but no components were passed that link to it."))
             End If
         Next
+
+        If Me.CustomerAccountValuePaid IsNot Nothing AndAlso Me.CustomerAccountValuePaid > decCalcOrderSum Then
+            lst.Add(New ValidationResult($"The CustomerAccountValuePaid ({Convert.ToDecimal(Me.CustomerAccountValuePaid).ToString("c")}) cannot be more than the value of the order ({decCalcOrderSum.ToString("c")})."))
+        End If
 
         Return lst.AsEnumerable
 

@@ -15,6 +15,7 @@ Public Class UnfulfilledOrderSearchArgs
     Property ShippingTypeIDs As IEnumerable(Of Integer)
 
 
+
     '''' <summary>
     '''' Search for orders that matching this external reference given when inserting the order.
     '''' </summary>
@@ -68,12 +69,24 @@ Public Class UnfulfilledOrderSearchArgs
     Public Property CustomerID As String
 
 
-    '''' <summary>
-    '''' The Code of the shop the order is assigned to. See api/Shops/All
-    '''' </summary>
-    '''' <returns></returns>
-    '<StringLength(3)>
-    'Public Property StoreNumber As String
+    ''' <summary>
+    ''' The Code of the shop the order is assigned to. See api/Shops/All
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(3)>
+    Public Property StoreNumber As String
+
+    ''' <summary>
+    ''' The Web Order ID or the Customer Order ID. Optional.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property OrderNumber As Integer?
+
+    ''' <summary>
+    ''' Specifies whethere the order items should be included in the returned results or not. True if omitted
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property IncludeOrderItems As Boolean = True
 
 End Class
 

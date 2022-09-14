@@ -155,7 +155,7 @@ Public Class clsCustomer
 
             Dim flags As New List(Of Integer)
             If booUsingNewMarketingFlags Then
-                If Not IsDBNull(r("MarketingFlags")) Then
+                If Not String.IsNullOrEmpty(Nz(r("MarketingFlags"))) Then
                     flags = Array.ConvertAll(Strings.Split(r("MarketingFlags"), ","), AddressOf Integer.Parse).ToList
                 End If
             Else
@@ -296,7 +296,7 @@ Public Class clsCustomer
     Public Property ActiveAccount As Boolean
 
     ''' <summary>
-    ''' Customer's Address minus the postal code. Carriage returns can be specified in JSON with a simple \n (i.e. "Address": "123 High Street\nLondon"  )
+    ''' Customer's Address minus the postal code. Carriage returns can be specified in JSON with a simple \r\n (i.e. "Address": "123 High Street\r\nLondon"  )
     ''' </summary>
     ''' <value></value>
     ''' <returns></returns>
