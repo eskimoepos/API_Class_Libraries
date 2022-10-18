@@ -88,6 +88,18 @@ Public Class UnfulfilledOrderSearchArgs
     ''' <returns></returns>
     Public Property IncludeOrderItems As Boolean = True
 
+    ''' <summary>
+    ''' With this option on, orders will still be included in the results if there is items that don't have sufficient stock, but those items will not be included.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property HideOutOfStockOrderedItems As Boolean
+
+    ''' <summary>
+    ''' If any ordered products on an order are out of stock, don't return that order in the results as it cannot be completely processed by a dispatch team.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property HideOrdersWithOutOfStockItems As Boolean
+
 End Class
 
 
