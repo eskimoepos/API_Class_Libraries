@@ -115,10 +115,22 @@ Public Class clsProduct
     Public Property from_price As Decimal
 
     ''' <summary>
-    ''' An additional field for this product. The retailer can use this for whatever purpose they need.
+    ''' An additional key/value pair field for this product. The retailer can use this for whatever purpose they need.
     ''' </summary>
     ''' <returns></returns>
-    Public Property addfield04 As Integer
+    Public Property addfield04 As KeyValuePair(Of Integer, String)?
+
+    ''' <summary>
+    ''' An additional key/value pair field for this product. The retailer can use this for whatever purpose they need.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property addfield05 As KeyValuePair(Of Integer, String)?
+
+    ''' <summary>
+    ''' An additional boolean field for this product. The retailer can use this for whatever purpose they need.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property addfield06 As Boolean
 
     ''' <summary>
     ''' The Eskimo ID of the company that supplies the product. 

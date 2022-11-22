@@ -247,5 +247,52 @@ Public Class clsSKU
 
     Public Property CustomAttributeLinks As List(Of clsSKUAttributeLink)
 
+
+    ''' <summary>
+    ''' An additional string field for this product. The retailer can use this for whatever purpose they need.
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(30)>
+    Public Property AddField01 As String
+
+
+    ''' <summary>
+    ''' An additional string field for this product. The retailer can use this for whatever purpose they need.
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(50)>
+    Public Property AddField02 As String
+
+    ''' <summary>
+    ''' An additional string field for this product. The retailer can use this for whatever purpose they need.
+    ''' </summary>
+    ''' <returns></returns>
+    <StringLength(4000)>
+    Public Property AddField03 As String
+
+    ''' <summary>
+    ''' An additional key/value pair field for this product. The retailer can use this for whatever purpose they need.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property AddField04 As KeyValuePair(Of Integer, String)?
+
+    ''' <summary>
+    ''' An additional key/value pair field for this product. The retailer can use this for whatever purpose they need.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property AddField05 As KeyValuePair(Of Integer, String)?
+
+    ''' <summary>
+    ''' An additional boolean field for this product. The retailer can use this for whatever purpose they need.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property AddField06 As Boolean
+
+    ''' <summary>
+    ''' An additional boolean field for this product. The retailer can use this for whatever purpose they need.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property AddField15 As Boolean
+
 End Class
 
