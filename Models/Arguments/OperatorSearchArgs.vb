@@ -41,4 +41,15 @@ Public Class OperatorArguments
     ''' <returns></returns>
     Property PermissionRequirements As clsOperatorPermissionArgs
 
+    Enum PasswordEncryptionEngineEnum
+        MD5 = 1
+        BCrypt = 2
+    End Enum
+
+    ''' <summary>
+    ''' The password field that is returned will be encrypted. This denotes the engine that will be used to perform this.
+    ''' </summary>
+    ''' <returns></returns>
+    Property PasswordEncryptionEngine As PasswordEncryptionEngineEnum = PasswordEncryptionEngineEnum.MD5
+
 End Class
