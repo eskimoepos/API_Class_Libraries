@@ -133,6 +133,12 @@ Public Class clsProduct
     Public Property addfield06 As Boolean
 
     ''' <summary>
+    ''' Custom free text specified by the retailer. Perhaps a series of delimited tags which can act as triggers for certain behaviour in the cart.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property tags As String
+
+    ''' <summary>
     ''' The Eskimo ID of the company that supplies the product. 
     ''' </summary>
     ''' <returns></returns>
