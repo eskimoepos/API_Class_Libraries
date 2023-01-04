@@ -139,6 +139,14 @@ Public MustInherit Class clsOrderBase(Of T As iOrderItem)
     Property CustomerReference As String
 
     ''' <summary>
+    ''' Free text general notes.
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Property OrderNotes As String
+
+    ''' <summary>
     ''' Free text delivery notes. i.e. 'Please leave package in porch if no reply.'
     ''' </summary>
     ''' <value></value>
