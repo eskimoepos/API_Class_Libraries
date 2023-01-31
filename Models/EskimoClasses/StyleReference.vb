@@ -10,7 +10,7 @@ Public Class clsStyleReference
     Implements IValidatableObject
 
     <Required>
-    <StringLength(12)>
+    <StringLength(20)>
     Property StyleID As String
 
     <Required>

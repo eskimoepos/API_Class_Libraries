@@ -52,7 +52,7 @@ Public Class clsSKU
     ''' <value></value>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    <StringLength(12)>
+    <StringLength(20)>
     Public Property Style_Reference As String
 
     ''' <summary>
