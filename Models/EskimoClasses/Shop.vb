@@ -90,5 +90,9 @@ Public Class clsShop
     <StringLength(50)>
     Public Property Status As String
 
-
+    ''' <summary>
+    ''' The area or region that the shop is in - controlled by the retailer.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property RegionId As Integer
 End Class
