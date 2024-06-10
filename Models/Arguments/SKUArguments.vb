@@ -8,5 +8,6 @@
     Public Property sku_code As String
 
     Public Property AttributeSearchArgs As SKUAttribueSearchArguments
+    Public Property PricePatchInfo As PricePatchingCollection
 
 End Class

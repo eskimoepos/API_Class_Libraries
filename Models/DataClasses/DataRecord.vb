@@ -62,6 +62,16 @@ Public Class DataRecord
         End Get
     End Property
 
+    Public Function ColumnExists(strName As String) As Boolean
+        If booIsDataRow Then
+            Return row.Table.Columns.Contains(strName)
+        Else
+            Using tbl As DataTable = rdr.GetSchemaTable()
+                Return tbl.Columns.Contains(strName)
+            End Using
+        End If
+    End Function
+
     Public Function GetBoolean(i As Integer) As Boolean Implements IDataRecord.GetBoolean
         Throw New NotImplementedException()
     End Function

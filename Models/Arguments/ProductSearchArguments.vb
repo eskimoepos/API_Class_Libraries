@@ -19,5 +19,5 @@ Public Class ProductSearchArguments
     <Required>
     <Range(1, 1000, ErrorMessage:="No more than 1000 can returned in a search")>
     Property MaxRecords As Long = 200
-
+    Property ReturnWebCategoryIds As Boolean = False
 End Class

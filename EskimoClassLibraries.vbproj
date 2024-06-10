@@ -11,7 +11,7 @@
     <AssemblyName>EskimoClassLibraries</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -34,7 +34,7 @@
     <DocumentationFile>EskimoClassLibraries.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -69,16 +69,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\OKA\SalesForce Service\OKASalesForce\DevTester\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\EskimoComponents\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -108,6 +111,7 @@
     <Compile Include="Functions\modShared.vb" />
     <Compile Include="Interfaces\Arguments\ControllerArguments.vb" />
     <Compile Include="Models\Arguments\AccountPaymentSearchArgs.vb" />
+    <Compile Include="Models\Arguments\AdditionalDescriptionSearchArguments.vb" />
     <Compile Include="Models\Arguments\AmazonUploadProducts.vb" />
     <Compile Include="Models\Arguments\BarcodeArguments.vb" />
     <Compile Include="Models\Arguments\BarcodeArgumentsEx.vb" />
@@ -116,8 +120,11 @@
     <Compile Include="Models\Arguments\CategoryProductArguments.vb" />
     <Compile Include="Models\Arguments\AddressSearchArguments.vb" />
     <Compile Include="Models\Arguments\ChangeQuoteStatus.vb" />
+    <Compile Include="Models\Arguments\GetInvoiceArguments.vb" />
     <Compile Include="Models\Arguments\GetModifiedOrdersArguments.vb" />
+    <Compile Include="Models\Arguments\GetTillMenuProductArgs.vb" />
     <Compile Include="Models\Arguments\ImageArgs.vb" />
+    <Compile Include="Models\Arguments\ImageLinkArguments.vb" />
     <Compile Include="Models\Arguments\InvoicePaymentSearchArgs.vb" />
     <Compile Include="Models\Arguments\OperatorPermissionArgs.vb" />
     <Compile Include="Models\Arguments\GetReasonArguments.vb" />
@@ -138,6 +145,7 @@
     <Compile Include="Models\Arguments\OrderArguments.vb" />
     <Compile Include="Models\Arguments\PackagesSearchArguments.vb" />
     <Compile Include="Models\Arguments\PaginationSettings.vb" />
+    <Compile Include="Models\Arguments\PatchPricingModel.vb" />
     <Compile Include="Models\Arguments\ProductArguments.vb" />
     <Compile Include="Models\Arguments\ProductDumpArgs.vb" />
     <Compile Include="Models\Arguments\ProductInformationArgs.vb" />
@@ -150,6 +158,7 @@
     <Compile Include="Models\Arguments\SaleReturnArguments.vb" />
     <Compile Include="Models\Arguments\SalesChannelSearchParams.vb" />
     <Compile Include="Models\Arguments\SetLineStatusArguments.vb" />
+    <Compile Include="Models\Arguments\SettleInvoiceArguments.vb" />
     <Compile Include="Models\Arguments\ShopArguments.vb" />
     <Compile Include="Models\Arguments\SKUArguments.vb" />
     <Compile Include="Models\Arguments\SKUAttribueSearchArguments.vb" />
@@ -163,6 +172,7 @@
     <Compile Include="Models\CutDownClasses\GenericStringList.vb" />
     <Compile Include="Models\CutDownClasses\ImageID.vb" />
     <Compile Include="Models\CutDownClasses\ImageLinkID.vb" />
+    <Compile Include="Models\CutDownClasses\InvoiceId.vb" />
     <Compile Include="Models\CutDownClasses\PostedListing.vb" />
     <Compile Include="Models\CutDownClasses\SKUid.vb" />
     <Compile Include="Models\CutDownClasses\ProductID.vb" />
@@ -170,6 +180,7 @@
     <Compile Include="Models\EskimoClasses\AccountActivity.vb" />
     <Compile Include="Models\EskimoClasses\AccountAdjustment.vb" />
     <Compile Include="Models\EskimoClasses\AccountPayment.vb" />
+    <Compile Include="Models\EskimoClasses\AdditionalDescription.vb" />
     <Compile Include="Models\EskimoClasses\Address.vb" />
     <Compile Include="Models\EskimoClasses\AddressValidatorParams.vb" />
     <Compile Include="Models\EskimoClasses\AlmsCustomer.vb" />
@@ -183,8 +194,10 @@
     <Compile Include="Models\EskimoClasses\CategoryProduct.vb" />
     <Compile Include="Models\EskimoClasses\ChargeArea.vb" />
     <Compile Include="Models\EskimoClasses\Colour.vb" />
+    <Compile Include="Models\EskimoClasses\Invoice.vb" />
     <Compile Include="Models\EskimoClasses\InvoicePayment.vb" />
     <Compile Include="Models\EskimoClasses\PLU.vb" />
+    <Compile Include="Models\EskimoClasses\Receipt.vb" />
     <Compile Include="Models\EskimoClasses\SKUAttribute.vb" />
     <Compile Include="Models\EskimoClasses\ProductGroup.vb" />
     <Compile Include="Models\EskimoClasses\ShopVisibility.vb" />
@@ -269,6 +282,7 @@
     <Compile Include="Models\EskimoClasses\TaxCode.vb" />
     <Compile Include="Models\EskimoClasses\TillMenuPriceLists.vb" />
     <Compile Include="Models\EskimoClasses\WebTillAction.vb" />
+    <Compile Include="Models\GetReceiptsParams.vb" />
     <Compile Include="Models\ValidationAttributes\Customer.vb" />
     <Compile Include="Models\ValidationAttributes\SharedCustomAttributes.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

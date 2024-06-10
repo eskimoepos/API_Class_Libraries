@@ -188,4 +188,22 @@ Public Class clsProduct
     ''' <returns></returns>
     Public Property use_size_option As Boolean
 
+    ''' <summary>
+    ''' Returns the number of additional descriptions available for this product. If the number is > 0, use the api/Products/AdditionalDescriptionSearch endpoint to access them.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property additional_descriptions As Integer
+
+    ''' <summary>
+    ''' A bespoke field for the schoolwear industry. If populated, this refers to the Image found at api/Images/ImageData/{id}
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property size_guide_image_id As Integer?
+
+    ''' <summary>
+    ''' A bespoke field for the schoolwear industry. If populated, this refers to an image found at the url stated 
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property size_guide_image_url As String
+
 End Class

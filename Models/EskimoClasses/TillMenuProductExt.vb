@@ -42,4 +42,6 @@ End Class
 Public Class clsPrice
     Property PriceLevel As Integer
     Property Price As Decimal
+    Property NetPrice As Decimal
+    Property Margin As Decimal
 End Class

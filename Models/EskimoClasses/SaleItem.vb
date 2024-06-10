@@ -246,7 +246,7 @@ Public Class clsSalesItem
 
     Function PaidAmount() As Decimal
 
-        If Me.DepositAmount IsNot Nothing Then
+        If Me.DepositAmount IsNot Nothing AndAlso Me.DepositAmount <> 0 Then
             Return Me.DepositAmount
         Else
             Return Me.LinePrice
