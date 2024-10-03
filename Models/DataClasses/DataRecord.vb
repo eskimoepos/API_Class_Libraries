@@ -1,4 +1,5 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Data
+Imports System.Data.SqlClient
 
 Public Class DataRecord
     Implements IDataRecord
@@ -7,13 +8,13 @@ Public Class DataRecord
     ReadOnly Property rdr As SqlDataReader
     ReadOnly Property row As DataRow
 
-        Private function CollectionType As String
+    Private Function CollectionType() As String
         If booIsDataRow Then
             Return "data reader"
         Else
             Return "data row"
         End If
-    End function
+    End Function
     Sub New(_rdr As SqlDataReader)
         rdr = _rdr
     End Sub
