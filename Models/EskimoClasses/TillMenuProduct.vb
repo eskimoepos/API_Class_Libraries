@@ -60,4 +60,7 @@ Public Class clsTillMenuProduct
     Property StockMinimum As Integer?
     Property StockMaximum As Integer?
     Property CategoryIds As List(Of String)
+    Property StateId As Integer?
+    Property ProductImageCount As Integer?
+    Property VariantImageCount As Integer?
 End Class
