@@ -1,4 +1,6 @@
 ﻿Imports System.ComponentModel.DataAnnotations
+Imports System.Drawing
+Imports System.Runtime.CompilerServices
 
 Public Class clsColour
     Inherits EskimoBaseClass
