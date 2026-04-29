@@ -5,6 +5,18 @@ Public Class clsOrderExt
     Inherits clsOrderBase(Of clsOrderItemExt)
 
     ''' <summary>
+    ''' See api/Orders/StatusCodes
+    ''' </summary>
+    ''' <returns></returns>
+    Property StatusID As Integer?
+
+    ''' <summary>
+    ''' The status text description of the order status. See api/Orders/StatusCodes
+    ''' </summary>
+    ''' <returns></returns>
+    Property StatusDescription As String
+
+    ''' <summary>
     ''' See api/Orders/FulfilmentMethods
     ''' </summary>
     ''' <returns></returns>

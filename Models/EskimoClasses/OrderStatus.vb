@@ -11,8 +11,6 @@ Public Class clsOrderStatus
 
     Property OrderBy As Integer
 
-    Property IsDefault As Boolean
-
     Property Active As Boolean
-
+    Property WebStatusText As String
 End Class
