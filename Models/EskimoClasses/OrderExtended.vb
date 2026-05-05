@@ -17,6 +17,12 @@ Public Class clsOrderExt
     Property StatusDescription As String
 
     ''' <summary>
+    ''' The date and time that the order was last updated in the eCommerce system. Use api/Orders/Update to change this.
+    ''' </summary>
+    ''' <returns></returns>
+    Property LastWebUpdate As DateTime?
+
+    ''' <summary>
     ''' See api/Orders/FulfilmentMethods
     ''' </summary>
     ''' <returns></returns>
