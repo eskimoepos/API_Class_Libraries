@@ -13,4 +13,6 @@ Public Class clsOrderStatus
 
     Property Active As Boolean
     Property WebStatusText As String
+
+    Property TriggeringActions As New List(Of clsAction)
 End Class

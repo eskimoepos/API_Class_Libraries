@@ -161,6 +161,7 @@
     <Compile Include="Models\EskimoClasses\AccountActivity.vb" />
     <Compile Include="Models\EskimoClasses\AccountAdjustment.vb" />
     <Compile Include="Models\EskimoClasses\AccountPayment.vb" />
+    <Compile Include="Models\EskimoClasses\Action.vb" />
     <Compile Include="Models\EskimoClasses\AdditionalDescription.vb" />
     <Compile Include="Models\EskimoClasses\Address.vb" />
     <Compile Include="Models\EskimoClasses\AddressValidatorParams.vb" />
